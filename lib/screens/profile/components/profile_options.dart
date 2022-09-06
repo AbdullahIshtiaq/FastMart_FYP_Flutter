@@ -4,6 +4,7 @@ import 'package:fyp_frontend/screens/payment/payment_profile_screen.dart';
 
 import '../../../constants.dart';
 import '../../orders/orders_screen.dart';
+import '../../toShopList/toShop_screen.dart';
 
 class ProfileOptions extends StatelessWidget {
   const ProfileOptions({Key? key, required this.userId}) : super(key: key);
@@ -62,18 +63,27 @@ class ProfileOptions extends StatelessWidget {
                 const BorderRadius.all(Radius.circular(defaultBorderRadius)),
             boxShadow: myBoxShadow,
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.local_offer,
-                color: primaryColor,
-              ),
-              Text(
-                "Promotions",
-                style: Theme.of(context).textTheme.bodyText2,
-              ),
-            ],
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ToShopScreen(),
+                  ));
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.list,
+                  color: primaryColor,
+                ),
+                Text(
+                  "To-Shop",
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+              ],
+            ),
           ),
         ),
         Container(

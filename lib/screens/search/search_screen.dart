@@ -1,15 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fyp_frontend/models/MyProduct.dart';
 import 'package:fyp_frontend/models/ToShopList.dart';
-import 'package:fyp_frontend/models/Wishlist.dart';
 import 'package:fyp_frontend/screens/search/components/searched_product_card.dart';
 import 'package:fyp_frontend/screens/search/components/searched_toshop_product_card.dart';
-import 'package:fyp_frontend/screens/toShopList/components/toShop_card.dart';
 
 import '../../../constants.dart';
 import '../../../services/api_service.dart';
+import '../../utils/my_text.dart';
 
 const OutlineInputBorder outlineInputBorder = OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -153,8 +151,34 @@ class _SearchScreenState extends State<SearchScreen> {
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
-                    : const Center(
-                        child: Text("No Product Found"),
+                    :
+                    //  const Center(
+                    //     child: Text("No Product Found"),
+                    //   )
+                    Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 250,
+                          margin: const EdgeInsets.only(bottom: 130),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(Icons.find_in_page,
+                                  size: 100, color: Colors.grey[300]),
+                              Container(height: 15),
+                              Text("No Product Found",
+                                  style: MyText.title(context)!.copyWith(
+                                      color: Colors.grey[800],
+                                      fontWeight: FontWeight.bold)),
+                              Container(height: 5),
+                              Text("Try more general keyword",
+                                  style: MyText.subhead(context)!
+                                      .copyWith(color: Colors.grey[800])),
+                            ],
+                          ),
+                        ),
                       )
                 : Container(
                     margin:

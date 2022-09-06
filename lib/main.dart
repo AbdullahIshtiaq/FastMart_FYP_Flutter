@@ -2,13 +2,13 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fyp_frontend/screens/map/nearby_screen.dart';
 import 'package:fyp_frontend/screens/register/login_screen.dart';
 import 'package:get/get.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/screens/QRScan/qr_scan_screen.dart';
 import 'package:fyp_frontend/screens/home/home_screen.dart';
 import 'package:fyp_frontend/screens/profile/profile_screen.dart';
-import 'package:fyp_frontend/screens/register/login_screen.dart';
 import 'package:fyp_frontend/screens/register/register_screen.dart';
 import 'package:fyp_frontend/screens/toShopList/toShop_screen.dart';
 import 'package:fyp_frontend/screens/wishlist/wishlist_screen.dart';
@@ -90,7 +90,7 @@ class _MainScreenState extends State<MainScreen> {
       return const QRScanScreen();
     }
     if (index == 3) {
-      return const ToShopScreen();
+      return const NearNyScreen();
     }
     if (index == 4) {
       return const ProfileScreen();
@@ -114,11 +114,11 @@ class _MainScreenState extends State<MainScreen> {
             color: Colors.grey,
           ),
           Icon(
-            Icons.qr_code_scanner,
+            CupertinoIcons.barcode,
             color: Colors.grey,
           ),
           Icon(
-            Icons.list,
+            CupertinoIcons.map_pin_ellipse,
             color: Colors.grey,
           ),
           Icon(
