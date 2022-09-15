@@ -86,4 +86,29 @@ class UserSharedPreferences {
       print("Line 52: ToShopList Deleted");
     }
   }
+
+  /////Notification
+  static Future setNotification(RxList<dynamic> rxList) async {
+    var mapInString = jsonEncode(rxList);
+    print("Line 94: SetNotification " + mapInString);
+    await _sharedPreferences?.setString('notification', mapInString);
+  }
+
+  static String? getNotification() {
+    String? mapInString;
+    if (_sharedPreferences!.containsKey('notification')) {
+      mapInString = _sharedPreferences!.getString('notification');
+      print("Line 102: GetNotification Found");
+    } else {
+      print("Line 104: GetNotification Not Found");
+    }
+    return mapInString;
+  }
+
+  static void deleteNotification() {
+    if (_sharedPreferences!.containsKey('notification')) {
+      _sharedPreferences!.remove('notification');
+      print("Line 112: Notification Deleted");
+    }
+  }
 }

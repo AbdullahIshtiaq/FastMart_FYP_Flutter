@@ -1,14 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fyp_frontend/models/Notification.dart';
 
 import '../../../constants.dart';
 
 class NotificationCard extends StatelessWidget {
   const NotificationCard({
     Key? key,
+    required this.notification,
     required this.press,
   }) : super(key: key);
 
+  final Notifications notification;
   final VoidCallback press;
 
   @override
@@ -35,25 +37,29 @@ class NotificationCard extends StatelessWidget {
             ],
           ),
           const SizedBox(width: defaultPadding),
-          Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Title",
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-              const SizedBox(height: defaultPadding / 2),
-              Text(
-                "10:09 PM",
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              const SizedBox(height: defaultPadding),
-              Text(
-                "Description",
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ],
+          Expanded(
+            child: Column(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  notification.notificationTitle,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                const SizedBox(height: defaultPadding / 2),
+                Text(
+                  notification.notificationDateTime,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                const SizedBox(height: defaultPadding),
+                Text(
+                  notification.notificationDescription,
+                  style: Theme.of(context).textTheme.bodySmall,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
         ],
       ),

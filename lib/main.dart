@@ -1,16 +1,18 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fyp_frontend/screens/barcodeScan/barcode_scan_screen.dart';
 import 'package:fyp_frontend/screens/map/nearby_screen.dart';
 import 'package:fyp_frontend/screens/register/login_screen.dart';
 import 'package:get/get.dart';
 import 'package:fyp_frontend/constants.dart';
-import 'package:fyp_frontend/screens/QRScan/qr_scan_screen.dart';
 import 'package:fyp_frontend/screens/home/home_screen.dart';
 import 'package:fyp_frontend/screens/profile/profile_screen.dart';
 import 'package:fyp_frontend/screens/register/register_screen.dart';
-import 'package:fyp_frontend/screens/toShopList/toShop_screen.dart';
 import 'package:fyp_frontend/screens/wishlist/wishlist_screen.dart';
 import 'package:fyp_frontend/services/shared_service.dart';
 import 'package:fyp_frontend/utils/shared_preferences.dart';
@@ -19,13 +21,46 @@ import 'config.dart';
 
 Widget _defaultHome = const LoginScreen();
 
-void main() async {
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+  'high_importance_channel', // id
+  'High Importance Notifications', // title
+  description:
+      'This channel is used for important notifications.', // description
+  importance: Importance.high,
+  playSound: true,
+);
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print("Message : ${message.messageId}");
+}
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  bool _result = await SharedService.isLoggedIn();
-  if (_result) {
+  bool result = await SharedService.isLoggedIn();
+  if (result) {
     _defaultHome = const MainScreen();
   }
   await UserSharedPreferences.init();
+  await Firebase.initializeApp();
+
+  //when app is in background
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
+
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
   runApp(const ProviderScope(
     child: GetMaterialApp(
       home: MyApp(),
@@ -35,8 +70,65 @@ void main() async {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+
+    // Foreground notification
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              channelDescription: channel.description,
+              color: Colors.blue,
+              playSound: true,
+              //icon: 'app_icon',
+            ),
+          ),
+        );
+      }
+    });
+
+    // Open App on Click
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print("A new Message was published");
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        showDialog(
+            context: context,
+            builder: (_) {
+              return AlertDialog(
+                title: Text(notification.title!),
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(notification.body!),
+                    ],
+                  ),
+                ),
+              );
+            });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +153,6 @@ class MyApp extends StatelessWidget {
         'login': (context) => const LoginScreen(),
         'register': (context) => const RegisterScreen(),
         'home': (context) => const MainScreen(),
-        // 'category_product': (context) => const CategoryScreen(),
       },
       // home: const RegisterScreen(),
     );
@@ -78,6 +169,27 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
+  //In App Notification
+  showNotification() {
+    setState(() {});
+    print("Line 176:");
+    flutterLocalNotificationsPlugin.show(
+      0,
+      'plain title',
+      'plain body',
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          channel.id,
+          channel.name,
+          channelDescription: channel.description,
+          color: Colors.blue,
+          playSound: true,
+          icon: '@drawable/app_icon',
+        ),
+      ),
+    );
+  }
+
   Widget _selectedScreen(int index) {
     print("Line 80: $index");
     if (index == 0) {
@@ -87,7 +199,7 @@ class _MainScreenState extends State<MainScreen> {
       return const WishlistScreen();
     }
     if (index == 2) {
-      return const QRScanScreen();
+      return const BarcodeScanScreen();
     }
     if (index == 3) {
       return const NearNyScreen();
@@ -134,6 +246,11 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: Center(
         child: _selectedScreen(Config.selectedIndex),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: showNotification,
+        tooltip: "Show Notification",
+        child: const Icon(Icons.notification_add),
       ),
     );
   }

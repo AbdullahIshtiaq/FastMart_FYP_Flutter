@@ -14,14 +14,14 @@ import '../../services/api_service.dart';
 import '../../utils/shared_preferences.dart';
 import '../cart/cart_screen.dart';
 
-class QRScanScreen extends StatefulWidget {
-  const QRScanScreen({Key? key}) : super(key: key);
+class BarcodeScanScreen extends StatefulWidget {
+  const BarcodeScanScreen({Key? key}) : super(key: key);
 
   @override
-  State<QRScanScreen> createState() => _QRScanScreenState();
+  State<BarcodeScanScreen> createState() => _BarcodeScanScreenState();
 }
 
-class _QRScanScreenState extends State<QRScanScreen> {
+class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   QRViewController? controller;

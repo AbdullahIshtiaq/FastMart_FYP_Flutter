@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fyp_frontend/models/Notification.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:fyp_frontend/constants.dart';
@@ -26,9 +27,11 @@ class CheckoutScreen extends ConsumerWidget {
   //   return _categoryList(ref);
   // }
 
-  bool changeButton = false;
+  bool isClicked = false;
 
   CartController cartController = Get.put(CartController());
+  NotificationController notificationController =
+      Get.put(NotificationController());
 
   onProceedClick(BuildContext context, WidgetRef ref) async {
     int orderNo = DateTime.now().millisecondsSinceEpoch;
@@ -82,15 +85,24 @@ class CheckoutScreen extends ConsumerWidget {
       return;
     } else {
       UserSharedPreferences.deleteCartList();
-      // setState(() {
-      //   changeButton = true;
-      // });
+
+      int notificationId = DateTime.now().millisecondsSinceEpoch;
+
+      notificationController.addNotification(Notifications(
+          notificationId: notificationId.toString(),
+          notificationTitle: "Order Successful",
+          notificationDescription:
+              "Your order has been placed successfully. Payment received is $total.",
+          notificationDateTime: formattedDate,
+          notificationType: "App",
+          isRead: false));
+
+      UserSharedPreferences.setNotification(
+          notificationController.notifications);
+
       await Future.delayed(const Duration(seconds: 1));
-      // await Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => const PaymentSuccessfulScreen(),
-      //     ));
+
+      // ignore: use_build_context_synchronously
       await Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
@@ -98,9 +110,6 @@ class CheckoutScreen extends ConsumerWidget {
                     cartController: cartController,
                   )),
           (Route<dynamic> route) => false);
-      // setState(() {
-      //   changeButton = false;
-      // });
     }
   }
 
@@ -153,26 +162,26 @@ class CheckoutScreen extends ConsumerWidget {
                 padding: const EdgeInsets.only(bottom: defaultPadding),
                 child: Material(
                   color: primaryColor,
-                  borderRadius: BorderRadius.circular(changeButton ? 50 : 50),
+                  borderRadius: BorderRadius.circular(50),
                   child: InkWell(
-                    onTap: () => onProceedClick(context, ref),
+                    onTap: () {
+                      if (!isClicked) {
+                        isClicked = true;
+                        onProceedClick(context, ref);
+                      }
+                    },
                     child: AnimatedContainer(
                       duration: const Duration(seconds: 1),
                       height: 50,
-                      width: changeButton ? 50 : 200,
+                      width: 200,
                       alignment: Alignment.center,
-                      child: changeButton
-                          ? const Icon(
-                              CupertinoIcons.checkmark_shield_fill,
-                              color: Colors.white,
-                            )
-                          : Text(
-                              "Proceed",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .button!
-                                  .copyWith(color: Colors.white),
-                            ),
+                      child: Text(
+                        "Proceed",
+                        style: Theme.of(context)
+                            .textTheme
+                            .button!
+                            .copyWith(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),

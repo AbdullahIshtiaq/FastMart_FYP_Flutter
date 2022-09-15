@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "410189015501",
+    "project_id": "fastmart-8935e",
+    "storage_bucket": "fastmart-8935e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410189015501:android:d5d77bd918c0ae1eaefc84",
+        "android_client_info": {
+          "package_name": "com.example.fyp_frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410189015501-vmmjqiort1clhb4t1d16m9n9o41kd3er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNNQ20qGRawOnESIJESSBmQ4sNszQZgpo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "410189015501-vmmjqiort1clhb4t1d16m9n9o41kd3er.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

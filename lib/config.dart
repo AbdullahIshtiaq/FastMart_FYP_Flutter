@@ -5,8 +5,8 @@ class Config {
   // static const String imgURL = "http://192.168.1.9:4000";
 
   //Home1
-  static const String apiURL = "192.168.1.8:4000";
-  static const String imgURL = "http://192.168.1.8:4000";
+  // static const String apiURL = "192.168.1.8:4000";
+  // static const String imgURL = "http://192.168.1.8:4000";
 
   //Home2
   // static const String apiURL = "192.168.1.3:4000";
@@ -15,6 +15,10 @@ class Config {
   //Uni Mobile Hotspot
   // static const String apiURL = "192.168.30.176:4000";
   // static const String imgURL = "http://192.168.30.176:4000";
+
+  //Uni
+  static const String apiURL = "10.113.54.167:4000";
+  static const String imgURL = "http://10.113.54.167:4000";
 
   // LAN
   // static const String apiURL = "192.168.137.1:4000";
