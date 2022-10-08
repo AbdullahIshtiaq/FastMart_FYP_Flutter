@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/models/Map.dart';
 import 'package:fyp_frontend/screens/map/components/map_card.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
 class NearNyScreen extends StatefulWidget {

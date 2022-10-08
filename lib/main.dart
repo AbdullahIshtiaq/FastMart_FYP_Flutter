@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fyp_frontend/screens/barcodeScan/barcode_scan_screen.dart';
 import 'package:fyp_frontend/screens/map/nearby_screen.dart';
 import 'package:fyp_frontend/screens/register/login_screen.dart';
@@ -40,6 +41,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   bool result = await SharedService.isLoggedIn();
   if (result) {
     _defaultHome = const MainScreen();
@@ -60,6 +62,11 @@ Future<void> main() async {
     badge: true,
     sound: true,
   );
+
+  Stripe.publishableKey =
+      "pk_test_51LjdB8CiUE6D0lAimWfiJGqo5DNJ5vXASyY3b5ywS6qrhPAuIbXgtmTc1JJPY15TRx0pW3sn3mWpcH8s1Wb1Ai5w003Ftn0omd";
+
+  await Stripe.instance.applySettings();
 
   runApp(const ProviderScope(
     child: GetMaterialApp(

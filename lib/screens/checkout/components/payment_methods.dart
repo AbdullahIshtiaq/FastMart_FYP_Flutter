@@ -35,6 +35,9 @@ class _PaymentMethodsState extends State<PaymentMethods> {
               ),
             ),
             Positioned(
+              right: -60,
+              left: 0,
+              top: -5,
               child: IconButton(
                 icon: Icon(
                   isCredit
@@ -50,11 +53,11 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                   });
                 },
               ),
-              right: -60,
-              left: 0,
-              top: -5,
             ),
             Positioned(
+              right: 0,
+              left: 0,
+              bottom: 30,
               child: IconButton(
                 icon: const Icon(
                   CupertinoIcons.creditcard,
@@ -69,9 +72,6 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                       ));
                 },
               ),
-              right: 0,
-              left: 0,
-              bottom: 30,
             ),
           ],
         ),
@@ -114,9 +114,7 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                   color: primaryColor,
                   size: 50,
                 ),
-                onPressed: () {
-
-                },
+                onPressed: () {},
               ),
               right: 0,
               left: 0,

@@ -13,6 +13,7 @@ abstract class MyOrder with _$MyOrder {
   factory MyOrder(
       {required String orderId,
       required String orderNo,
+      required String orderUser,
       required List<MyProduct> orderProducts,
       required String paymentMethod,
       required double quantity,

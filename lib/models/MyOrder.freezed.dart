@@ -22,6 +22,7 @@ MyOrder _$MyOrderFromJson(Map<String, dynamic> json) {
 mixin _$MyOrder {
   String get orderId => throw _privateConstructorUsedError;
   String get orderNo => throw _privateConstructorUsedError;
+  String get orderUser => throw _privateConstructorUsedError;
   List<MyProduct> get orderProducts => throw _privateConstructorUsedError;
   String get paymentMethod => throw _privateConstructorUsedError;
   double get quantity => throw _privateConstructorUsedError;
@@ -40,6 +41,7 @@ abstract class $MyOrderCopyWith<$Res> {
   $Res call(
       {String orderId,
       String orderNo,
+      String orderUser,
       List<MyProduct> orderProducts,
       String paymentMethod,
       double quantity,
@@ -59,6 +61,7 @@ class _$MyOrderCopyWithImpl<$Res> implements $MyOrderCopyWith<$Res> {
   $Res call({
     Object? orderId = freezed,
     Object? orderNo = freezed,
+    Object? orderUser = freezed,
     Object? orderProducts = freezed,
     Object? paymentMethod = freezed,
     Object? quantity = freezed,
@@ -73,6 +76,10 @@ class _$MyOrderCopyWithImpl<$Res> implements $MyOrderCopyWith<$Res> {
       orderNo: orderNo == freezed
           ? _value.orderNo
           : orderNo // ignore: cast_nullable_to_non_nullable
+              as String,
+      orderUser: orderUser == freezed
+          ? _value.orderUser
+          : orderUser // ignore: cast_nullable_to_non_nullable
               as String,
       orderProducts: orderProducts == freezed
           ? _value.orderProducts
@@ -107,6 +114,7 @@ abstract class _$$_MyOrderCopyWith<$Res> implements $MyOrderCopyWith<$Res> {
   $Res call(
       {String orderId,
       String orderNo,
+      String orderUser,
       List<MyProduct> orderProducts,
       String paymentMethod,
       double quantity,
@@ -127,6 +135,7 @@ class __$$_MyOrderCopyWithImpl<$Res> extends _$MyOrderCopyWithImpl<$Res>
   $Res call({
     Object? orderId = freezed,
     Object? orderNo = freezed,
+    Object? orderUser = freezed,
     Object? orderProducts = freezed,
     Object? paymentMethod = freezed,
     Object? quantity = freezed,
@@ -141,6 +150,10 @@ class __$$_MyOrderCopyWithImpl<$Res> extends _$MyOrderCopyWithImpl<$Res>
       orderNo: orderNo == freezed
           ? _value.orderNo
           : orderNo // ignore: cast_nullable_to_non_nullable
+              as String,
+      orderUser: orderUser == freezed
+          ? _value.orderUser
+          : orderUser // ignore: cast_nullable_to_non_nullable
               as String,
       orderProducts: orderProducts == freezed
           ? _value._orderProducts
@@ -172,6 +185,7 @@ class _$_MyOrder implements _MyOrder {
   _$_MyOrder(
       {required this.orderId,
       required this.orderNo,
+      required this.orderUser,
       required final List<MyProduct> orderProducts,
       required this.paymentMethod,
       required this.quantity,
@@ -186,6 +200,8 @@ class _$_MyOrder implements _MyOrder {
   final String orderId;
   @override
   final String orderNo;
+  @override
+  final String orderUser;
   final List<MyProduct> _orderProducts;
   @override
   List<MyProduct> get orderProducts {
@@ -204,7 +220,7 @@ class _$_MyOrder implements _MyOrder {
 
   @override
   String toString() {
-    return 'MyOrder(orderId: $orderId, orderNo: $orderNo, orderProducts: $orderProducts, paymentMethod: $paymentMethod, quantity: $quantity, total: $total, orderDate: $orderDate)';
+    return 'MyOrder(orderId: $orderId, orderNo: $orderNo, orderUser: $orderUser, orderProducts: $orderProducts, paymentMethod: $paymentMethod, quantity: $quantity, total: $total, orderDate: $orderDate)';
   }
 
   @override
@@ -214,6 +230,7 @@ class _$_MyOrder implements _MyOrder {
             other is _$_MyOrder &&
             const DeepCollectionEquality().equals(other.orderId, orderId) &&
             const DeepCollectionEquality().equals(other.orderNo, orderNo) &&
+            const DeepCollectionEquality().equals(other.orderUser, orderUser) &&
             const DeepCollectionEquality()
                 .equals(other._orderProducts, _orderProducts) &&
             const DeepCollectionEquality()
@@ -229,6 +246,7 @@ class _$_MyOrder implements _MyOrder {
       runtimeType,
       const DeepCollectionEquality().hash(orderId),
       const DeepCollectionEquality().hash(orderNo),
+      const DeepCollectionEquality().hash(orderUser),
       const DeepCollectionEquality().hash(_orderProducts),
       const DeepCollectionEquality().hash(paymentMethod),
       const DeepCollectionEquality().hash(quantity),
@@ -252,6 +270,7 @@ abstract class _MyOrder implements MyOrder {
   factory _MyOrder(
       {required final String orderId,
       required final String orderNo,
+      required final String orderUser,
       required final List<MyProduct> orderProducts,
       required final String paymentMethod,
       required final double quantity,
@@ -264,6 +283,8 @@ abstract class _MyOrder implements MyOrder {
   String get orderId;
   @override
   String get orderNo;
+  @override
+  String get orderUser;
   @override
   List<MyProduct> get orderProducts;
   @override

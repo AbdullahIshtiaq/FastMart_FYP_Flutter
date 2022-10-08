@@ -38,6 +38,9 @@ class SharedService {
     await APICacheManager().deleteCache("login_details");
     UserSharedPreferences.deleteCartList();
     UserSharedPreferences.deleteWishList();
+    UserSharedPreferences.deleteToShopList();
+    UserSharedPreferences.deleteNotification();
+    // ignore: use_build_context_synchronously
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(

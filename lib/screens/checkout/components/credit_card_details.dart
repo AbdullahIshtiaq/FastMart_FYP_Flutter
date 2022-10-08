@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fyp_frontend/constants.dart';
+import 'package:fyp_frontend/models/OrderPayment.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import '../../../models/Cart.dart';
+import '../../../models/order_request_model.dart';
+import '../../../services/api_service.dart';
+import '../../../services/shared_service.dart';
 import '../../../utils/my_colors.dart';
 import '../../../utils/my_text.dart';
+import '../../../utils/shared_preferences.dart';
+import '../../payment/payment_successful_screen.dart';
 
 class CreditCardDetailsScreen extends StatefulWidget {
   const CreditCardDetailsScreen({Key? key}) : super(key: key);
@@ -15,7 +26,146 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
   String cardNo = "**** **** **** ****";
   String cardExpire = "MM/YY";
   String cardCvv = "***";
-  String cardName = "Your Name";
+  String cardName = "Card Holder Name";
+
+  String inputCardNo = "";
+  String inputCardExpire = "";
+  String inputCardCvv = "";
+  String inputCardName = "";
+
+  bool isloading = false;
+
+  CartController cartController = Get.put(CartController());
+
+  onPayClick(BuildContext context) async {
+    print("In Card Details : Start");
+    int orderNo = DateTime.now().millisecondsSinceEpoch;
+    var userDetails = await SharedService.loginDetails();
+    String orderProducts = "";
+
+    int totalQty = 0;
+    for (var p in cartController.cartProducts) {
+      p = p as CartProduct;
+
+      for (int i = 0; i < p.qty; i++) {
+        orderProducts += "${p.productId}:";
+        totalQty++;
+      }
+    }
+
+    var now = DateTime.now();
+    var formatter = DateFormat('yyyy-MM-dd');
+    String formattedDate = formatter.format(now);
+
+    int total = getTotalWithTax().toInt();
+
+    var cardDetails = {
+      "card_Name": cardName,
+      "card_Number": cardNo,
+      "card_ExpMonth": cardExpire.split("/")[0],
+      "card_ExpYear": cardExpire.split("/")[1],
+      "card_CVC": cardCvv,
+    };
+
+    OrderRequestModel model = OrderRequestModel(
+        orderNo: orderNo.toString(),
+        orderUser: userDetails!.data.id,
+        orderProducts: orderProducts,
+        paymentMethod: "Card",
+        orderDate: formattedDate,
+        quantity: totalQty,
+        total: total);
+
+    print("In Card Details : Calling API");
+
+    bool isResponse = await APIService.processPayment(cardDetails, model)
+        .then((response) async {
+      if (response["data"] == null) {
+        print("In Card Details : Failed");
+        return false;
+      } else {
+        print("In Card Details 82: Response ${response["data"]}");
+        // OrderFilterModel filterModel = OrderFilterModel(
+        //     paginationModel: MyPaginationModel(page: 1, pageSize: 10),
+        //     userId: userDetails.data.id);
+        // ref.read(ordersFilterProvider.notifier).setOrderFilter(filterModel);
+        // ref.read(ordersNotifierProvider.notifier).getOrders();
+
+        OrderPayment orderPayment = response["data"] as OrderPayment;
+
+        final stripeResponse = await Stripe.instance.confirmPayment(
+            orderPayment.client_secret,
+            PaymentMethodParams.cardFromMethodId(
+                paymentMethodData: PaymentMethodDataCardFromMethod(
+              paymentMethodId: orderPayment.cardID,
+            )));
+
+        print("In Card Details 98 : stripeResponse ${stripeResponse.status}");
+
+        if (stripeResponse.status == PaymentIntentsStatus.Succeeded) {
+          var response = await APIService.updateOrder(
+              orderPayment.orderID, stripeResponse.id);
+
+          if (response!) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      }
+    });
+
+    if (!isResponse) {
+      Get.snackbar("Order Failed", "",
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 1));
+      setState(() {
+        isloading = false;
+      });
+      return;
+    } else {
+      Get.snackbar("Order Successful", "",
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 1));
+      UserSharedPreferences.deleteCartList();
+
+      // int notificationId = DateTime.now().millisecondsSinceEpoch;
+
+      // notificationController.addNotification(Notifications(
+      //     notificationId: notificationId.toString(),
+      //     notificationTitle: "Order Successful",
+      //     notificationDescription:
+      //         "Your order has been placed successfully. Payment received is $total.",
+      //     notificationDateTime: formattedDate,
+      //     notificationType: "App",
+      //     isRead: false));
+
+      // UserSharedPreferences.setNotification(
+      //     notificationController.notifications);
+
+      await Future.delayed(const Duration(seconds: 1));
+
+      setState(() {
+        isloading = false;
+      });
+
+      // ignore: use_build_context_synchronously
+      await Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => PaymentSuccessfulScreen(
+                    cartController: cartController,
+                  )),
+          (Route<dynamic> route) => false);
+    }
+  }
+
+  double getTotalWithTax() {
+    double result = double.parse(cartController.total);
+    return (result + (result * 0.07));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +188,16 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  color: primaryColor,
-                  elevation: 2,
+                child: Container(
+                  decoration: const BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(defaultBorderRadius * 2),
+                        topRight: Radius.circular(defaultBorderRadius * 2),
+                        bottomLeft: Radius.circular(defaultBorderRadius * 2),
+                        bottomRight: Radius.circular(defaultBorderRadius * 2),
+                      ),
+                      boxShadow: myBoxShadow),
                   margin: const EdgeInsets.all(0),
                   child: Stack(
                     fit: StackFit.expand,
@@ -65,6 +220,11 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
                                 const Spacer(),
                                 Image.asset('assets/images/ic_visa.png',
                                     color: Colors.white,
+                                    fit: BoxFit.cover,
+                                    width: 60,
+                                    height: 30),
+                                Image.asset(
+                                    'assets/images/ic_mastercard_new.png',
                                     fit: BoxFit.cover,
                                     width: 60,
                                     height: 30),
@@ -130,17 +290,15 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
                 children: <Widget>[
                   TextField(
                     maxLines: 1,
-                    maxLength: 19,
+                    maxLength: 16,
+                    enabled: !isloading,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
-                        hintText: "Credit card number", counterText: ''),
+                        hintText: "Card number", counterText: ''),
                     onChanged: (val) {
                       setState(() {
-                        if (val.length < 2) {
-                          cardNo = "**** **** **** ****";
-                        } else {
-                          //cardNo = Tools.getFormattedCardNo(val);
-                        }
+                        cardNo = val;
+                        inputCardNo = val;
                       });
                     },
                   ),
@@ -148,31 +306,42 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
                   Row(
                     children: <Widget>[
                       Flexible(
+                        flex: 1,
                         child: TextField(
                           maxLines: 1,
-                          maxLength: 5,
-                          keyboardType: TextInputType.text,
+                          maxLength: 4,
+                          enabled: !isloading,
+                          keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                               hintText: "MM/YY", counterText: ''),
                           onChanged: (val) {
-                            setState(() => cardExpire = val);
+                            if (val.length == 4) {
+                              val = "${val[0]}${val[1]}/${val[2]}${val[3]}";
+                            }
+                            setState(() {
+                              cardExpire = val;
+                              inputCardExpire = val;
+                            });
                           },
                         ),
-                        flex: 1,
                       ),
                       Container(width: 15),
                       Flexible(
+                        flex: 1,
                         child: TextField(
                           maxLines: 1,
                           maxLength: 3,
+                          enabled: !isloading,
                           keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                               hintText: "CVV", counterText: ''),
                           onChanged: (val) {
-                            setState(() => cardCvv = val);
+                            setState(() {
+                              cardCvv = val;
+                              inputCardCvv = val;
+                            });
                           },
                         ),
-                        flex: 1,
                       )
                     ],
                   ),
@@ -180,11 +349,15 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
                   TextField(
                     maxLines: 1,
                     maxLength: 50,
+                    enabled: !isloading,
                     keyboardType: TextInputType.text,
                     decoration: const InputDecoration(
                         hintText: "Name on card", counterText: ''),
                     onChanged: (val) {
-                      setState(() => cardName = val);
+                      setState(() {
+                        cardName = val;
+                        inputCardName = val;
+                      });
                     },
                   ),
                   Container(height: 25),
@@ -194,7 +367,35 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          if (inputCardName.isEmpty ||
+                              inputCardNo.isEmpty ||
+                              inputCardExpire.isEmpty ||
+                              inputCardCvv.isEmpty) {
+                            Get.snackbar(
+                              "Please fill all fields",
+                              "",
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: const Duration(seconds: 1),
+                            );
+                          } else {
+                            if (inputCardNo.length < 12) {
+                              Get.snackbar(
+                                "Please enter valid card number",
+                                "",
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: const Duration(seconds: 1),
+                              );
+                            } else {
+                              if (!isloading) {
+                                setState(() {
+                                  isloading = true;
+                                });
+                                onPayClick(context);
+                              }
+                            }
+                          }
+
+                          //Navigator.pop(context);
                           // if (cartController.cartProducts.isNotEmpty) {
                           //   Navigator.push(
                           //       context,
@@ -213,11 +414,37 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
                         style: ElevatedButton.styleFrom(
                             primary: primaryColor,
                             shape: const StadiumBorder()),
-                        child: const Text("Add"),
+                        child: const Text("Pay Now",
+                            style: TextStyle(color: Colors.white)),
                       ),
                     ),
                   ),
                 ],
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Visibility(
+              visible: isloading,
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    SizedBox(
+                      height: 80.0,
+                      width: 80.0,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 4.0,
+                        valueColor: AlwaysStoppedAnimation(primaryColor),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text("Wait for a moment..."),
+                  ],
+                ),
               ),
             ),
           ],

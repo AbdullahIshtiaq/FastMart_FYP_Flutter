@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fyp_frontend/models/OrderPayment.dart';
 import 'package:http/http.dart' as http;
 import 'package:fyp_frontend/config.dart';
 import 'package:fyp_frontend/models/MyCategory.dart';
@@ -209,7 +210,7 @@ class APIService {
   //////////////////////////////////////////////////////////////////////////
   // Get Orders
   Future<List<MyOrder>?> getOrders(OrderFilterModel orderFilterModel) async {
-    //developer.log('log me 129: ', name: 'my.app.API 129');
+    //developer.log('log me 213: ', name: 'my.app.API 213');
     Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
 
     Map<String, String> queryString = {
@@ -221,25 +222,96 @@ class APIService {
     //   name: 'my.app.API 136');
 
     if (orderFilterModel.userId != null) {
-      //developer.log('log me 140: ', name: 'my.app.API 140');
+      // developer.log('log me 225: ', name: 'my.app.API 225');
       queryString["orderUserID"] = orderFilterModel.userId!;
     }
 
     var url = Uri.http(Config.apiURL, Config.getOrderAPI, queryString);
-    //developer.log('log me 145: $url', name: 'my.app.API 145');
+    // developer.log('log me 230: $url', name: 'my.app.API 230');
     var response = await client.get(url, headers: requestHeaders);
 
     //developer.log('log me 148: $response', name: 'my.app.API 148');
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
+      developer.log('log me 237: $data', name: 'my.app.API 237');
+      // developer.log('log me 238: ${orderFromJson(data["data"])}',
+      //     name: 'my.app.API 238');
+      return orderFromJson(data["data"]);
+    } else {
+      developer.log('log me 242: ', name: 'my.app.API 242');
+      return null;
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////
+  //Payment
+
+  static Future<Map<String, dynamic>> processPayment(cardDetails, model) async {
+    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+    var url = Uri.http(Config.apiURL, Config.saveOrderAPI);
+    developer.log('log me 253: $cardDetails', name: 'my.app.API 253');
+    var response = await client.post(url,
+        headers: requestHeaders,
+        body: jsonEncode(
+          {
+            "userId": model.orderUser,
+            "card_Name": cardDetails["card_Name"],
+            "card_Number": cardDetails["card_Number"],
+            "card_ExpMonth": cardDetails["card_ExpMonth"],
+            "card_ExpYear": cardDetails["card_ExpYear"],
+            "card_CVC": cardDetails["card_CVC"],
+            "amount": model.total,
+            /////////////////////////////
+            "orderNo": model.orderNo,
+            "paymentMethod": model.paymentMethod,
+            "orderDate": model.orderDate,
+            "quantity": model.quantity,
+            "total": model.total,
+            "products": model.orderProducts,
+          },
+        ));
+
+    Map<String, dynamic> resModel = {};
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      resModel["message"] = "success";
+      developer.log('log me 280: $data', name: 'my.app.API 280');
+      resModel["data"] = OrderPayment.fromJson(data["data"]);
+
+      // developer.log('log me 198: ${orderFromJson(data["data"])}',
+      //     name: 'my.app.API 155');
+    } else {
+      developer.log('log me 284: ', name: 'my.app.API 284');
+      var data = jsonDecode(response.body);
+      resModel["message"] = data["message"];
+    }
+
+    return resModel;
+  }
+
+  static Future<bool?> updateOrder(orderId, transactionId) async {
+    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+    var url = Uri.http(Config.apiURL, Config.updateOrderAPI);
+    var response = await client.post(url,
+        headers: requestHeaders,
+        body: jsonEncode(
+          {
+            "orderId": orderId,
+            "status": "Success",
+            "transactionId": transactionId,
+          },
+        ));
+
+    if (response.statusCode == 200) {
+      return true;
       // developer.log('log me 197: $data', name: 'my.app.API 155');
       // developer.log('log me 198: ${orderFromJson(data["data"])}',
       //     name: 'my.app.API 155');
-      return orderFromJson(data["data"]);
     } else {
       //developer.log('log me 159: ', name: 'my.app.API 159');
-      return null;
+      return false;
     }
   }
 }
