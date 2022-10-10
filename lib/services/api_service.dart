@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fyp_frontend/models/MyCard.dart';
 import 'package:fyp_frontend/models/OrderPayment.dart';
 import 'package:http/http.dart' as http;
 import 'package:fyp_frontend/config.dart';
@@ -185,27 +186,27 @@ class APIService {
 
   //////////////////////////////////////////////////////////////////////////
   // Save Order
-  static Future<bool> saveOrder(OrderRequestModel model) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
+  // static Future<bool> saveOrder(OrderRequestModel model) async {
+  //   Map<String, String> requestHeaders = {
+  //     'Content-Type': 'application/json',
+  //   };
 
-    var url = Uri.http(Config.apiURL, Config.saveOrderAPI);
+  //   var url = Uri.http(Config.apiURL, Config.saveOrderAPI);
 
-    // print("Order 135: " + model.toString());
+  //   // print("Order 135: " + model.toString());
 
-    var response = await client.post(url,
-        headers: requestHeaders, body: jsonEncode(model.toJson()));
+  //   var response = await client.post(url,
+  //       headers: requestHeaders, body: jsonEncode(model.toJson()));
 
-    // print("Order 140: " + response.body.toString());
-    if (response.statusCode == 200) {
-      //print("Response 142: " + response.body);
-      return true;
-    } else {
-      //print("Response 145: Failed");
-      return false;
-    }
-  }
+  //   // print("Order 140: " + response.body.toString());
+  //   if (response.statusCode == 200) {
+  //     //print("Response 142: " + response.body);
+  //     return true;
+  //   } else {
+  //     //print("Response 145: Failed");
+  //     return false;
+  //   }
+  // }
 
   //////////////////////////////////////////////////////////////////////////
   // Get Orders
@@ -261,7 +262,6 @@ class APIService {
             "card_ExpMonth": cardDetails["card_ExpMonth"],
             "card_ExpYear": cardDetails["card_ExpYear"],
             "card_CVC": cardDetails["card_CVC"],
-            "amount": model.total,
             /////////////////////////////
             "orderNo": model.orderNo,
             "paymentMethod": model.paymentMethod,
@@ -312,6 +312,64 @@ class APIService {
     } else {
       //developer.log('log me 159: ', name: 'my.app.API 159');
       return false;
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////
+  // Get Cards
+  static Future<List<MyCard>?> getCards(String userId) async {
+    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+
+    Map<String, String> queryString = {
+      'cardUserID': userId,
+    };
+    var url = Uri.http(Config.apiURL, Config.getCardAPI, queryString);
+
+    var response = await client.get(url, headers: requestHeaders);
+
+//developer.log('log me 331: $response', name: 'my.app.API 331');
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      developer.log('log me 338: $data', name: 'my.app.API 338');
+      // developer.log('log me 238: ${orderFromJson(data["data"])}',
+      //     name: 'my.app.API 238');
+      return cardFromJson(data["data"]);
+    } else {
+      developer.log('log me 242: ', name: 'my.app.API 242');
+      return null;
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////
+  // Get Cards
+  static Future<MyCard?> createCard(cardDetails) async {
+    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+
+    var url = Uri.http(Config.apiURL, Config.createCardAPI);
+
+    var response = await client.post(url,
+        headers: requestHeaders,
+        body: jsonEncode(
+          {
+            "userId": cardDetails["userId"],
+            "card_Name": cardDetails["card_Name"],
+            "card_Number": cardDetails["card_Number"],
+            "card_ExpMonth": cardDetails["card_ExpMonth"],
+            "card_ExpYear": cardDetails["card_ExpYear"],
+            "card_CVC": cardDetails["card_CVC"],
+          },
+        ));
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      developer.log('log me 338: $data', name: 'my.app.API 338');
+      developer.log('log me 368: ${MyCard.fromJson(data["data"])}',
+          name: 'my.app.API 368');
+      return MyCard.fromJson(data["data"]);
+    } else {
+      developer.log('log me 242: ', name: 'my.app.API 242');
+      return null;
     }
   }
 }

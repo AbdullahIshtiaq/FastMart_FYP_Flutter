@@ -1,21 +1,27 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fyp_frontend/constants.dart';
+import 'package:fyp_frontend/models/MyCard.dart';
 import 'package:fyp_frontend/models/OrderPayment.dart';
+import 'package:fyp_frontend/screens/payment/payment_profile_screen.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import '../../../models/Cart.dart';
-import '../../../models/order_request_model.dart';
-import '../../../services/api_service.dart';
-import '../../../services/shared_service.dart';
-import '../../../utils/my_colors.dart';
-import '../../../utils/my_text.dart';
-import '../../../utils/shared_preferences.dart';
-import '../../payment/payment_successful_screen.dart';
+import '../../models/Cart.dart';
+import '../../models/order_request_model.dart';
+import '../../services/api_service.dart';
+import '../../services/shared_service.dart';
+import '../../utils/my_colors.dart';
+import '../../utils/my_text.dart';
+import '../../utils/shared_preferences.dart';
+import 'payment_successful_screen.dart';
 
 class CreditCardDetailsScreen extends StatefulWidget {
-  const CreditCardDetailsScreen({Key? key}) : super(key: key);
+  const CreditCardDetailsScreen({Key? key, required this.fromScreen})
+      : super(key: key);
+
+  final String fromScreen;
 
   @override
   State<CreditCardDetailsScreen> createState() =>
@@ -35,7 +41,58 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
 
   bool isloading = false;
 
+  late MyCard myCard;
+
   CartController cartController = Get.put(CartController());
+
+  onCreateCard(BuildContext context) async {
+    var userDetails = await SharedService.loginDetails();
+
+    var cardDetails = {
+      "userId": userDetails!.data.id,
+      "card_Name": cardName,
+      "card_Number": cardNo,
+      "card_ExpMonth": cardExpire.split("/")[0],
+      "card_ExpYear": cardExpire.split("/")[1],
+      "card_CVC": cardCvv,
+    };
+
+    print("Line 60 In ADD Card $cardDetails");
+
+    bool isResponse =
+        await APIService.createCard(cardDetails).then((response) async {
+      if (response == null) {
+        print("In Card Details : Failed");
+        return false;
+      } else {
+        myCard = response;
+        print("In Card Details 82: Response $response");
+        return true;
+      }
+    });
+
+    if (!isResponse) {
+      Get.snackbar("Card Addition Failed. Invalid Details", "",
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 1));
+      setState(() {
+        isloading = false;
+      });
+      return;
+    } else {
+      Get.snackbar("Card Addition Successful", "",
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 1));
+      UserSharedPreferences.deleteCartList();
+
+      await Future.delayed(const Duration(seconds: 1));
+
+      setState(() {
+        isloading = false;
+      });
+      Navigator.pop(context, myCard);
+    }
+  }
 
   onPayClick(BuildContext context) async {
     print("In Card Details : Start");
@@ -85,11 +142,6 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
         return false;
       } else {
         print("In Card Details 82: Response ${response["data"]}");
-        // OrderFilterModel filterModel = OrderFilterModel(
-        //     paginationModel: MyPaginationModel(page: 1, pageSize: 10),
-        //     userId: userDetails.data.id);
-        // ref.read(ordersFilterProvider.notifier).setOrderFilter(filterModel);
-        // ref.read(ordersNotifierProvider.notifier).getOrders();
 
         OrderPayment orderPayment = response["data"] as OrderPayment;
 
@@ -131,27 +183,12 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
           duration: const Duration(seconds: 1));
       UserSharedPreferences.deleteCartList();
 
-      // int notificationId = DateTime.now().millisecondsSinceEpoch;
-
-      // notificationController.addNotification(Notifications(
-      //     notificationId: notificationId.toString(),
-      //     notificationTitle: "Order Successful",
-      //     notificationDescription:
-      //         "Your order has been placed successfully. Payment received is $total.",
-      //     notificationDateTime: formattedDate,
-      //     notificationType: "App",
-      //     isRead: false));
-
-      // UserSharedPreferences.setNotification(
-      //     notificationController.notifications);
-
       await Future.delayed(const Duration(seconds: 1));
 
       setState(() {
         isloading = false;
       });
 
-      // ignore: use_build_context_synchronously
       await Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
@@ -378,6 +415,17 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
                               duration: const Duration(seconds: 1),
                             );
                           } else {
+                            try {
+                              int.parse(inputCardNo);
+                            } catch (e) {
+                              Get.snackbar(
+                                "Please enter valid card number",
+                                "",
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: const Duration(seconds: 1),
+                              );
+                              return;
+                            }
                             if (inputCardNo.length < 12) {
                               Get.snackbar(
                                 "Please enter valid card number",
@@ -385,37 +433,100 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
                                 snackPosition: SnackPosition.BOTTOM,
                                 duration: const Duration(seconds: 1),
                               );
-                            } else {
-                              if (!isloading) {
-                                setState(() {
-                                  isloading = true;
-                                });
+                              return;
+                            }
+
+                            if (inputCardExpire.length != 5) {
+                              Get.snackbar(
+                                "Please enter valid card expiry",
+                                "",
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: const Duration(seconds: 1),
+                              );
+                              return;
+                            }
+
+                            try {
+                              var month = int.parse(
+                                  "${inputCardExpire[0]}${inputCardExpire[1]}");
+
+                              if (month > 12 || month < 01) {
+                                Get.snackbar(
+                                  "Please enter valid card expiry",
+                                  "",
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  duration: const Duration(seconds: 1),
+                                );
+                                return;
+                              }
+                            } catch (e) {
+                              Get.snackbar(
+                                "Please enter valid card expiry",
+                                "",
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: const Duration(seconds: 1),
+                              );
+                              return;
+                            }
+
+                            try {
+                              var now = DateTime.now();
+                              var formatter = DateFormat('yyyy');
+                              var currentYear = int.parse(
+                                  "${formatter.format(now)[2]}${formatter.format(now)[3]}");
+
+                              var year = int.parse(
+                                  "${inputCardExpire[3]}${inputCardExpire[4]}");
+
+                              if (currentYear > year) {
+                                Get.snackbar(
+                                  "Please enter valid card expiry",
+                                  "",
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  duration: const Duration(seconds: 1),
+                                );
+                                return;
+                              }
+                            } catch (e) {
+                              Get.snackbar(
+                                "Please enter valid card expiry",
+                                "",
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: const Duration(seconds: 1),
+                              );
+                              return;
+                            }
+
+                            if (inputCardCvv.length != 3) {
+                              Get.snackbar(
+                                "Please enter valid card CVC",
+                                "",
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: const Duration(seconds: 1),
+                              );
+                              return;
+                            }
+
+                            if (!isloading) {
+                              setState(() {
+                                isloading = true;
+                              });
+                              if (widget.fromScreen == "PaymentProfileScreen") {
+                                onCreateCard(context);
+                              } else {
                                 onPayClick(context);
                               }
                             }
                           }
-
-                          //Navigator.pop(context);
-                          // if (cartController.cartProducts.isNotEmpty) {
-                          //   Navigator.push(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //         builder: (context) => const CheckoutScreen(),
-                          //       ));
-                          // } else {
-                          //   Get.snackbar(
-                          //     "Cart is Empty",
-                          //     "",
-                          //     snackPosition: SnackPosition.BOTTOM,
-                          //     duration: const Duration(seconds: 1),
-                          //   );
-                          // }
                         },
                         style: ElevatedButton.styleFrom(
                             primary: primaryColor,
                             shape: const StadiumBorder()),
-                        child: const Text("Pay Now",
-                            style: TextStyle(color: Colors.white)),
+                        child: (widget.fromScreen == "PaymentProfileScreen")
+                            ? const Text("Add Card",
+                                style: TextStyle(color: Colors.white))
+                            : const Text("Pay Now",
+                                style: TextStyle(color: Colors.white)),
                       ),
                     ),
                   ),

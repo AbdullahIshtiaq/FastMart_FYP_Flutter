@@ -9,8 +9,8 @@ class Config {
   // static const String imgURL = "http://192.168.1.8:4000";
 
   //Home2
-  static const String apiURL = "192.168.1.11:4000";
-  static const String imgURL = "http://192.168.1.11:4000";
+  // static const String apiURL = "192.168.1.11:4000";
+  // static const String imgURL = "http://192.168.1.11:4000";
 
   //Uni Mobile Hotspot
   // static const String apiURL = "192.168.30.176:4000";
@@ -19,6 +19,10 @@ class Config {
   //Uni
   // static const String apiURL = "10.113.54.167:4000";
   // static const String imgURL = "http://10.113.54.167:4000";
+
+  //Lib
+  static const String apiURL = "10.113.49.211:4000";
+  static const String imgURL = "http://10.113.49.211:4000";
 
   //Uni
   // static const String apiURL = "10.113.62.51:4000";
@@ -47,6 +51,10 @@ class Config {
   static const String getOrderAPI = "/orders/userOrders";
 
   static const String updateOrderAPI = "/orders/orderUpdate";
+
+  static const String getCardAPI = "/cards/userCards";
+
+  static const String createCardAPI = "/cards/createCard";
 
   static const int pageSized = 10;
 

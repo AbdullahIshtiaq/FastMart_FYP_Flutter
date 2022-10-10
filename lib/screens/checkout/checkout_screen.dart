@@ -1,23 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fyp_frontend/models/Notification.dart';
+import 'package:fyp_frontend/screens/checkout/card_selection.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:fyp_frontend/constants.dart';
-import 'package:fyp_frontend/models/MyPagination.dart';
-import 'package:fyp_frontend/models/OrderFilterModel.dart';
-import 'package:fyp_frontend/models/order_request_model.dart';
-import 'package:fyp_frontend/providers/myProvider.dart';
-import 'package:fyp_frontend/screens/checkout/components/billing_info.dart';
-import 'package:fyp_frontend/screens/payment/payment_successful_screen.dart';
-import 'package:fyp_frontend/services/api_service.dart';
-import 'package:fyp_frontend/services/shared_service.dart';
-import 'package:fyp_frontend/utils/shared_preferences.dart';
 import '../../models/Cart.dart';
+import 'components/billing_info.dart';
 import 'components/checkout_items_list.dart';
-import 'components/credit_card_details.dart';
-import 'components/payment_methods.dart';
 
 // ignore: must_be_immutable
 class CheckoutScreen extends StatefulWidget {
@@ -39,91 +28,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   NotificationController notificationController =
       Get.put(NotificationController());
-
-  // onProceedClick(BuildContext context, WidgetRef ref) async {
-  //   int orderNo = DateTime.now().millisecondsSinceEpoch;
-  //   var userDetails = await SharedService.loginDetails();
-  //   String orderProducts = "";
-
-  //   int totalQty = 0;
-  //   for (var p in cartController.cartProducts) {
-  //     p = p as CartProduct;
-
-  //     for (int i = 0; i < p.qty; i++) {
-  //       orderProducts += p.productId + ":";
-  //       totalQty++;
-  //     }
-  //   }
-  //   var now = DateTime.now();
-  //   var formatter = DateFormat('yyyy-MM-dd');
-  //   String formattedDate = formatter.format(now);
-
-  //   int total = getTotalWithTax().toInt();
-
-  //   OrderRequestModel model = OrderRequestModel(
-  //       orderNo: orderNo.toString(),
-  //       orderUser: userDetails!.data.id,
-  //       orderProducts: orderProducts,
-  //       paymentMethod: "Cash",
-  //       orderDate: formattedDate,
-  //       quantity: totalQty,
-  //       total: total);
-
-  //   bool isResponse = await APIService.saveOrder(model).then((response) {
-  //     if (!response) {
-  //       Get.snackbar("Order Failed", "",
-  //           snackPosition: SnackPosition.BOTTOM,
-  //           duration: const Duration(seconds: 1));
-  //     } else {
-  //       OrderFilterModel filterModel = OrderFilterModel(
-  //           paginationModel: MyPaginationModel(page: 1, pageSize: 10),
-  //           userId: userDetails.data.id);
-  //       ref.read(ordersFilterProvider.notifier).setOrderFilter(filterModel);
-  //       ref.read(ordersNotifierProvider.notifier).getOrders();
-
-  //       Get.snackbar("Order Successful", "",
-  //           snackPosition: SnackPosition.BOTTOM,
-  //           duration: const Duration(seconds: 1));
-  //     }
-  //     return response;
-  //   });
-
-  //   if (!isResponse) {
-  //     return;
-  //   } else {
-  //     UserSharedPreferences.deleteCartList();
-
-  //     int notificationId = DateTime.now().millisecondsSinceEpoch;
-
-  //     notificationController.addNotification(Notifications(
-  //         notificationId: notificationId.toString(),
-  //         notificationTitle: "Order Successful",
-  //         notificationDescription:
-  //             "Your order has been placed successfully. Payment received is $total.",
-  //         notificationDateTime: formattedDate,
-  //         notificationType: "App",
-  //         isRead: false));
-
-  //     UserSharedPreferences.setNotification(
-  //         notificationController.notifications);
-
-  //     await Future.delayed(const Duration(seconds: 1));
-
-  //     // ignore: use_build_context_synchronously
-  //     await Navigator.pushAndRemoveUntil(
-  //         context,
-  //         MaterialPageRoute(
-  //             builder: (BuildContext context) => PaymentSuccessfulScreen(
-  //                   cartController: cartController,
-  //                 )),
-  //         (Route<dynamic> route) => false);
-  //   }
-  // }
-
-  // double getTotalWithTax() {
-  //   double result = double.parse(cartController.total);
-  //   return (result + (result * 0.07));
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -303,7 +207,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const CreditCardDetailsScreen(),
+                                    const CardSelectionScreen(),
                               )).then((value) => isClicked = false);
                         } else if (isCash) {
                         } else {

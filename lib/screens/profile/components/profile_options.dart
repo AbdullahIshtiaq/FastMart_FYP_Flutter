@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:fyp_frontend/screens/payment/payment_profile_screen.dart';
 
 import '../../../constants.dart';
+import '../../../models/login_response_model.dart';
 import '../../orders/orders_screen.dart';
 import '../../toShopList/toShop_screen.dart';
 
 class ProfileOptions extends StatelessWidget {
-  const ProfileOptions({Key? key, required this.userId}) : super(key: key);
+  const ProfileOptions({Key? key, required this.userDetails}) : super(key: key);
 
-  final String userId;
+  final LoginResponseModel userDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class ProfileOptions extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => OrdersScreen(
-                      userId: userId,
+                      userId: userDetails.data.id,
                     ),
                   ));
             },
@@ -102,7 +103,9 @@ class ProfileOptions extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PaymentProfileScreen(),
+                    builder: (context) => PaymentProfileScreen(
+                      userDetails: userDetails,
+                    ),
                   ));
             },
             child: Column(

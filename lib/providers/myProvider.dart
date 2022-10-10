@@ -10,7 +10,6 @@ import 'package:fyp_frontend/models/MyPagination.dart';
 import 'package:fyp_frontend/models/OrderFilterModel.dart';
 import 'package:fyp_frontend/services/api_service.dart';
 
-import '../models/MyProduct.dart';
 import '../models/ProductFilterModel.dart';
 
 final categoriesProvider =

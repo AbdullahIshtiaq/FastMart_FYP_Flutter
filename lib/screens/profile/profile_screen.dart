@@ -24,15 +24,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   late String joiningDate;
 
+  late LoginResponseModel? userDetails;
+
   bool isLoading = true;
 
   Future<LoginResponseModel?> _getUserData() async {
     print("Line 27");
-    LoginResponseModel? userDetails = await SharedService.loginDetails();
+    userDetails = await SharedService.loginDetails();
     userId = userDetails!.data.id;
-    username = userDetails.data.username;
-    email = userDetails.data.email;
-    joiningDate = userDetails.data.date;
+    username = userDetails!.data.username;
+    email = userDetails!.data.email;
+    joiningDate = userDetails!.data.date;
     return userDetails;
   }
 
@@ -105,7 +107,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const SizedBox(height: defaultPadding * 2),
                     ProfileOptions(
-                      userId: userId,
+                      userDetails: userDetails!,
                     ),
                     const SizedBox(height: defaultPadding),
                     Text(

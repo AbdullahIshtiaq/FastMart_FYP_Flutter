@@ -1,19 +1,76 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyp_frontend/constants.dart';
-import 'package:fyp_frontend/screens/checkout/components/credit_card_details.dart';
+import 'package:fyp_frontend/models/MyCard.dart';
+import 'package:fyp_frontend/screens/payment/credit_card_details.dart';
+import 'package:fyp_frontend/screens/payment/components/card_item.dart';
 
+import '../../models/login_response_model.dart';
+import '../../services/api_service.dart';
 import '../../utils/my_colors.dart';
 import '../../utils/my_text.dart';
 
 class PaymentProfileScreen extends StatefulWidget {
-  const PaymentProfileScreen({Key? key}) : super(key: key);
+  const PaymentProfileScreen({Key? key, required this.userDetails})
+      : super(key: key);
+
+  final LoginResponseModel? userDetails;
 
   @override
   _PaymentProfileScreenState createState() => _PaymentProfileScreenState();
 }
 
 class _PaymentProfileScreenState extends State<PaymentProfileScreen> {
+  late List<MyCard> cardsList;
+  bool isLoading = true;
+  late final LoginResponseModel userDetails;
+
+  getCards(BuildContext context) async {
+    await APIService.getCards(userDetails.data.id.toString())
+        .then((response) async {
+      if (response == null) {
+        print("No Card Found : Failed");
+        setState(() {
+          isLoading = false;
+        });
+        return false;
+      } else {
+        cardsList = response;
+        print("Cards Found : Success $cardsList");
+        setState(() {
+          isLoading = false;
+        });
+        return true;
+      }
+    });
+  }
+
+  addCardscreen() async {
+    MyCard? card = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const CreditCardDetailsScreen(
+            fromScreen: "PaymentProfileScreen",
+          ),
+        ));
+
+    if (card != null) {
+      setState(() {
+        cardsList.add(card);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    userDetails = widget.userDetails!;
+    cardsList = [];
+    getCards(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,319 +84,118 @@ class _PaymentProfileScreenState extends State<PaymentProfileScreen> {
             IconButton(
               icon: const Icon(Icons.add),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CreditCardDetailsScreen(),
-                    ));
+                addCardscreen();
               },
             ),
           ]),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Container(
-                    width: double.infinity, color: primaryColor, height: 50),
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  color: Colors.white,
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  elevation: 2,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: Container(
-                    alignment: Alignment.topLeft,
-                    padding: const EdgeInsets.all(15),
-                    child: Row(
-                      children: <Widget>[
-                        const CircleAvatar(
-                          radius: 30,
-                          backgroundColor: MyColors.grey_10,
-                          child: CircleAvatar(
-                            radius: 28,
-                            backgroundImage:
-                                AssetImage('assets/images/abdullah.png'),
-                          ),
-                        ),
-                        Container(width: 15),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text("Abdullah Ishtiaq",
-                                  style: MyText.medium(context).copyWith(
-                                      color: primaryColor,
-                                      fontWeight: FontWeight.bold)),
-                              Container(height: 2),
-                              Text("Rawalpindi, Pakistan",
-                                  style: MyText.body1(context)!
-                                      .copyWith(color: MyColors.grey_40)),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+      body: Column(
+        children: <Widget>[
+          Stack(
+            children: <Widget>[
+              Container(
+                  width: double.infinity, color: primaryColor, height: 50),
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6),
                 ),
-              ],
-            ),
-            Container(height: 10),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 7),
-              child: Column(
-                children: <Widget>[
-                  Row(
+                color: Colors.white,
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                elevation: 2,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: Container(
+                  alignment: Alignment.topLeft,
+                  padding: const EdgeInsets.all(15),
+                  child: Row(
                     children: <Widget>[
-                      Container(width: 5),
-                      Text("Linked Cards",
-                          style: MyText.subhead(context)!.copyWith(
-                              color: MyColors.grey_60,
-                              fontWeight: FontWeight.bold)),
-                      const Spacer(),
-                      Text("3 Card(s)",
-                          style: MyText.subhead(context)!.copyWith(
-                              color: primaryColor,
-                              fontWeight: FontWeight.bold)),
-                      Container(width: 5),
+                      const CircleAvatar(
+                        radius: 30,
+                        backgroundColor: MyColors.grey_10,
+                        child: CircleAvatar(
+                          radius: 28,
+                          backgroundImage:
+                              AssetImage('assets/images/abdullah.png'),
+                        ),
+                      ),
+                      Container(width: 15),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(userDetails.data.username,
+                                style: MyText.medium(context).copyWith(
+                                    color: primaryColor,
+                                    fontWeight: FontWeight.bold)),
+                            Container(height: 2),
+                            Text(userDetails.data.email,
+                                style: MyText.body1(context)!
+                                    .copyWith(color: MyColors.grey_40)),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                  Container(height: 10),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    color: Colors.white,
-                    elevation: 2,
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    child: Container(
-                      alignment: Alignment.topLeft,
-                      padding: const EdgeInsets.all(15),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 4,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text("Primary Card",
-                                    style: MyText.medium(context).copyWith(
-                                        color: MyColors.grey_80,
-                                        fontWeight: FontWeight.bold)),
-                                Container(height: 40),
-                                Text("Card Number",
-                                    style: MyText.body1(context)!
-                                        .copyWith(color: MyColors.grey_40)),
-                                Container(height: 5),
-                                Text("XXXX - XXXX - XXXX - 9867",
-                                    style: MyText.subhead(context)!
-                                        .copyWith(color: MyColors.grey_80)),
-                                Container(height: 20),
-                                Text("Card Holder Name",
-                                    style: MyText.body1(context)!
-                                        .copyWith(color: MyColors.grey_40)),
-                                Container(height: 5),
-                                Text("Abdullah Ishtiaq",
-                                    style: MyText.subhead(context)!
-                                        .copyWith(color: MyColors.grey_80)),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: Image.asset(
-                                      'assets/images/ic_mastercard_new.png',
-                                      width: 40,
-                                      height: 40),
-                                ),
-                                Container(height: 25),
-                                Text("Exp.",
-                                    style: MyText.body1(context)!
-                                        .copyWith(color: MyColors.grey_40)),
-                                Container(height: 5),
-                                Text("05 / 24",
-                                    style: MyText.subhead(context)!
-                                        .copyWith(color: MyColors.grey_80)),
-                                Container(height: 20),
-                                Text("CVV / CVC",
-                                    style: MyText.body1(context)!
-                                        .copyWith(color: MyColors.grey_40)),
-                                Container(height: 5),
-                                Text("***",
-                                    style: MyText.subhead(context)!
-                                        .copyWith(color: MyColors.grey_80)),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(height: 5),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    color: Colors.white,
-                    elevation: 2,
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    child: Container(
-                      alignment: Alignment.topLeft,
-                      padding: const EdgeInsets.all(15),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 4,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text("Secondary Card",
-                                    style: MyText.medium(context).copyWith(
-                                        color: MyColors.grey_80,
-                                        fontWeight: FontWeight.bold)),
-                                Container(height: 40),
-                                Text("Card Number",
-                                    style: MyText.body1(context)!
-                                        .copyWith(color: MyColors.grey_40)),
-                                Container(height: 5),
-                                Text("XXXX - XXXX - XXXX - 6108",
-                                    style: MyText.subhead(context)!
-                                        .copyWith(color: MyColors.grey_80)),
-                                Container(height: 20),
-                                Text("Card Holder Name",
-                                    style: MyText.body1(context)!
-                                        .copyWith(color: MyColors.grey_40)),
-                                Container(height: 5),
-                                Text("Abdullah Ishtiaq",
-                                    style: MyText.subhead(context)!
-                                        .copyWith(color: MyColors.grey_80)),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: Image.asset(
-                                      'assets/images/ic_visa.png',
-                                      width: 40,
-                                      height: 40),
-                                ),
-                                Container(height: 25),
-                                Text("Exp.",
-                                    style: MyText.body1(context)!
-                                        .copyWith(color: MyColors.grey_40)),
-                                Container(height: 5),
-                                Text("06 / 25",
-                                    style: MyText.subhead(context)!
-                                        .copyWith(color: MyColors.grey_80)),
-                                Container(height: 20),
-                                Text("CVV / CVC",
-                                    style: MyText.body1(context)!
-                                        .copyWith(color: MyColors.grey_40)),
-                                Container(height: 5),
-                                Text("***",
-                                    style: MyText.subhead(context)!
-                                        .copyWith(color: MyColors.grey_80)),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(height: 5),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    color: Colors.white,
-                    elevation: 2,
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    child: Container(
-                      alignment: Alignment.topLeft,
-                      padding: const EdgeInsets.all(15),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 4,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text("Additional Card",
-                                    style: MyText.medium(context).copyWith(
-                                        color: MyColors.grey_80,
-                                        fontWeight: FontWeight.bold)),
-                                Container(height: 40),
-                                Text("Card Number",
-                                    style: MyText.body1(context)!
-                                        .copyWith(color: MyColors.grey_40)),
-                                Container(height: 5),
-                                Text("XXXX - XXXX - XXXX - 2356",
-                                    style: MyText.subhead(context)!
-                                        .copyWith(color: MyColors.grey_80)),
-                                Container(height: 20),
-                                Text("Card Holder Name",
-                                    style: MyText.body1(context)!
-                                        .copyWith(color: MyColors.grey_40)),
-                                Container(height: 5),
-                                Text("Abdullah Ishtiaq",
-                                    style: MyText.subhead(context)!
-                                        .copyWith(color: MyColors.grey_80)),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: Image.asset(
-                                      'assets/images/ic_visa.png',
-                                      width: 40,
-                                      height: 40),
-                                ),
-                                Container(height: 25),
-                                Text("Exp.",
-                                    style: MyText.body1(context)!
-                                        .copyWith(color: MyColors.grey_40)),
-                                Container(height: 5),
-                                Text("01 / 24",
-                                    style: MyText.subhead(context)!
-                                        .copyWith(color: MyColors.grey_80)),
-                                Container(height: 20),
-                                Text("CVV / CVC",
-                                    style: MyText.body1(context)!
-                                        .copyWith(color: MyColors.grey_40)),
-                                Container(height: 5),
-                                Text("***",
-                                    style: MyText.subhead(context)!
-                                        .copyWith(color: MyColors.grey_80)),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(height: 15),
-                ],
+                ),
               ),
-            )
-          ],
-        ),
+            ],
+          ),
+          Container(height: 10),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 7),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Container(width: 5),
+                    Text("Linked Cards",
+                        style: MyText.subhead(context)!.copyWith(
+                            color: MyColors.grey_60,
+                            fontWeight: FontWeight.bold)),
+                    const Spacer(),
+                    Text('${cardsList.length} Card(s)',
+                        style: MyText.subhead(context)!.copyWith(
+                            color: primaryColor, fontWeight: FontWeight.bold)),
+                    Container(width: 5),
+                  ],
+                ),
+                Container(height: 10),
+              ],
+            ),
+          ),
+          Container(height: 10),
+          Expanded(
+            child: (isLoading)
+                ? const Center(child: CircularProgressIndicator())
+                : (cardsList.isNotEmpty)
+                    ? GridView.builder(
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1,
+                          childAspectRatio: 1.7,
+                        ),
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: defaultPadding / 2),
+                          child: CardItem(
+                            cardDetails: cardsList[index],
+                          ),
+                        ),
+                        itemCount: cardsList.length,
+                        scrollDirection: Axis.vertical,
+                      )
+                    : Center(
+                        child: Text(
+                          "No Cards Found",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black),
+                        ),
+                      ),
+          ),
+        ],
       ),
     );
   }
