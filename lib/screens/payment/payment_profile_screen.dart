@@ -63,6 +63,27 @@ class _PaymentProfileScreenState extends State<PaymentProfileScreen> {
     }
   }
 
+  onDeleteCard(int index) async {
+    print("Card ID: ${cardsList[index].cardId}");
+    bool isDeleted =
+        await APIService.deleteCard(cardsList[index].cardId.toString())
+            .then((response) async {
+      if (response == false) {
+        print("No Card Found : Failed");
+        return false;
+      } else {
+        print("Cards Found : Deleted Success");
+        return true;
+      }
+    });
+
+    if (isDeleted) {
+      setState(() {
+        cardsList.removeAt(index);
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -171,13 +192,16 @@ class _PaymentProfileScreenState extends State<PaymentProfileScreen> {
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 1,
-                          childAspectRatio: 1.7,
+                          childAspectRatio: 1.5,
                         ),
                         itemBuilder: (context, index) => Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: defaultPadding / 2),
                           child: CardItem(
                             cardDetails: cardsList[index],
+                            press: () {
+                              onDeleteCard(index);
+                            },
                           ),
                         ),
                         itemCount: cardsList.length,

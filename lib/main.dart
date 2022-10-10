@@ -254,11 +254,11 @@ class _MainScreenState extends State<MainScreen> {
       body: Center(
         child: _selectedScreen(Config.selectedIndex),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: showNotification,
-        tooltip: "Show Notification",
-        child: const Icon(Icons.notification_add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: showNotification,
+      //   tooltip: "Show Notification",
+      //   child: const Icon(Icons.notification_add),
+      // ),
     );
   }
 }

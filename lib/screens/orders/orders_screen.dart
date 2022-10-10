@@ -24,10 +24,13 @@ class OrdersScreen extends ConsumerWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.all(defaultPadding),
-          child: Expanded(
-              child: OrdersScreenProducts(
-            userId: userId,
-          )),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Expanded(
+                child: OrdersScreenProducts(
+              userId: userId,
+            )),
+          ),
         ),
       ),
     );

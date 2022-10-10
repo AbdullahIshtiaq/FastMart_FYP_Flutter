@@ -1,23 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fyp_frontend/utils/shared_preferences.dart';
 import 'package:lottie/lottie.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../config.dart';
 import '../../models/Cart.dart';
+import '../../models/MyPagination.dart';
+import '../../models/OrderFilterModel.dart';
+import '../../providers/myProvider.dart';
+import '../../services/shared_service.dart';
 
-class PaymentSuccessfulScreen extends StatelessWidget {
+class PaymentSuccessfulScreen extends ConsumerWidget {
   const PaymentSuccessfulScreen({Key? key, required this.cartController})
       : super(key: key);
 
   final CartController cartController;
 
-  Future<void> _clearCartData() async {
+  Future<void> _clearCartData(WidgetRef ref) async {
     cartController.cartProducts.clear();
+
+    var userDetails = await SharedService.loginDetails();
+    print(userDetails);
+
+    OrderFilterModel filterModel = OrderFilterModel(
+        paginationModel: MyPaginationModel(page: 1, pageSize: 10),
+        userId: userDetails!.data.id);
+    ref.read(ordersFilterProvider.notifier).setOrderFilter(filterModel);
+    ref.read(ordersNotifierProvider.notifier).getOrders();
+
+    print("line 34");
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return WillPopScope(
       onWillPop: () {
         Config.selectedIndex = 0;
@@ -31,7 +49,7 @@ class PaymentSuccessfulScreen extends StatelessWidget {
         return Future.value(false);
       },
       child: FutureBuilder(
-        future: _clearCartData(),
+        future: _clearCartData(ref),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           return Scaffold(
             body: SafeArea(
@@ -47,7 +65,6 @@ class PaymentSuccessfulScreen extends StatelessWidget {
                         width: double.infinity,
                         child: Lottie.network(
                             'https://assets9.lottiefiles.com/temp/lf20_q6KowU.json'),
-                        //Image.asset('assets/images/successful.PNG'),
                       ),
                     ),
                     const SizedBox(height: defaultPadding),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fyp_frontend/models/MyCard.dart';
@@ -370,6 +371,29 @@ class APIService {
     } else {
       developer.log('log me 242: ', name: 'my.app.API 242');
       return null;
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////
+  // Delete Card
+  static Future<bool> deleteCard(cardId) async {
+    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+
+    Map<String, String> queryString = {
+      'cardId': cardId,
+    };
+
+    var url = Uri.http(Config.apiURL, Config.deleteCardAPI, queryString);
+
+    var response = await client.delete(url, headers: requestHeaders);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      developer.log('log me 392: $data', name: 'my.app.API 392');
+      return true;
+    } else {
+      developer.log('log me 395: ', name: 'my.app.API 395');
+      return false;
     }
   }
 }

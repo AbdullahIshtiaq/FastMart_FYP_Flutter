@@ -7,7 +7,10 @@ import 'package:fyp_frontend/models/login_response_model.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../models/Cart.dart';
+import '../../models/MyPagination.dart';
+import '../../models/OrderFilterModel.dart';
 import '../../models/order_request_model.dart';
+import '../../providers/myProvider.dart';
 import '../../services/api_service.dart';
 import '../../services/shared_service.dart';
 import '../../utils/my_colors.dart';
@@ -78,11 +81,6 @@ class _CardSelectionScreenState extends State<CardSelectionScreen> {
         return false;
       } else {
         print("In Card Details 82: Response ${response["data"]}");
-        // OrderFilterModel filterModel = OrderFilterModel(
-        //     paginationModel: MyPaginationModel(page: 1, pageSize: 10),
-        //     userId: userDetails.data.id);
-        // ref.read(ordersFilterProvider.notifier).setOrderFilter(filterModel);
-        // ref.read(ordersNotifierProvider.notifier).getOrders();
 
         OrderPayment orderPayment = response["data"] as OrderPayment;
 
@@ -224,15 +222,6 @@ class _CardSelectionScreenState extends State<CardSelectionScreen> {
                     ));
               },
             ),
-            // const Center(
-            //   child: Text(
-            //     "Add Card",
-            //     style: TextStyle(
-            //         color: primaryColor,
-            //         fontSize: 12,
-            //         fontWeight: FontWeight.bold),
-            //   ),
-            // )
           ]),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
