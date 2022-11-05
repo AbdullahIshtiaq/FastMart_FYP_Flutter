@@ -24,6 +24,7 @@ class _ToShopScreenState extends State<ToShopScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: const BackButton(color: Colors.black),
         title: Text(
           "To Shop",
           style: Theme.of(context).textTheme.headline6,

@@ -79,7 +79,7 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Scan QR Code",
+          "Scan Barcode",
           style: Theme.of(context).textTheme.headline6,
         ),
         actions: [

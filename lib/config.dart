@@ -1,22 +1,23 @@
 class Config {
   static const String appName = "FastMart";
+
   //Home
   // static const String apiURL = "192.168.1.9:4000";
   // static const String imgURL = "http://192.168.1.9:4000";
 
   //Home1
-  // static const String apiURL = "192.168.1.8:4000";
-  // static const String imgURL = "http://192.168.1.8:4000";
+  static const String apiURL = "192.168.1.8:4000";
+  static const String imgURL = "http://192.168.1.8:4000";
 
   //Home2
   // static const String apiURL = "192.168.1.11:4000";
   // static const String imgURL = "http://192.168.1.11:4000";
 
   //Home3
-  static const String apiURL = "192.168.1.3:4000";
-  static const String imgURL = "http://192.168.1.3:4000";
+  // static const String apiURL = "192.168.1.3:4000";
+  // static const String imgURL = "http://192.168.1.3:4000";
 
-  //Uni Mobile Hotspot
+  // //Uni Mobile Hotspot
   // static const String apiURL = "192.168.30.176:4000";
   // static const String imgURL = "http://192.168.30.176:4000";
 
@@ -31,6 +32,10 @@ class Config {
   //Uni
   // static const String apiURL = "10.113.62.51:4000";
   // static const String imgURL = "http://10.113.62.51:4000";
+
+  //Uni
+  // static const String apiURL = "10.113.49.188:4000";
+  // static const String imgURL = "http://10.113.49.188:4000";
 
   // LAN
   // static const String apiURL = "192.168.137.1:4000";
@@ -61,6 +66,10 @@ class Config {
   static const String createCardAPI = "/cards/createCard";
 
   static const String deleteCardAPI = "/cards/deleteCard";
+
+  static const String createDemandAPI = "/demands/demand";
+
+  static const String getDemandAPI = "/demands/demand";
 
   static const int pageSized = 10;
 

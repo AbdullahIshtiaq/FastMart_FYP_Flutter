@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fyp_frontend/screens/demand/demand_screen.dart';
 import 'package:fyp_frontend/screens/payment/payment_profile_screen.dart';
 
 import '../../../constants.dart';
@@ -18,8 +19,8 @@ class ProfileOptions extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Container(
-          height: 100,
-          width: 100,
+          height: 80,
+          width: 80,
           padding: const EdgeInsets.all(defaultPadding / 2),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -47,15 +48,15 @@ class ProfileOptions extends StatelessWidget {
                 ),
                 Text(
                   "Orders",
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),
           ),
         ),
         Container(
-          height: 100,
-          width: 100,
+          height: 80,
+          width: 80,
           padding: const EdgeInsets.all(defaultPadding / 2),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -81,15 +82,15 @@ class ProfileOptions extends StatelessWidget {
                 ),
                 Text(
                   "To-Shop",
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),
           ),
         ),
         Container(
-          height: 100,
-          width: 100,
+          height: 80,
+          width: 80,
           padding: const EdgeInsets.all(defaultPadding / 2),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -117,7 +118,43 @@ class ProfileOptions extends StatelessWidget {
                 ),
                 Text(
                   "Payment",
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
+            ),
+          ),
+        ),
+        Container(
+          height: 80,
+          width: 80,
+          padding: const EdgeInsets.all(defaultPadding / 2),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: Colors.white, width: 2),
+            borderRadius:
+                const BorderRadius.all(Radius.circular(defaultBorderRadius)),
+            boxShadow: myBoxShadow,
+          ),
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DemandsScreen(
+                      userId: userDetails.data.id,
+                    ),
+                  ));
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.hail_outlined,
+                  color: primaryColor,
+                ),
+                Text(
+                  "Demands",
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),

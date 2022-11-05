@@ -27,194 +27,198 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(defaultPadding * 2,
-                defaultPadding * 2, defaultPadding * 2, defaultPadding * 2),
-            child: Column(
-              children: [
-                const SizedBox(height: defaultPadding * 4),
-                const CircleAvatar(
-                  radius: 50.0,
-                  backgroundColor: Colors.transparent,
-                  backgroundImage: AssetImage('assets/images/app_icon.png'),
-                ),
-                const SizedBox(height: defaultPadding * 2),
-                const Text(
-                  "Log in",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: defaultPadding),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Form(
-                    key: _loginFormKey,
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(defaultBorderRadius)),
-                            boxShadow: myBoxShadow,
-                          ),
-                          child: TextFormField(
-                            validator: (value) {
-                              if (isEmailValid(value!)) {
-                                return null;
-                              } else {
-                                return 'Enter a valid email address';
-                              }
-                            },
-                            controller: myEmailController,
-                            decoration: const InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintText: "Email",
-                              border: outlineInputBorder,
-                              hintStyle: TextStyle(color: Colors.grey),
-                              enabledBorder: outlineInputBorder,
-                              focusedBorder: outlineInputBorder,
-                              errorBorder: outlineInputBorder,
-                              prefixIcon: Icon(
-                                CupertinoIcons.mail_solid,
-                                color: primaryColor,
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(defaultPadding * 2,
+                  defaultPadding * 2, defaultPadding * 2, defaultPadding * 2),
+              child: Column(
+                children: [
+                  const SizedBox(height: defaultPadding * 4),
+                  const CircleAvatar(
+                    radius: 50.0,
+                    backgroundColor: Colors.transparent,
+                    backgroundImage: AssetImage('assets/images/app_icon.png'),
+                  ),
+                  const SizedBox(height: defaultPadding * 2),
+                  const Text(
+                    "Log in",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: defaultPadding),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Form(
+                      key: _loginFormKey,
+                      child: Column(
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(defaultBorderRadius)),
+                              boxShadow: myBoxShadow,
+                            ),
+                            child: TextFormField(
+                              validator: (value) {
+                                if (isEmailValid(value!)) {
+                                  return null;
+                                } else {
+                                  return 'Enter a valid email address';
+                                }
+                              },
+                              controller: myEmailController,
+                              decoration: const InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: "Email",
+                                border: outlineInputBorder,
+                                hintStyle: TextStyle(color: Colors.grey),
+                                enabledBorder: outlineInputBorder,
+                                focusedBorder: outlineInputBorder,
+                                errorBorder: outlineInputBorder,
+                                prefixIcon: Icon(
+                                  CupertinoIcons.mail_solid,
+                                  color: primaryColor,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(defaultBorderRadius)),
-                            boxShadow: myBoxShadow,
+                          const SizedBox(
+                            height: 8,
                           ),
-                          child: TextFormField(
-                            validator: (value) {
-                              if (isPasswordValid(value!)) {
-                                return null;
-                              } else {
-                                return 'Password length must be 6 digits';
-                              }
-                            },
-                            controller: myPasswordController,
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintText: "Password",
-                              border: outlineInputBorder,
-                              hintStyle: TextStyle(color: Colors.grey),
-                              enabledBorder: outlineInputBorder,
-                              focusedBorder: outlineInputBorder,
-                              errorBorder: outlineInputBorder,
-                              prefixIcon: Icon(
-                                CupertinoIcons.lock_fill,
-                                color: primaryColor,
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(defaultBorderRadius)),
+                              boxShadow: myBoxShadow,
+                            ),
+                            child: TextFormField(
+                              validator: (value) {
+                                if (isPasswordValid(value!)) {
+                                  return null;
+                                } else {
+                                  return 'Password length must be 6 digits';
+                                }
+                              },
+                              controller: myPasswordController,
+                              obscureText: true,
+                              decoration: const InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: "Password",
+                                border: outlineInputBorder,
+                                hintStyle: TextStyle(color: Colors.grey),
+                                enabledBorder: outlineInputBorder,
+                                focusedBorder: outlineInputBorder,
+                                errorBorder: outlineInputBorder,
+                                prefixIcon: Icon(
+                                  CupertinoIcons.lock_fill,
+                                  color: primaryColor,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: defaultPadding),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
-                    Text(
-                      'Forgot Password?',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: defaultPadding),
-                Center(
-                  child: SizedBox(
-                    width: 200,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (isValidate()) {
-                          setState(() {
-                            isAPICalled = true;
-                          });
-
-                          LoginRequestModel model = LoginRequestModel(
-                              email: myEmailController.text,
-                              password: myPasswordController.text);
-
-                          APIService.login(model).then((response) => {
-                                if (response)
-                                  {
-                                    setState(() {
-                                      isAPICalled = false;
-                                    }),
-                                    Get.snackbar(
-                                        "Login Successful", "$response",
-                                        snackPosition: SnackPosition.BOTTOM,
-                                        duration: const Duration(seconds: 1)),
-                                    Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              const MainScreen(),
-                                        ),
-                                        (Route<dynamic> route) => false)
-                                  }
-                                else
-                                  {
-                                    Get.snackbar(
-                                      "Wrong Credentials",
-                                      "$response",
-                                      snackPosition: SnackPosition.BOTTOM,
-                                      duration: const Duration(seconds: 1),
-                                    )
-                                  }
-                              });
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                          primary: primaryColor, shape: const StadiumBorder()),
-                      child: const Text("Log in"),
-                    ),
-                  ),
-                ),
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Dont have an account? '),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  const RegisterScreen(),
-                            ),
-                            (Route<dynamic> route) => false);
-                      },
-                      child: const Text(
-                        'Sign Up',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  const SizedBox(height: defaultPadding),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [
+                      Text(
+                        'Forgot Password?',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: defaultPadding),
+                  Center(
+                    child: SizedBox(
+                      width: 200,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (isValidate() && !isAPICalled) {
+                            setState(() {
+                              isAPICalled = true;
+                            });
+
+                            LoginRequestModel model = LoginRequestModel(
+                                email: myEmailController.text,
+                                password: myPasswordController.text);
+
+                            APIService.login(model).then((response) => {
+                                  if (response)
+                                    {
+                                      setState(() {
+                                        isAPICalled = false;
+                                      }),
+                                      Get.snackbar(
+                                          "Login Successful", "$response",
+                                          snackPosition: SnackPosition.BOTTOM,
+                                          duration: const Duration(seconds: 1)),
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                const MainScreen(),
+                                          ),
+                                          (Route<dynamic> route) => false)
+                                    }
+                                  else
+                                    {
+                                      Get.snackbar(
+                                        "Wrong Credentials",
+                                        "$response",
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        duration: const Duration(seconds: 1),
+                                      )
+                                    }
+                                });
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                            primary: primaryColor,
+                            shape: const StadiumBorder()),
+                        child: const Text("Log in"),
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Dont have an account? '),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    const RegisterScreen(),
+                              ),
+                              (Route<dynamic> route) => false);
+                        },
+                        child: const Text(
+                          'Sign Up',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

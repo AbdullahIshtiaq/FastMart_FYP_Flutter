@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fyp_frontend/models/MyCard.dart';
+import 'package:fyp_frontend/models/MyDemand.dart';
 import 'package:fyp_frontend/models/OrderPayment.dart';
 import 'package:http/http.dart' as http;
 import 'package:fyp_frontend/config.dart';
@@ -13,7 +13,6 @@ import 'package:fyp_frontend/models/OrderFilterModel.dart';
 import 'package:fyp_frontend/models/ProductFilterModel.dart';
 import 'package:fyp_frontend/models/login_request_model.dart';
 import 'package:fyp_frontend/models/login_response_model.dart';
-import 'package:fyp_frontend/models/order_request_model.dart';
 import 'package:fyp_frontend/models/register_response_model.dart';
 import 'package:fyp_frontend/services/shared_service.dart';
 
@@ -237,8 +236,8 @@ class APIService {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       developer.log('log me 237: $data', name: 'my.app.API 237');
-      // developer.log('log me 238: ${orderFromJson(data["data"])}',
-      //     name: 'my.app.API 238');
+      developer.log('log me 240: ${orderFromJson(data["data"])}',
+          name: 'my.app.API 240');
       return orderFromJson(data["data"]);
     } else {
       developer.log('log me 242: ', name: 'my.app.API 242');
@@ -343,7 +342,7 @@ class APIService {
   }
 
   //////////////////////////////////////////////////////////////////////////
-  // Get Cards
+  // Create Card
   static Future<MyCard?> createCard(cardDetails) async {
     Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
 
@@ -394,6 +393,58 @@ class APIService {
     } else {
       developer.log('log me 395: ', name: 'my.app.API 395');
       return false;
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////
+  //Add Demand
+  static Future<bool> createDemand(var demand) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    print(demand);
+
+    var url = Uri.http(Config.apiURL, Config.createDemandAPI);
+
+    var response = await client.post(url,
+        headers: requestHeaders,
+        body: jsonEncode({
+          "userId": demand["userId"],
+          "message": demand['message'],
+          "status": demand['status'],
+        }));
+
+    if (response.statusCode == 200) {
+      print("Response 417: " + response.body);
+      return true;
+    } else {
+      print("Response 420: Failed");
+      return false;
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////
+  // Get Demands
+  static Future<List<MyDemand>?> getDemands(String userId) async {
+    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+
+    Map<String, String> queryString = {
+      'userId': userId,
+    };
+    var url = Uri.http(Config.apiURL, Config.getDemandAPI, queryString);
+
+    var response = await client.get(url, headers: requestHeaders);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      developer.log('log me 338: $data', name: 'my.app.API 338');
+      // developer.log('log me 238: ${orderFromJson(data["data"])}',
+      //     name: 'my.app.API 238');
+      return DemandFromJson(data["data"]);
+    } else {
+      developer.log('log me 242: ', name: 'my.app.API 242');
+      return null;
     }
   }
 }
