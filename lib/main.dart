@@ -1,12 +1,15 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fyp_frontend/screens/barcodeScan/barcode_scan_screen.dart';
+import 'package:fyp_frontend/screens/chatbot/chatbot_screen.dart';
 import 'package:fyp_frontend/screens/map/nearby_screen.dart';
 import 'package:fyp_frontend/screens/register/login_screen.dart';
 import 'package:get/get.dart';
@@ -197,6 +200,18 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
+  openChatBot() {
+    setState(() {});
+    print("Line 203:");
+
+    setState(() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ChatbotScreen()),
+      );
+    });
+  }
+
   Widget _selectedScreen(int index) {
     print("Line 80: $index");
     if (index == 0) {
@@ -254,11 +269,12 @@ class _MainScreenState extends State<MainScreen> {
       body: Center(
         child: _selectedScreen(Config.selectedIndex),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: showNotification,
-      //   tooltip: "Show Notification",
-      //   child: const Icon(Icons.notification_add),
-      // ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: primaryColor,
+        onPressed: openChatBot,
+        tooltip: "ChatBot",
+        child: const Icon(Icons.chat_outlined, color: Colors.white),
+      ),
     );
   }
 }

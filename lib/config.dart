@@ -2,12 +2,12 @@ class Config {
   static const String appName = "FastMart";
 
   //Home
-  // static const String apiURL = "192.168.1.9:4000";
-  // static const String imgURL = "http://192.168.1.9:4000";
+  static const String apiURL = "192.168.1.10:4000";
+  static const String imgURL = "http://192.168.1.10:4000";
 
   //Home1
-  static const String apiURL = "192.168.1.8:4000";
-  static const String imgURL = "http://192.168.1.8:4000";
+  // static const String apiURL = "192.168.1.8:4000";
+  // static const String imgURL = "http://192.168.1.8:4000";
 
   //Home2
   // static const String apiURL = "192.168.1.11:4000";
@@ -42,8 +42,8 @@ class Config {
   // static const String imgURL = "http://192.168.137.1:4000";
 
   // LAN
-  // static const String apiURL = "172.20.0.78:4000";
-  // static const String imgURL = "http://172.20.0.78:4000";
+  // static const String apiURL = "172.20.0.147:4000";
+  // static const String imgURL = "http://172.20.0.147:4000";
 
   static const String loginAPI = "/users/login";
   static const String registerAPI = "/users/register";

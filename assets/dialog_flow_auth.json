@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "fastmart-8935e",
+  "private_key_id": "6abe51be8122491ad2a97359fa5eda18bb45af3c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCyQNf0O2hAY5xs\nivw0N9KmhDofOQ5c0UXsHn1dwiqCPjBHj8vDtLS6pNx0brVHlC/QMg5rxqyPoNFW\nlA85OlnFgkvOeP+Ku2kjBK68DoyxDDwOvLYmyAK+pq6V9Rr0Q0r3tJqh+jTjnfYY\nq6vi2KbcG6tE2C9pYiYbaDybaGSdnhI9bYEENrbKhwlqlHXN4epKEfduYD0U+9Dk\nRNApNDu2ocXoCD1OoO9mwAdBpzRVtQlxNW//5kw5PBcdCJskajKTjn/fQY7KY3kI\nmggpJ/4DFkzCisAPHPMtkOndNZr4/uzaYjd+w887wUeDzvEQwlzvFZ2Dm0PZW8x0\nDAF9Ip2TAgMBAAECggEAHeSW8qvVx1qNHHzQX7du2aL6Fktct78WsUrJrmQF+fKQ\n6SdZvhe7aUOFfvcj6n2U6R7D4VofjTSkdpb82JWLAX7g1J7hB/R25Lr/zKTJ/lT1\na2lFSMqo/yz3wUkp/IWeeFzuw7Qwk21lnGyJtlCr5uSy+6gfh1ZA2r7Hzy4aFX5p\ndI635ISVQ1Agsgx1LBVRpQZ+GbLxQq+DrHpyftolsKb4SMhj+kYXPQMZ4AuACNkL\nt6/fZ3X1CJ1XOEmiFfv347vs8kT5qzTjn/B/KB9NrYd/KhBf2Wrqg1VHic6OtLyL\nu7cmmln4DMYMhbKsTnxJWZzYDfOaI9BIL0ypmzhwNQKBgQDkaM+BodK7jId42Tet\ntAZoSFC5O5dTrcsXV9o29eBa2pCgj0anOide4SE7zcO3hxE7FwirdQrKJhWLPcd2\nj/jWhY4ClLzjlmeas3uPnxcy8MZsY0tirp+rU9mQDGsCGfSMIWt8SVkqjPplc4DP\nud3b6xqUg4QwHaCQHKeERZxnLwKBgQDHyQld+5OV38gC1qG8JpxJJxQUvop27Wur\nrYNBKIE6gb7Iq5TboOrfTr7/7ZXB6LDoIcrdpPLb+8d1CsfTNxhxLTT8vrdm6nVq\nGu5An0BZqZ5GkWhirk35edMMjRyfYuszeFcq+rSNxMBaqxTjUYtyloXkPMOsx+pV\nePMOH9iW3QKBgCZsn2PuZjYY2P1yhVRaca1/ZN0Uckuoc/70T4hpapm+JRBtqfQd\n61uhweZ+ogsw1Kw9Hr9BTFRffcZT2UdPxwvHofE7Nl+PANTcls+9crimGqtHNPpf\n6Ap5a6M5A5Nx7FrakGtzJ2XqG4GPob7QRMtnTKxpR4aUpVs5BtFQqJQPAoGAIot8\ndye9CTk8mGEMbkAu3edH7Z5UyuOaroC+JVIfpkIw/vnML33PnvU6yX4HWxQlIr5V\nGaYf6DHM90v56Wepbkhm1R0VEVKRItutPrdKpTZTC9iwt/9ztCOAfrcXr+emy6uP\nRvs6pRjUOdlDL1s2RYYJeMGZBBM9TbIwNM0E4nECgYBDUyex/ajQPqjrzgE2z7Jb\nmckG9AzPC7PXW56p3iaLV+NnHrBx9tzlW6LV31d8yJTKREIZabbxAXqsIsKl+LSR\n9Kqlt/MaFtjTVOTt+Fdho+YAgNNSHnKYlp6hLOWvuKQ3fnZZi2+zL/RPRFUogKeE\ntOWHx7ZoCerQ3l7PsVBYhA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "fastmartbot@fastmart-8935e.iam.gserviceaccount.com",
+  "client_id": "108681792594987829017",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fastmartbot%40fastmart-8935e.iam.gserviceaccount.com"
+}
