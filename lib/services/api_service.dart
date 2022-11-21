@@ -82,6 +82,34 @@ class APIService {
     }
   }
 
+  //////////////////////////////////////////////////////////
+  /// Update/Save Token
+  static Future<bool?> updateUserToken(token) async {
+    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+    LoginResponseModel? details = await SharedService.loginDetails();
+
+    var url = Uri.http(Config.apiURL, Config.updateUserTokenAPI);
+
+    var response = await client.post(url,
+        headers: requestHeaders,
+        body: jsonEncode(
+          {
+            "userId": details?.data.id,
+            "fcmToken": token,
+          },
+        ));
+
+    if (response.statusCode == 200) {
+      return true;
+      // developer.log('log me 197: $data', name: 'my.app.API 155');
+      // developer.log('log me 198: ${orderFromJson(data["data"])}',
+      //     name: 'my.app.API 155');
+    } else {
+      //developer.log('log me 159: ', name: 'my.app.API 159');
+      return false;
+    }
+  }
+
   //////////////////////////////////////////////////////////////////////////
   // Get Categories
   Future<List<MyCategory>?> getCategories(page, pageSize) async {

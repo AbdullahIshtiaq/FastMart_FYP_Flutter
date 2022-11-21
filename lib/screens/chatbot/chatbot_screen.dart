@@ -82,17 +82,18 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   ),
                 ),
                 IconButton(
-                    onPressed: () {
-                      sendMessage(textController.text);
-                      textController.clear();
-                    },
-                    icon: const Icon(
-                      Icons.send,
-                      color: Colors.white,
-                    ))
+                  onPressed: () {
+                    sendMessage(textController.text);
+                    textController.clear();
+                  },
+                  icon: const Icon(
+                    Icons.send,
+                    color: Colors.white,
+                  ),
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

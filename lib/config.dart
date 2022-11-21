@@ -2,8 +2,8 @@ class Config {
   static const String appName = "FastMart";
 
   //Home
-  static const String apiURL = "192.168.1.10:4000";
-  static const String imgURL = "http://192.168.1.10:4000";
+  // static const String apiURL = "192.168.1.10:4000";
+  // static const String imgURL = "http://192.168.1.10:4000";
 
   //Home1
   // static const String apiURL = "192.168.1.8:4000";
@@ -16,6 +16,10 @@ class Config {
   //Home3
   // static const String apiURL = "192.168.1.3:4000";
   // static const String imgURL = "http://192.168.1.3:4000";
+
+  //Home4
+  static const String apiURL = "192.168.1.4:4000";
+  static const String imgURL = "http://192.168.1.4:4000";
 
   // //Uni Mobile Hotspot
   // static const String apiURL = "192.168.30.176:4000";
@@ -34,8 +38,8 @@ class Config {
   // static const String imgURL = "http://10.113.62.51:4000";
 
   //Uni
-  // static const String apiURL = "10.113.49.188:4000";
-  // static const String imgURL = "http://10.113.49.188:4000";
+  // static const String apiURL = "10.113.63.237:4000";
+  // static const String imgURL = "http://10.113.63.237:4000";
 
   // LAN
   // static const String apiURL = "192.168.137.1:4000";
@@ -48,6 +52,8 @@ class Config {
   static const String loginAPI = "/users/login";
   static const String registerAPI = "/users/register";
   static const String userProfileAPI = "/users/user-profile";
+
+  static const String updateUserTokenAPI = "/users/tokenUpdate";
 
   static const String categoryAPI = "/categories/category";
 

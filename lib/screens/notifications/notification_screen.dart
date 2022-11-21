@@ -13,6 +13,22 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
+  String message = "No Notifications";
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final args = ModalRoute.of(context)!.settings.arguments;
+
+    if (args != null) {
+      Map? pushNotification = args as Map;
+
+      setState(() {
+        message = pushNotification['message'];
+      });
+    }
+  }
+
   NotificationController notificationController =
       Get.put(NotificationController());
 
@@ -30,7 +46,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       appBar: AppBar(
         leading: const BackButton(color: Colors.black),
         title: Text(
-          "Notifications",
+          message,
           style: Theme.of(context).textTheme.headline6,
         ),
       ),

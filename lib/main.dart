@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,6 +14,7 @@ import 'package:fyp_frontend/screens/barcodeScan/barcode_scan_screen.dart';
 import 'package:fyp_frontend/screens/chatbot/chatbot_screen.dart';
 import 'package:fyp_frontend/screens/map/nearby_screen.dart';
 import 'package:fyp_frontend/screens/register/login_screen.dart';
+import 'package:fyp_frontend/services/api_service.dart';
 import 'package:get/get.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/screens/home/home_screen.dart';
@@ -22,49 +25,85 @@ import 'package:fyp_frontend/services/shared_service.dart';
 import 'package:fyp_frontend/utils/shared_preferences.dart';
 
 import 'config.dart';
+import 'screens/notifications/notification_screen.dart';
 
 Widget _defaultHome = const LoginScreen();
 
-const AndroidNotificationChannel channel = AndroidNotificationChannel(
-  'high_importance_channel', // id
-  'High Importance Notifications', // title
-  description:
-      'This channel is used for important notifications.', // description
-  importance: Importance.high,
-  playSound: true,
-);
+// const AndroidNotificationChannel channel = AndroidNotificationChannel(
+//   'high_importance_channel', // id
+//   'High Importance Notifications', // title
+//   description:
+//       'This channel is used for important notifications.', // description
+//   importance: Importance.high,
+//   playSound: true,
+// );
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+// final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+//     FlutterLocalNotificationsPlugin();
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print("Message : ${message.messageId}");
+  print("_firebaseMessagingBackgroundHandler: $message");
 }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   bool result = await SharedService.isLoggedIn();
+
   if (result) {
     _defaultHome = const MainScreen();
   }
   await UserSharedPreferences.init();
   await Firebase.initializeApp();
 
-  //when app is in background
+  FirebaseMessaging.instance.getToken().then((value) {
+    APIService.updateUserToken(value).then((response) {
+      if (response!) {
+        print("Token updated");
+      } else {
+        print("Token update failed");
+      }
+    });
+
+    print("Token : $value");
+  });
+
+  /// If Application is on Background
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+    print('A new onMessageOpenedApp event was published!');
+    print("Message : $message");
+    Navigator.pushNamed(navigatorKey.currentState!.context, 'notification',
+        arguments: {
+          "message": json.encode(message.data),
+        });
+  });
+
+  /// If Application is on Closed or Killed
+  FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+    if (message != null) {
+      print("Message : $message");
+      Navigator.pushNamed(navigatorKey.currentState!.context, 'notification',
+          arguments: {
+            "message": json.encode(message.data),
+          });
+    }
+  });
+
+  /// When app is in background
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
-      ?.createNotificationChannel(channel);
+  // await flutterLocalNotificationsPlugin
+  //     .resolvePlatformSpecificImplementation<
+  //         AndroidFlutterLocalNotificationsPlugin>()
+  //     ?.createNotificationChannel(channel);
 
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
+  // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+  //   alert: true,
+  //   badge: true,
+  //   sound: true,
+  // );
 
   Stripe.publishableKey =
       "pk_test_51LjdB8CiUE6D0lAimWfiJGqo5DNJ5vXASyY3b5ywS6qrhPAuIbXgtmTc1JJPY15TRx0pW3sn3mWpcH8s1Wb1Ai5w003Ftn0omd";
@@ -93,51 +132,51 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     // Foreground notification
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          NotificationDetails(
-            android: AndroidNotificationDetails(
-              channel.id,
-              channel.name,
-              channelDescription: channel.description,
-              color: Colors.blue,
-              playSound: true,
-              //icon: 'app_icon',
-            ),
-          ),
-        );
-      }
-    });
+    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    //   RemoteNotification? notification = message.notification;
+    //   AndroidNotification? android = message.notification?.android;
+    //   if (notification != null && android != null) {
+    //     flutterLocalNotificationsPlugin.show(
+    //       notification.hashCode,
+    //       notification.title,
+    //       notification.body,
+    //       NotificationDetails(
+    //         android: AndroidNotificationDetails(
+    //           channel.id,
+    //           channel.name,
+    //           channelDescription: channel.description,
+    //           color: Colors.blue,
+    //           playSound: true,
+    //           //icon: 'app_icon',
+    //         ),
+    //       ),
+    //     );
+    //   }
+    // });
 
     // Open App on Click
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print("A new Message was published");
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null) {
-        showDialog(
-            context: context,
-            builder: (_) {
-              return AlertDialog(
-                title: Text(notification.title!),
-                content: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(notification.body!),
-                    ],
-                  ),
-                ),
-              );
-            });
-      }
-    });
+    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    //   print("A new Message was published");
+    //   RemoteNotification? notification = message.notification;
+    //   AndroidNotification? android = message.notification?.android;
+    //   if (notification != null && android != null) {
+    //     showDialog(
+    //         context: context,
+    //         builder: (_) {
+    //           return AlertDialog(
+    //             title: Text(notification.title!),
+    //             content: SingleChildScrollView(
+    //               child: Column(
+    //                 crossAxisAlignment: CrossAxisAlignment.start,
+    //                 children: [
+    //                   Text(notification.body!),
+    //                 ],
+    //               ),
+    //             ),
+    //           );
+    //         });
+    //   }
+    // });
   }
 
   @override
@@ -146,6 +185,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       debugShowMaterialGrid: false,
       title: 'Fast Mart',
+      navigatorKey: navigatorKey,
       theme: ThemeData(
         scaffoldBackgroundColor: bgColor,
         primarySwatch: Colors.blue,
@@ -163,6 +203,7 @@ class _MyAppState extends State<MyApp> {
         'login': (context) => const LoginScreen(),
         'register': (context) => const RegisterScreen(),
         'home': (context) => const MainScreen(),
+        'notification': (context) => const NotificationScreen(),
       },
       // home: const RegisterScreen(),
     );
@@ -180,25 +221,25 @@ class _MainScreenState extends State<MainScreen> {
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
   //In App Notification
-  showNotification() {
-    setState(() {});
-    print("Line 176:");
-    flutterLocalNotificationsPlugin.show(
-      0,
-      'plain title',
-      'plain body',
-      NotificationDetails(
-        android: AndroidNotificationDetails(
-          channel.id,
-          channel.name,
-          channelDescription: channel.description,
-          color: Colors.blue,
-          playSound: true,
-          icon: '@drawable/app_icon',
-        ),
-      ),
-    );
-  }
+  // showNotification() {
+  //   setState(() {});
+  //   print("Line 176:");
+  //   flutterLocalNotificationsPlugin.show(
+  //     0,
+  //     'plain title',
+  //     'plain body',
+  //     NotificationDetails(
+  //       android: AndroidNotificationDetails(
+  //         channel.id,
+  //         channel.name,
+  //         channelDescription: channel.description,
+  //         color: Colors.blue,
+  //         playSound: true,
+  //         icon: '@drawable/app_icon',
+  //       ),
+  //     ),
+  //   );
+  // }
 
   openChatBot() {
     setState(() {});
