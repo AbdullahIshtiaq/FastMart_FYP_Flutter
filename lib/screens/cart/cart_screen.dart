@@ -146,7 +146,8 @@ class _CartScreenState extends State<CartScreen> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                          primary: primaryColor, shape: const StadiumBorder()),
+                          backgroundColor: primaryColor,
+                          shape: const StadiumBorder()),
                       child: const Text("Check Out"),
                     ),
                   ),

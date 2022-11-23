@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants.dart';
 
@@ -11,7 +9,8 @@ const OutlineInputBorder outlineInputBorder = OutlineInputBorder(
 
 class ToShopInputForm extends StatelessWidget {
   const ToShopInputForm({
-    Key? key, required this.hint,
+    Key? key,
+    required this.hint,
   }) : super(key: key);
 
   final String hint;

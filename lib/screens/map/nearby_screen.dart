@@ -30,7 +30,8 @@ class _NearNyScreenState extends State<NearNyScreen> {
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary: primaryColor, shape: const StadiumBorder()),
+                      backgroundColor: primaryColor,
+                      shape: const StadiumBorder()),
                   onPressed: () {
                     MapsLauncher.launchQuery('Madina Cash and Carry');
                   },

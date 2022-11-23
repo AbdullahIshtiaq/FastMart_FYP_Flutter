@@ -297,7 +297,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                            primary: primaryColor,
+                            backgroundColor: primaryColor,
                             shape: const StadiumBorder()),
                         child: const Text("Sign Up"),
                       ),

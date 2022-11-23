@@ -115,10 +115,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       style: Theme.of(context).textTheme.headline6,
                     ),
                     const SizedBox(height: defaultPadding),
-                    PersonalInfo(
-                      username: username,
-                      email: email,
-                      joiningDate: joiningDate,
+                    Expanded(
+                      child: PersonalInfo(
+                        username: username,
+                        email: email,
+                        joiningDate: joiningDate,
+                      ),
                     ),
                   ],
                 ),

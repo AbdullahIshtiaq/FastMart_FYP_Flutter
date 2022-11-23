@@ -178,7 +178,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                            primary: primaryColor,
+                            backgroundColor: primaryColor,
                             shape: const StadiumBorder()),
                         child: inCart
                             ? const Text("Remove from Cart")

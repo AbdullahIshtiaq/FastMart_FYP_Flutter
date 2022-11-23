@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fyp_frontend/utils/shared_preferences.dart';
 import 'package:lottie/lottie.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../config.dart';
 import '../../models/Cart.dart';
 import '../../models/MyPagination.dart';
@@ -113,7 +110,7 @@ class PaymentSuccessfulScreen extends ConsumerWidget {
                         },
                         style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            primary: lightOrange,
+                            backgroundColor: lightOrange,
                             shape: const StadiumBorder()),
                         child: const Text(
                           "Go to Home",

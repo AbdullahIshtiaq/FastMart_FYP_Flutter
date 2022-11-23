@@ -7,10 +7,7 @@ import 'package:fyp_frontend/models/login_response_model.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../models/Cart.dart';
-import '../../models/MyPagination.dart';
-import '../../models/OrderFilterModel.dart';
 import '../../models/order_request_model.dart';
-import '../../providers/myProvider.dart';
 import '../../services/api_service.dart';
 import '../../services/shared_service.dart';
 import '../../utils/my_colors.dart';
@@ -440,7 +437,8 @@ class _CardSelectionScreenState extends State<CardSelectionScreen> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: primaryColor, shape: const StadiumBorder()),
+                      backgroundColor: primaryColor,
+                      shape: const StadiumBorder()),
                   child: const Text("Pay Now",
                       style: TextStyle(color: Colors.white)),
                 ),

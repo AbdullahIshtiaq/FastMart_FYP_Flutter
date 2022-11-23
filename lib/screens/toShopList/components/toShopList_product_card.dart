@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:fyp_frontend/models/Wishlist.dart';
 import '../../../constants.dart';
 import '../../../models/Cart.dart';
@@ -83,7 +82,7 @@ class _ToShopListProductCardState extends State<ToShopListProductCard> {
                 const SizedBox(height: defaultPadding / 2),
                 Expanded(
                   child: Text(
-                    "Rs " + widget.product.productPrice,
+                    "Rs ${widget.product.productPrice}",
                     style: Theme.of(context).textTheme.subtitle2,
                   ),
                 ),

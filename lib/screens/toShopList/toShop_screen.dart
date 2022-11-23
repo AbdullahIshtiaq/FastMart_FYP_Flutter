@@ -148,7 +148,7 @@ class _ToShopScreenState extends State<ToShopScreen> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                              primary: primaryColor,
+                              backgroundColor: primaryColor,
                               shape: const StadiumBorder()),
                           child: const Text("Create"),
                         ),

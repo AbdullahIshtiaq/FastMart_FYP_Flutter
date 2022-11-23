@@ -49,7 +49,7 @@ class _ToShopListScreenState extends State<ToShopListScreen> {
           children: [
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                primary: primaryColor,
+                backgroundColor: primaryColor,
                 shape: const StadiumBorder(),
               ),
               onPressed: () {

@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 
 class PersonalInfo extends StatelessWidget {
-  const PersonalInfo({
-    Key? key,
-    required this.username,
-    required this.email,
-    required this.joiningDate
-  }) : super(key: key);
+  const PersonalInfo(
+      {Key? key,
+      required this.username,
+      required this.email,
+      required this.joiningDate})
+      : super(key: key);
 
   final String username;
   final String email;
@@ -65,23 +65,6 @@ class PersonalInfo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Phone:",
-                style: Theme.of(context).textTheme.bodyText2,
-              ),
-              Text(
-                "+923401559089",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(fontWeight: FontWeight.w500),
-              ),
-            ],
-          ),
-          const SizedBox(height: defaultPadding),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
                 "Joining Date:",
                 style: Theme.of(context).textTheme.bodyText2,
               ),
@@ -115,8 +98,8 @@ class PersonalInfo extends StatelessWidget {
       ),
     );
   }
-  
-  String filterDate(String date){
+
+  String filterDate(String date) {
     var str = date.split('T');
     return str[0];
   }

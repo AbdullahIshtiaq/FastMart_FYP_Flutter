@@ -48,7 +48,8 @@ class MapCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               TextButton(
-                style: TextButton.styleFrom(primary: Colors.transparent),
+                style:
+                    TextButton.styleFrom(foregroundColor: Colors.transparent),
                 child: const Text(
                   "GO TO MAP",
                   style: TextStyle(color: primaryColor),

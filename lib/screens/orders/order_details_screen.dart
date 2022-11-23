@@ -179,7 +179,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         //     ));
                       },
                       style: ElevatedButton.styleFrom(
-                          primary: Colors.white, shape: const StadiumBorder()),
+                          backgroundColor: Colors.white,
+                          shape: const StadiumBorder()),
                       child: const Text(
                         "Receipt",
                         style: TextStyle(color: Colors.black),
@@ -200,7 +201,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         //     ));
                       },
                       style: ElevatedButton.styleFrom(
-                          primary: primaryColor, shape: const StadiumBorder()),
+                          backgroundColor: primaryColor,
+                          shape: const StadiumBorder()),
                       child: const Text("Re Order"),
                     ),
                   ),

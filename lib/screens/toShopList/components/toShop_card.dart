@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fyp_frontend/models/ToShopList.dart';
 import 'package:fyp_frontend/screens/toShopList/toShopList_screen.dart';
 

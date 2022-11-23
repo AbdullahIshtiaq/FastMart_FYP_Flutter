@@ -25,7 +25,7 @@ class _CustomDialogBoxState extends State<DialogBoxContent> {
                 Navigator.of(context).pop();
               },
               style: ElevatedButton.styleFrom(
-                  primary: primaryColor, shape: const StadiumBorder()),
+                  backgroundColor: primaryColor, shape: const StadiumBorder()),
               child: const Text("Add"),
             ),
           ),

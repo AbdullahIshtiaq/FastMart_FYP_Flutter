@@ -360,7 +360,8 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                    primary: primaryColor, shape: const StadiumBorder()),
+                    backgroundColor: primaryColor,
+                    shape: const StadiumBorder()),
                 child: inCart
                     ? const Text("Remove from Cart")
                     : const Text("Add to Cart"),

@@ -8,19 +8,17 @@ const OutlineInputBorder outlineInputBorder = OutlineInputBorder(
   borderSide: BorderSide.none,
 );
 
-class CreateDemandScreen extends StatefulWidget {
-  const CreateDemandScreen({Key? key, required this.userId}) : super(key: key);
+class AddComplaintScreen extends StatefulWidget {
+  const AddComplaintScreen({Key? key, required this.userId}) : super(key: key);
 
   final String userId;
 
   @override
-  State<CreateDemandScreen> createState() => _CreateDemandScreenState();
+  State<AddComplaintScreen> createState() => _AddComplaintScreenState();
 }
 
-class _CreateDemandScreenState extends State<CreateDemandScreen> {
-  String? demandStatus;
-
-  final myProductNameController = TextEditingController();
+class _AddComplaintScreenState extends State<AddComplaintScreen> {
+  final myTitleController = TextEditingController();
   final myMessageController = TextEditingController();
 
   bool isAPICalled = false;
@@ -32,7 +30,7 @@ class _CreateDemandScreenState extends State<CreateDemandScreen> {
       appBar: AppBar(
         leading: const BackButton(color: Colors.black),
         title: Text(
-          "Add Demand",
+          "Add Complaint",
           style: Theme.of(context).textTheme.headline6,
         ),
       ),
@@ -55,7 +53,7 @@ class _CreateDemandScreenState extends State<CreateDemandScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Product Name (Optional)",
+                      "Title",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     const SizedBox(height: defaultPadding),
@@ -68,7 +66,7 @@ class _CreateDemandScreenState extends State<CreateDemandScreen> {
                         boxShadow: myBoxShadow,
                       ),
                       child: TextFormField(
-                        controller: myProductNameController,
+                        controller: myTitleController,
                         decoration: const InputDecoration(
                           filled: true,
                           fillColor: lightGray1,
@@ -78,57 +76,6 @@ class _CreateDemandScreenState extends State<CreateDemandScreen> {
                           focusedBorder: outlineInputBorder,
                           errorBorder: outlineInputBorder,
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: defaultPadding),
-                    Text(
-                      "Status",
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                    const SizedBox(height: defaultPadding),
-                    Container(
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: lightGray1,
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(defaultBorderRadius)),
-                        boxShadow: myBoxShadow,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                            child: RadioListTile(
-                              title: const Text(
-                                "Urgent",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                              value: "Urgent",
-                              groupValue: demandStatus,
-                              onChanged: (value) {
-                                setState(() {
-                                  demandStatus = value.toString();
-                                });
-                              },
-                            ),
-                          ),
-                          Expanded(
-                            child: RadioListTile(
-                              title: const Text(
-                                "Not Urgent",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                              value: "Not Urgent",
-                              groupValue: demandStatus,
-                              onChanged: (value) {
-                                setState(() {
-                                  demandStatus = value.toString();
-                                });
-                              },
-                            ),
-                          ),
-                        ],
                       ),
                     ),
                     const SizedBox(height: defaultPadding),
@@ -171,15 +118,14 @@ class _CreateDemandScreenState extends State<CreateDemandScreen> {
                             print(isAPICalled);
                             if ((myMessageController.text.isNotEmpty &&
                                     myMessageController.text != "") &&
-                                !isAPICalled &&
-                                demandStatus != null) {
+                                !isAPICalled) {
                               setState(() {
                                 isAPICalled = true;
                               });
 
                               var model = {
                                 "userId": widget.userId,
-                                "status": demandStatus,
+                                "title": myTitleController.text,
                                 "message": myMessageController.text,
                               };
 
@@ -190,8 +136,7 @@ class _CreateDemandScreenState extends State<CreateDemandScreen> {
                                         setState(() {
                                           isAPICalled = false;
                                           myMessageController.clear();
-                                          myProductNameController.clear();
-                                          demandStatus = null;
+                                          myTitleController.clear();
                                         }),
                                         Get.snackbar(
                                             "Demand Added Successfully", "",
@@ -215,9 +160,10 @@ class _CreateDemandScreenState extends State<CreateDemandScreen> {
                             } else {
                               setState(() {
                                 isAPICalled = false;
-                                if (demandStatus == null) {
+                                if (myTitleController.text.isEmpty ||
+                                    myTitleController.text == "") {
                                   Get.snackbar(
-                                    "Please select demand status",
+                                    "Please enter title",
                                     "",
                                     snackPosition: SnackPosition.BOTTOM,
                                     duration: const Duration(seconds: 1),

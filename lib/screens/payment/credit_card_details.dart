@@ -5,7 +5,6 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/models/MyCard.dart';
 import 'package:fyp_frontend/models/OrderPayment.dart';
-import 'package:fyp_frontend/screens/payment/payment_profile_screen.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../models/Cart.dart';
@@ -520,7 +519,7 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                            primary: primaryColor,
+                            backgroundColor: primaryColor,
                             shape: const StadiumBorder()),
                         child: (widget.fromScreen == "PaymentProfileScreen")
                             ? const Text("Add Card",
