@@ -444,7 +444,7 @@ class APIService {
         }));
 
     if (response.statusCode == 200) {
-      print("Response 417: " + response.body);
+      print("Response 417: ${response.body}");
       return true;
     } else {
       print("Response 420: Failed");
@@ -473,6 +473,34 @@ class APIService {
     } else {
       developer.log('log me 242: ', name: 'my.app.API 242');
       return null;
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////
+  //Add Complaint
+  static Future<bool> createComplaint(var complaint) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    print(complaint);
+
+    var url = Uri.http(Config.apiURL, Config.addComplaintAPI);
+
+    var response = await client.post(url,
+        headers: requestHeaders,
+        body: jsonEncode({
+          "userId": complaint["userId"],
+          "message": complaint['message'],
+          "title": complaint['title'],
+        }));
+
+    if (response.statusCode == 200) {
+      print("Response 499: ${response.body}");
+      return true;
+    } else {
+      print("Response 502: Failed");
+      return false;
     }
   }
 }

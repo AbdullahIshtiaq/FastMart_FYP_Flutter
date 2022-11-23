@@ -50,7 +50,9 @@ class Config {
   // static const String imgURL = "http://172.20.0.147:4000";
 
   static const String loginAPI = "/users/login";
+
   static const String registerAPI = "/users/register";
+
   static const String userProfileAPI = "/users/user-profile";
 
   static const String updateUserTokenAPI = "/users/tokenUpdate";
@@ -76,6 +78,8 @@ class Config {
   static const String createDemandAPI = "/demands/demand";
 
   static const String getDemandAPI = "/demands/demand";
+
+  static const String addComplaintAPI = "/complaints/complaint";
 
   static const int pageSized = 10;
 

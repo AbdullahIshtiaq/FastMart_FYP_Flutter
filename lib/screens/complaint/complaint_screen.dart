@@ -129,34 +129,38 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
                                 "message": myMessageController.text,
                               };
 
-                              APIService.createDemand(model).then((response) =>
-                                  {
-                                    if (response)
-                                      {
-                                        setState(() {
-                                          isAPICalled = false;
-                                          myMessageController.clear();
-                                          myTitleController.clear();
-                                        }),
-                                        Get.snackbar(
-                                            "Demand Added Successfully", "",
-                                            snackPosition: SnackPosition.BOTTOM,
-                                            duration:
-                                                const Duration(seconds: 1)),
-                                      }
-                                    else
-                                      {
-                                        setState(() {
-                                          isAPICalled = false;
-                                        }),
-                                        Get.snackbar(
-                                          "Demand not added",
-                                          "",
-                                          snackPosition: SnackPosition.BOTTOM,
-                                          duration: const Duration(seconds: 1),
-                                        )
-                                      }
-                                  });
+                              APIService.createComplaint(model)
+                                  .then((response) => {
+                                        if (response)
+                                          {
+                                            setState(() {
+                                              isAPICalled = false;
+                                              myMessageController.clear();
+                                              myTitleController.clear();
+                                            }),
+                                            Get.snackbar(
+                                                "Complaint Added Successfully",
+                                                "",
+                                                snackPosition:
+                                                    SnackPosition.BOTTOM,
+                                                duration:
+                                                    const Duration(seconds: 1)),
+                                          }
+                                        else
+                                          {
+                                            setState(() {
+                                              isAPICalled = false;
+                                            }),
+                                            Get.snackbar(
+                                              "Complaint not added",
+                                              "",
+                                              snackPosition:
+                                                  SnackPosition.BOTTOM,
+                                              duration:
+                                                  const Duration(seconds: 1),
+                                            )
+                                          }
+                                      });
                             } else {
                               setState(() {
                                 isAPICalled = false;
