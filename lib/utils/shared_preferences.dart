@@ -15,7 +15,7 @@ class UserSharedPreferences {
 ///// Cart
   static Future setCartList(RxList<dynamic> rxList) async {
     var mapInString = jsonEncode(rxList);
-    print("Line 30: SetCart " + mapInString);
+    print("Line 30: SetCart $mapInString");
     await _sharedPreferences?.setString('cart', mapInString);
   }
 
@@ -40,7 +40,7 @@ class UserSharedPreferences {
 ////Wishlist
   static Future setWishList(RxList<dynamic> rxList) async {
     var mapInString = jsonEncode(rxList);
-    print("Line 30: SetCart " + mapInString);
+    print("Line 30: SetCart $mapInString");
     await _sharedPreferences?.setString('wishlist', mapInString);
   }
 
@@ -65,7 +65,7 @@ class UserSharedPreferences {
 /////ToShopList
   static Future setToShopList(RxList<dynamic> rxList) async {
     var mapInString = jsonEncode(rxList);
-    print("Line 30: SetToShopList " + mapInString);
+    print("Line 30: SetToShopList $mapInString");
     await _sharedPreferences?.setString('toShopList', mapInString);
   }
 
@@ -87,17 +87,17 @@ class UserSharedPreferences {
     }
   }
 
-  /////Notification
-  static Future setNotification(RxList<dynamic> rxList) async {
+  ///// Ad Notification
+  static Future setAdNotification(RxList<dynamic> rxList) async {
     var mapInString = jsonEncode(rxList);
-    print("Line 94: SetNotification " + mapInString);
-    await _sharedPreferences?.setString('notification', mapInString);
+    print("Line 94: SetNotification $mapInString");
+    await _sharedPreferences?.setString('adNotification', mapInString);
   }
 
-  static String? getNotification() {
+  static String? getAdNotification() {
     String? mapInString;
-    if (_sharedPreferences!.containsKey('notification')) {
-      mapInString = _sharedPreferences!.getString('notification');
+    if (_sharedPreferences!.containsKey('adNotification')) {
+      mapInString = _sharedPreferences!.getString('adNotification');
       print("Line 102: GetNotification Found");
     } else {
       print("Line 104: GetNotification Not Found");
@@ -105,10 +105,65 @@ class UserSharedPreferences {
     return mapInString;
   }
 
-  static void deleteNotification() {
-    if (_sharedPreferences!.containsKey('notification')) {
-      _sharedPreferences!.remove('notification');
-      print("Line 112: Notification Deleted");
+  ///// Offer Notification
+  static Future setOfferNotification(RxList<dynamic> rxList) async {
+    var mapInString = jsonEncode(rxList);
+    print("Line 94: SetNotification $mapInString");
+    await _sharedPreferences?.setString('offerNotification', mapInString);
+  }
+
+  static String? getOfferNotification() {
+    String? mapInString;
+    if (_sharedPreferences!.containsKey('offerNotification')) {
+      mapInString = _sharedPreferences!.getString('offerNotification');
+      print("Line 102: GetNotification Found");
+    } else {
+      print("Line 104: GetNotification Not Found");
+    }
+    return mapInString;
+  }
+
+  ///// Order Notification
+  static Future setOrderNotification(RxList<dynamic> rxList) async {
+    var mapInString = jsonEncode(rxList);
+    print("Line 129: SetNotification $mapInString");
+    await _sharedPreferences?.setString('orderNotification', mapInString);
+  }
+
+  static String? getOrderNotification() {
+    String? mapInString;
+    if (_sharedPreferences!.containsKey('orderNotification')) {
+      mapInString = _sharedPreferences!.getString('orderNotification');
+      print("Line 137: GetNotification Found");
+    } else {
+      print("Line 104: GetNotification Not Found");
+    }
+    return mapInString;
+  }
+
+  ///// Demand Notification
+  static Future setDemandNotification(RxList<dynamic> rxList) async {
+    print("Line 146: Length ${rxList.length}");
+    var mapInString = jsonEncode(rxList);
+    print("Line 147: SetNotification $mapInString");
+    await _sharedPreferences?.setString('demandNotification', mapInString);
+  }
+
+  static String? getDemandNotification() {
+    String? mapInString;
+    if (_sharedPreferences!.containsKey('demandNotification')) {
+      mapInString = _sharedPreferences!.getString('demandNotification');
+      print("Line 102: GetNotification Found");
+    } else {
+      print("Line 104: GetNotification Not Found");
+    }
+    return mapInString;
+  }
+
+  static void deleteDemandNotification() {
+    if (_sharedPreferences!.containsKey('demandNotification')) {
+      _sharedPreferences!.remove('demandNotification');
+      print("Line 165: Demand Notification Deleted");
     }
   }
 }

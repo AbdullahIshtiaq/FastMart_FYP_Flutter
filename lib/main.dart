@@ -53,6 +53,12 @@ Future<void> main() async {
   bool result = await SharedService.isLoggedIn();
 
   if (result) {
+    Get.snackbar(
+      "In Defualt",
+      "",
+      snackPosition: SnackPosition.BOTTOM,
+      duration: const Duration(seconds: 3),
+    );
     _defaultHome = const MainScreen();
   }
   await UserSharedPreferences.init();
@@ -72,24 +78,25 @@ Future<void> main() async {
 
   /// If Application is on Background
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-    print('A new onMessageOpenedApp event was published!');
+    print('A new onMessageOpenedApp event was published! On Background');
     print("Message : $message");
-    Navigator.pushNamed(navigatorKey.currentState!.context, 'notification',
+    Navigator.pushNamed(navigatorKey.currentState!.context, '/notification',
         arguments: {
           "message": json.encode(message.data),
         });
   });
 
   /// If Application is on Closed or Killed
-  FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
-    if (message != null) {
-      print("Message : $message");
-      Navigator.pushNamed(navigatorKey.currentState!.context, 'notification',
-          arguments: {
-            "message": json.encode(message.data),
-          });
-    }
-  });
+  // FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+  //   if (message != null) {
+  //     print('A new onMessageOpenedApp event was published! On Killed');
+  //     print("Message : $message");
+  //     Navigator.pushNamed(navigatorKey.currentState!.context, '/notification',
+  //         arguments: {
+  //           "message": json.encode(message.data),
+  //         });
+  //   }
+  // });
 
   /// When app is in background
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -127,8 +134,26 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  /// If Application is on Closed or Killed
+  void handleMessageOnBackground() {
+    FirebaseMessaging.instance.getInitialMessage().then(
+      (RemoteMessage? message) {
+        if (message != null) {
+          print('A new onMessageOpenedApp event was published! On Killed');
+          print("Message : $message");
+          Navigator.pushNamed(
+              navigatorKey.currentState!.context, '/notification',
+              arguments: {
+                "message": json.encode(message.data),
+              });
+        }
+      },
+    );
+  }
+
   @override
   void initState() {
+    handleMessageOnBackground();
     super.initState();
 
     // Foreground notification
@@ -203,7 +228,7 @@ class _MyAppState extends State<MyApp> {
         'login': (context) => const LoginScreen(),
         'register': (context) => const RegisterScreen(),
         'home': (context) => const MainScreen(),
-        'notification': (context) => const NotificationScreen(),
+        '/notification': (context) => const NotificationScreen(),
       },
       // home: const RegisterScreen(),
     );

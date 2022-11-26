@@ -14,12 +14,12 @@ class Config {
   // static const String imgURL = "http://192.168.1.11:4000";
 
   //Home3
-  // static const String apiURL = "192.168.1.3:4000";
-  // static const String imgURL = "http://192.168.1.3:4000";
+  static const String apiURL = "192.168.1.3:4000";
+  static const String imgURL = "http://192.168.1.3:4000";
 
   //Home4
-  static const String apiURL = "192.168.1.4:4000";
-  static const String imgURL = "http://192.168.1.4:4000";
+  // static const String apiURL = "192.168.1.4:4000";
+  // static const String imgURL = "http://192.168.1.4:4000";
 
   // //Uni Mobile Hotspot
   // static const String apiURL = "192.168.30.176:4000";
