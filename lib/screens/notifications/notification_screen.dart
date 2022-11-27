@@ -27,89 +27,89 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   bool showAds = true;
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final args = ModalRoute.of(context)!.settings.arguments;
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   final args = ModalRoute.of(context)!.settings.arguments;
 
-    if (args != null) {
-      Map? pushNotification = args as Map;
-      setState(() {
-        data = json.decode(pushNotification['message']);
-        print("Line 30: ${data['notificationType']}");
-        var date = DateFormat('yyyy-MM-dd hh:mm:ss').format(DateTime.now());
+  //   if (args != null) {
+  //     Map? pushNotification = args as Map;
+  //     setState(() {
+  //       data = json.decode(pushNotification['message']);
+  //       print("Line 30: ${data['notificationType']}");
+  //       var date = DateFormat('yyyy-MM-dd hh:mm:ss').format(DateTime.now());
 
-        if (data['notificationType'] == "Demand") {
-          DemandNotifications obj = DemandNotifications(
-              notificationDemandId: data['demandId'],
-              notificationMessage: data['message'],
-              notificationResponse: data['response'],
-              notificationType: data['notificationType'],
-              notificationDemandProgress: data['demandProgress'],
-              notificationDateTime: date,
-              notificationDemandCreatedDateTime: data['createdDateTime'],
-              isRead: true);
+  //       if (data['notificationType'] == "Demand") {
+  //         DemandNotifications obj = DemandNotifications(
+  //             notificationDemandId: data['demandId'],
+  //             notificationMessage: data['message'],
+  //             notificationResponse: data['response'],
+  //             notificationType: data['notificationType'],
+  //             notificationDemandProgress: data['demandProgress'],
+  //             notificationDateTime: date,
+  //             notificationDemandCreatedDateTime: data['createdDateTime'],
+  //             isRead: true);
 
-          setState(() {
-            notificationController.addDemandNotification(obj);
-            notifications = notificationController.customerSupportList;
-            print("Line 49: ${notifications.length}");
-          });
-        } else if (data['notificationType'] == "Ad") {
-          AdNotifications obj = AdNotifications(
-              notificationTitle: data['advertismentTitle'],
-              notificationDescription: data['advertismentDesc'],
-              notificationCreatedDateTime: data['createdDateTime'],
-              notificationAdType: data['advertismentType'],
-              notificationImage: data['advertismentAttachment'],
-              notificationType: data['notificationType'],
-              notificationDateTime: date,
-              isRead: true);
+  //         setState(() {
+  //           notificationController.addDemandNotification(obj);
+  //           notifications = notificationController.customerSupportList;
+  //           print("Line 49: ${notifications.length}");
+  //         });
+  //       } else if (data['notificationType'] == "Ad") {
+  //         AdNotifications obj = AdNotifications(
+  //             notificationTitle: data['advertismentTitle'],
+  //             notificationDescription: data['advertismentDesc'],
+  //             notificationCreatedDateTime: data['createdDateTime'],
+  //             notificationAdType: data['advertismentType'],
+  //             notificationImage: data['advertismentAttachment'],
+  //             notificationType: data['notificationType'],
+  //             notificationDateTime: date,
+  //             isRead: true);
 
-          setState(() {
-            notificationController.addAdNotification(obj);
-            notifications = notificationController.ads;
-            print("Line 65: ${notifications.length}");
-          });
-        } else if (data['notificationType'] == "Order") {
-          OrderNotifications obj = OrderNotifications(
-              notificationOrderNo: data['orderNo'],
-              notificationOrderDate: data['orderDate'],
-              notificationOrderTime: data['orderTime'],
-              notificationTotal: data['orderTotal'],
-              notificationMessage: data['message'],
-              notificationType: data['notificationType'],
-              notificationDateTime: date,
-              isRead: true);
+  //         setState(() {
+  //           notificationController.addAdNotification(obj);
+  //           notifications = notificationController.ads;
+  //           print("Line 65: ${notifications.length}");
+  //         });
+  //       } else if (data['notificationType'] == "Order") {
+  //         OrderNotifications obj = OrderNotifications(
+  //             notificationOrderNo: data['orderNo'],
+  //             notificationOrderDate: data['orderDate'],
+  //             notificationOrderTime: data['orderTime'],
+  //             notificationTotal: data['orderTotal'],
+  //             notificationMessage: data['message'],
+  //             notificationType: data['notificationType'],
+  //             notificationDateTime: date,
+  //             isRead: true);
 
-          setState(() {
-            notificationController.addOrderNotification(obj);
-            notifications = notificationController.customerSupportList;
-            print("Line 81: ${notifications.length}");
-          });
-        } else if (data['notificationType'] == "Offer") {
-          OfferNotifications obj = OfferNotifications(
-              notificationTitle: data['advertismentTitle'],
-              notificationDescription: data['advertismentDesc'],
-              notificationCreatedDateTime: data['createdDateTime'],
-              notificationAdType: data['advertismentType'],
-              notificationStartDate: data['startDate'],
-              notificationEndDate: data['endDate'],
-              notificationDiscount: data['discount'],
-              notificationCategoryName: data['categoryName'],
-              notificationType: data['notificationType'],
-              notificationDateTime: date,
-              isRead: true);
+  //         setState(() {
+  //           notificationController.addOrderNotification(obj);
+  //           notifications = notificationController.customerSupportList;
+  //           print("Line 81: ${notifications.length}");
+  //         });
+  //       } else if (data['notificationType'] == "Offer") {
+  //         OfferNotifications obj = OfferNotifications(
+  //             notificationTitle: data['advertismentTitle'],
+  //             notificationDescription: data['advertismentDesc'],
+  //             notificationCreatedDateTime: data['createdDateTime'],
+  //             notificationAdType: data['advertismentType'],
+  //             notificationStartDate: data['startDate'],
+  //             notificationEndDate: data['endDate'],
+  //             notificationDiscount: data['discount'],
+  //             notificationCategoryName: data['categoryName'],
+  //             notificationType: data['notificationType'],
+  //             notificationDateTime: date,
+  //             isRead: true);
 
-          setState(() {
-            notificationController.addOfferNotification(obj);
-            notifications = notificationController.offers;
-            print("Line 100: ${notifications.length}");
-          });
-        }
-      });
-    }
-  }
+  //         setState(() {
+  //           notificationController.addOfferNotification(obj);
+  //           notifications = notificationController.offers;
+  //           print("Line 100: ${notifications.length}");
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
 
   late List notifications = [];
 
@@ -117,7 +117,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   void initState() {
     super.initState();
     notificationController.clearCustomerSupportList();
-    notifications = notificationController.offers;
+    notifications = notificationController.ads;
     // print(
     //     "Line 123 Length: ${notificationController.orderNotificationsList.length}");
     // print(
