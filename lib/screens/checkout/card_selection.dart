@@ -30,6 +30,11 @@ class _CardSelectionScreenState extends State<CardSelectionScreen> {
 
   CartController cartController = Get.put(CartController());
 
+  int getTotalWithTax() {
+    int result = cartController.grandTotal;
+    return (result + (result * 0.07)).toInt();
+  }
+
   onPayClick(BuildContext context) async {
     print("In Card Details : Start");
     int orderNo = DateTime.now().millisecondsSinceEpoch;
@@ -50,7 +55,8 @@ class _CardSelectionScreenState extends State<CardSelectionScreen> {
     var formatter = DateFormat('yyyy-MM-dd');
     String formattedDate = formatter.format(now);
 
-    int total = getTotalWithTax().toInt();
+    int total = getTotalWithTax();
+    print("Line 54 in Card Selection : $total");
 
     var cardDetails = {
       "card_Name": cardsList[selectedCard].cardName,
@@ -85,14 +91,14 @@ class _CardSelectionScreenState extends State<CardSelectionScreen> {
             orderPayment.client_secret,
             PaymentMethodParams.cardFromMethodId(
                 paymentMethodData: PaymentMethodDataCardFromMethod(
-              paymentMethodId: orderPayment.cardID,
+              paymentMethodId: orderPayment.cardId,
             )));
 
         print("In Card Details 98 : stripeResponse ${stripeResponse.status}");
 
         if (stripeResponse.status == PaymentIntentsStatus.Succeeded) {
           var response = await APIService.updateOrder(
-              orderPayment.orderID, stripeResponse.id);
+              orderPayment.orderId, stripeResponse.id);
 
           if (response!) {
             return true;
@@ -134,11 +140,6 @@ class _CardSelectionScreenState extends State<CardSelectionScreen> {
                   )),
           (Route<dynamic> route) => false);
     }
-  }
-
-  double getTotalWithTax() {
-    double result = double.parse(cartController.total);
-    return (result + (result * 0.07));
   }
 
   late List<Card> cardsList;

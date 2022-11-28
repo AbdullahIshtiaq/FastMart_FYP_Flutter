@@ -136,7 +136,8 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                    primary: primaryColor, shape: const StadiumBorder()),
+                    backgroundColor: primaryColor,
+                    shape: const StadiumBorder()),
                 child: _isScanning ? const Text("Stop") : const Text("Scan"),
               ),
             ),
@@ -252,6 +253,7 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
                       productId: product!.productId,
                       productImg: product!.fullImagePath,
                       productName: product!.productName,
+                      categoryId: product!.category!.categoryId,
                       productPrice: product!.productPrice.toString());
 
                   wishlistController.addProductToWishlist(model);
@@ -328,6 +330,7 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
                       productId: product!.productId,
                       productImg: product!.fullImagePath,
                       productName: product!.productName,
+                      categoryId: product!.category!.categoryId,
                       productPrice: product!.productPrice.toString(),
                       qty: 1);
 

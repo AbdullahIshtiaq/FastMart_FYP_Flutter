@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fyp_frontend/models/Notification.dart';
 import 'package:fyp_frontend/screens/checkout/card_selection.dart';
 import 'package:get/get.dart';
 import 'package:fyp_frontend/constants.dart';
@@ -24,10 +23,23 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   bool isCash = false;
 
+  bool isDiscountDone = false;
+
   CartController cartController = Get.put(CartController());
 
-  NotificationController notificationController =
-      Get.put(NotificationController());
+  // NotificationController notificationController =
+  //     Get.put(NotificationController());
+
+  void isDiscount() async {
+    isDiscountDone = await cartController.calculateOffers();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    isDiscount();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +69,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               "Billing Information",
               style: Theme.of(context).textTheme.headline6,
             ),
-            BillingInfo(
-              cartController: cartController,
-            ),
+            (isDiscountDone)
+                ? BillingInfo(
+                    cartController: cartController,
+                  )
+                : const Center(child: CircularProgressIndicator()),
             const SizedBox(height: defaultPadding * 2),
             Text(
               "Payment Methods",
@@ -103,7 +117,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         onPressed: () {
                           setState(() {
                             isCard = !isCard;
-                            isCash = false;
+                            isCash = !false;
                           });
                         },
                       ),
@@ -200,8 +214,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     onTap: () {
                       if (!isClicked) {
                         isClicked = true;
-                        print(isClicked);
-                        //onProceedClick(context, ref);
                         if (isCard) {
                           Navigator.push(
                               context,
@@ -210,6 +222,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     const CardSelectionScreen(),
                               )).then((value) => isClicked = false);
                         } else if (isCash) {
+                          isClicked = false;
                         } else {
                           isClicked = false;
                           Get.snackbar("Please selest payment option.", "",

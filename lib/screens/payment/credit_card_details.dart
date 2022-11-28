@@ -44,6 +44,11 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
 
   CartController cartController = Get.put(CartController());
 
+  int getTotalWithTax() {
+    int result = cartController.grandTotal;
+    return (result + (result * 0.07)).toInt();
+  }
+
   onCreateCard(BuildContext context) async {
     var userDetails = await SharedService.loginDetails();
 
@@ -113,7 +118,7 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
     var formatter = DateFormat('yyyy-MM-dd');
     String formattedDate = formatter.format(now);
 
-    int total = getTotalWithTax().toInt();
+    int total = getTotalWithTax();
 
     var cardDetails = {
       "card_Name": cardName,
@@ -148,14 +153,14 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
             orderPayment.client_secret,
             PaymentMethodParams.cardFromMethodId(
                 paymentMethodData: PaymentMethodDataCardFromMethod(
-              paymentMethodId: orderPayment.cardID,
+              paymentMethodId: orderPayment.cardId,
             )));
 
         print("In Card Details 98 : stripeResponse ${stripeResponse.status}");
 
         if (stripeResponse.status == PaymentIntentsStatus.Succeeded) {
           var response = await APIService.updateOrder(
-              orderPayment.orderID, stripeResponse.id);
+              orderPayment.orderId, stripeResponse.id);
 
           if (response!) {
             return true;
@@ -196,11 +201,6 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
                   )),
           (Route<dynamic> route) => false);
     }
-  }
-
-  double getTotalWithTax() {
-    double result = double.parse(cartController.total);
-    return (result + (result * 0.07));
   }
 
   @override

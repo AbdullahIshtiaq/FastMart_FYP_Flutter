@@ -101,7 +101,7 @@ class _CartScreenState extends State<CartScreen> {
                           builder: (control) =>
                               (cartController.products.isNotEmpty)
                                   ? Text(
-                                      "Rs. ${cartController.total}",
+                                      "Rs. ${cartController.subTotal}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline6!
@@ -134,7 +134,7 @@ class _CartScreenState extends State<CartScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => CheckoutScreen(),
+                                builder: (context) => const CheckoutScreen(),
                               ));
                         } else {
                           Get.snackbar(

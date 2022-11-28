@@ -21,9 +21,9 @@ OrderPayment _$OrderPaymentFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$OrderPayment {
   String get stripeCustomerID => throw _privateConstructorUsedError;
-  String get cardID => throw _privateConstructorUsedError;
-  String get paymentIntentID => throw _privateConstructorUsedError;
-  String get orderID => throw _privateConstructorUsedError;
+  String get cardId => throw _privateConstructorUsedError;
+  String get paymentIntentId => throw _privateConstructorUsedError;
+  String get orderId => throw _privateConstructorUsedError;
   String get client_secret => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,9 +39,9 @@ abstract class $OrderPaymentCopyWith<$Res> {
       _$OrderPaymentCopyWithImpl<$Res>;
   $Res call(
       {String stripeCustomerID,
-      String cardID,
-      String paymentIntentID,
-      String orderID,
+      String cardId,
+      String paymentIntentId,
+      String orderId,
       String client_secret});
 }
 
@@ -56,9 +56,9 @@ class _$OrderPaymentCopyWithImpl<$Res> implements $OrderPaymentCopyWith<$Res> {
   @override
   $Res call({
     Object? stripeCustomerID = freezed,
-    Object? cardID = freezed,
-    Object? paymentIntentID = freezed,
-    Object? orderID = freezed,
+    Object? cardId = freezed,
+    Object? paymentIntentId = freezed,
+    Object? orderId = freezed,
     Object? client_secret = freezed,
   }) {
     return _then(_value.copyWith(
@@ -66,17 +66,17 @@ class _$OrderPaymentCopyWithImpl<$Res> implements $OrderPaymentCopyWith<$Res> {
           ? _value.stripeCustomerID
           : stripeCustomerID // ignore: cast_nullable_to_non_nullable
               as String,
-      cardID: cardID == freezed
-          ? _value.cardID
-          : cardID // ignore: cast_nullable_to_non_nullable
+      cardId: cardId == freezed
+          ? _value.cardId
+          : cardId // ignore: cast_nullable_to_non_nullable
               as String,
-      paymentIntentID: paymentIntentID == freezed
-          ? _value.paymentIntentID
-          : paymentIntentID // ignore: cast_nullable_to_non_nullable
+      paymentIntentId: paymentIntentId == freezed
+          ? _value.paymentIntentId
+          : paymentIntentId // ignore: cast_nullable_to_non_nullable
               as String,
-      orderID: orderID == freezed
-          ? _value.orderID
-          : orderID // ignore: cast_nullable_to_non_nullable
+      orderId: orderId == freezed
+          ? _value.orderId
+          : orderId // ignore: cast_nullable_to_non_nullable
               as String,
       client_secret: client_secret == freezed
           ? _value.client_secret
@@ -95,9 +95,9 @@ abstract class _$$_OrderPaymentCopyWith<$Res>
   @override
   $Res call(
       {String stripeCustomerID,
-      String cardID,
-      String paymentIntentID,
-      String orderID,
+      String cardId,
+      String paymentIntentId,
+      String orderId,
       String client_secret});
 }
 
@@ -115,9 +115,9 @@ class __$$_OrderPaymentCopyWithImpl<$Res>
   @override
   $Res call({
     Object? stripeCustomerID = freezed,
-    Object? cardID = freezed,
-    Object? paymentIntentID = freezed,
-    Object? orderID = freezed,
+    Object? cardId = freezed,
+    Object? paymentIntentId = freezed,
+    Object? orderId = freezed,
     Object? client_secret = freezed,
   }) {
     return _then(_$_OrderPayment(
@@ -125,17 +125,17 @@ class __$$_OrderPaymentCopyWithImpl<$Res>
           ? _value.stripeCustomerID
           : stripeCustomerID // ignore: cast_nullable_to_non_nullable
               as String,
-      cardID: cardID == freezed
-          ? _value.cardID
-          : cardID // ignore: cast_nullable_to_non_nullable
+      cardId: cardId == freezed
+          ? _value.cardId
+          : cardId // ignore: cast_nullable_to_non_nullable
               as String,
-      paymentIntentID: paymentIntentID == freezed
-          ? _value.paymentIntentID
-          : paymentIntentID // ignore: cast_nullable_to_non_nullable
+      paymentIntentId: paymentIntentId == freezed
+          ? _value.paymentIntentId
+          : paymentIntentId // ignore: cast_nullable_to_non_nullable
               as String,
-      orderID: orderID == freezed
-          ? _value.orderID
-          : orderID // ignore: cast_nullable_to_non_nullable
+      orderId: orderId == freezed
+          ? _value.orderId
+          : orderId // ignore: cast_nullable_to_non_nullable
               as String,
       client_secret: client_secret == freezed
           ? _value.client_secret
@@ -150,9 +150,9 @@ class __$$_OrderPaymentCopyWithImpl<$Res>
 class _$_OrderPayment implements _OrderPayment {
   _$_OrderPayment(
       {required this.stripeCustomerID,
-      required this.cardID,
-      required this.paymentIntentID,
-      required this.orderID,
+      required this.cardId,
+      required this.paymentIntentId,
+      required this.orderId,
       required this.client_secret});
 
   factory _$_OrderPayment.fromJson(Map<String, dynamic> json) =>
@@ -161,17 +161,17 @@ class _$_OrderPayment implements _OrderPayment {
   @override
   final String stripeCustomerID;
   @override
-  final String cardID;
+  final String cardId;
   @override
-  final String paymentIntentID;
+  final String paymentIntentId;
   @override
-  final String orderID;
+  final String orderId;
   @override
   final String client_secret;
 
   @override
   String toString() {
-    return 'OrderPayment(stripeCustomerID: $stripeCustomerID, cardID: $cardID, paymentIntentID: $paymentIntentID, orderID: $orderID, client_secret: $client_secret)';
+    return 'OrderPayment(stripeCustomerID: $stripeCustomerID, cardId: $cardId, paymentIntentId: $paymentIntentId, orderId: $orderId, client_secret: $client_secret)';
   }
 
   @override
@@ -181,10 +181,10 @@ class _$_OrderPayment implements _OrderPayment {
             other is _$_OrderPayment &&
             const DeepCollectionEquality()
                 .equals(other.stripeCustomerID, stripeCustomerID) &&
-            const DeepCollectionEquality().equals(other.cardID, cardID) &&
+            const DeepCollectionEquality().equals(other.cardId, cardId) &&
             const DeepCollectionEquality()
-                .equals(other.paymentIntentID, paymentIntentID) &&
-            const DeepCollectionEquality().equals(other.orderID, orderID) &&
+                .equals(other.paymentIntentId, paymentIntentId) &&
+            const DeepCollectionEquality().equals(other.orderId, orderId) &&
             const DeepCollectionEquality()
                 .equals(other.client_secret, client_secret));
   }
@@ -194,9 +194,9 @@ class _$_OrderPayment implements _OrderPayment {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(stripeCustomerID),
-      const DeepCollectionEquality().hash(cardID),
-      const DeepCollectionEquality().hash(paymentIntentID),
-      const DeepCollectionEquality().hash(orderID),
+      const DeepCollectionEquality().hash(cardId),
+      const DeepCollectionEquality().hash(paymentIntentId),
+      const DeepCollectionEquality().hash(orderId),
       const DeepCollectionEquality().hash(client_secret));
 
   @JsonKey(ignore: true)
@@ -215,9 +215,9 @@ class _$_OrderPayment implements _OrderPayment {
 abstract class _OrderPayment implements OrderPayment {
   factory _OrderPayment(
       {required final String stripeCustomerID,
-      required final String cardID,
-      required final String paymentIntentID,
-      required final String orderID,
+      required final String cardId,
+      required final String paymentIntentId,
+      required final String orderId,
       required final String client_secret}) = _$_OrderPayment;
 
   factory _OrderPayment.fromJson(Map<String, dynamic> json) =
@@ -226,11 +226,11 @@ abstract class _OrderPayment implements OrderPayment {
   @override
   String get stripeCustomerID;
   @override
-  String get cardID;
+  String get cardId;
   @override
-  String get paymentIntentID;
+  String get paymentIntentId;
   @override
-  String get orderID;
+  String get orderId;
   @override
   String get client_secret;
   @override

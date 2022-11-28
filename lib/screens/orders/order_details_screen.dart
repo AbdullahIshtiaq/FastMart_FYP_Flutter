@@ -32,6 +32,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
         productName: widget.order.orderProducts[0].productName,
         productImg: widget.order.orderProducts[0].productImg,
         productPrice: widget.order.orderProducts[0].productPrice.toString(),
+        categoryId: widget.order.orderProducts[0].category!.categoryId,
         qty: 1);
     widget.productList.add(obj);
     for (int i = 1; i < widget.order.orderProducts.length; i++) {
@@ -44,6 +45,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             productName: widget.order.orderProducts[i].productName,
             productImg: widget.order.orderProducts[i].productImg,
             productPrice: widget.order.orderProducts[i].productPrice.toString(),
+            categoryId: widget.order.orderProducts[i].category!.categoryId,
             qty: 1);
         widget.productList.add(obj);
         index++;

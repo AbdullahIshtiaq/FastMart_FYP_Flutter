@@ -127,6 +127,7 @@ class _SearchedProductCardState extends State<SearchedProductCard> {
                             productId: product.productId,
                             productImg: product.fullImagePath,
                             productName: product.productName,
+                            categoryId: product.category!.categoryId,
                             productPrice: product.productPrice.toString());
 
                         wishlistController.addProductToWishlist(model);
@@ -164,6 +165,7 @@ class _SearchedProductCardState extends State<SearchedProductCard> {
                             productId: product.productId,
                             productImg: product.productImg,
                             productName: product.productName,
+                            categoryId: product.category!.categoryId,
                             productPrice: product.productPrice.toString(),
                             qty: 1);
 

@@ -11,12 +11,12 @@ class BillingInfo extends StatelessWidget {
   final CartController cartController;
 
   String getTax() {
-    double result = double.parse(cartController.total);
+    int result = cartController.grandTotal;
     return (result * 0.07).toStringAsPrecision(4); // 7% of subtotal
   }
 
   String getTotalWithTax() {
-    double result = double.parse(cartController.total);
+    int result = cartController.grandTotal;
     return (result + (result * 0.07)).toString();
   }
 
@@ -38,7 +38,7 @@ class BillingInfo extends StatelessWidget {
                 style: TextStyle(fontSize: 15),
               ),
               Text(
-                "Rs. ${cartController.total}",
+                "Rs. ${cartController.subTotal}",
                 style: Theme.of(context)
                     .textTheme
                     .headline6!
@@ -81,6 +81,14 @@ class BillingInfo extends StatelessWidget {
                     .copyWith(fontWeight: FontWeight.w500, color: Colors.black),
               ),
             ],
+          ),
+          const SizedBox(height: defaultPadding),
+          Text(
+            cartController.offerAvalied,
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1!
+                .copyWith(fontWeight: FontWeight.w400, color: Colors.black),
           ),
         ],
       ),

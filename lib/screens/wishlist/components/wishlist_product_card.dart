@@ -164,6 +164,7 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
                             productId: product.productId,
                             productImg: product.productImg,
                             productName: product.productName,
+                            categoryId: product.categoryId,
                             productPrice: product.productPrice.toString(),
                             qty: 1);
 

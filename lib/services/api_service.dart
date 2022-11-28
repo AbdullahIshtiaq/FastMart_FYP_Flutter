@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fyp_frontend/models/MyCard.dart';
 import 'package:fyp_frontend/models/MyDemand.dart';
+import 'package:fyp_frontend/models/MyOffer.dart';
 import 'package:fyp_frontend/models/OrderPayment.dart';
 import 'package:http/http.dart' as http;
 import 'package:fyp_frontend/config.dart';
@@ -501,6 +502,29 @@ class APIService {
     } else {
       print("Response 502: Failed");
       return false;
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////
+  //Get Active Offers
+  static Future<List<MyOffer>?> getActiveOffers() async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var url = Uri.http(Config.apiURL, Config.getActiveOffersAPI);
+
+    var response = await client.get(url, headers: requestHeaders);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      // developer.log('log me 139: ${data["data"]}', name: 'my.app.product');
+      // developer.log('log me 140: ${productFromJson(data["data"]).length}',
+      //     name: 'my.app.product');
+      return offerFromJson(data["data"]);
+    } else {
+      print("Response 526: Failed");
+      return null;
     }
   }
 }

@@ -81,6 +81,8 @@ class Config {
 
   static const String addComplaintAPI = "/complaints/complaint";
 
+  static const String getActiveOffersAPI = "/advertisments/activeOffers";
+
   static const int pageSized = 10;
 
   static int selectedIndex = 0;

@@ -118,6 +118,7 @@ class _ToShopListProductCardState extends State<ToShopListProductCard> {
                           productId: widget.product.productId,
                           productImg: widget.product.productImg,
                           productName: widget.product.productName,
+                          categoryId: widget.product.categoryId,
                           productPrice: widget.product.productPrice.toString(),
                           qty: 1);
 

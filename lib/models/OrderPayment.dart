@@ -7,9 +7,9 @@ part 'OrderPayment.g.dart';
 abstract class OrderPayment with _$OrderPayment {
   factory OrderPayment({
     required String stripeCustomerID,
-    required String cardID,
-    required String paymentIntentID,
-    required String orderID,
+    required String cardId,
+    required String paymentIntentId,
+    required String orderId,
     required String client_secret,
   }) = _OrderPayment;
 

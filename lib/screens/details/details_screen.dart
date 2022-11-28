@@ -66,6 +66,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   productId: product.productId,
                   productImg: product.fullImagePath,
                   productName: product.productName,
+                  categoryId: product.category!.categoryId,
                   productPrice: product.productPrice.toString());
 
               wishlistController.addProductToWishlist(model);
@@ -146,6 +147,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               productId: product.productId,
                               productImg: product.fullImagePath,
                               productName: product.productName,
+                              categoryId: product.category!.categoryId,
                               productPrice: product.productPrice.toString(),
                               qty: 1);
 

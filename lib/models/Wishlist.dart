@@ -16,6 +16,7 @@ class WishlistProduct {
     required this.productName,
     required this.productImg,
     required this.productPrice,
+    required this.categoryId,
   });
 
   late final String productBarcode;
@@ -23,6 +24,7 @@ class WishlistProduct {
   late final String productName;
   late final String productImg;
   late final String productPrice;
+  late final String categoryId;
 
   WishlistProduct.fromJson(Map<String, dynamic> json) {
     productBarcode = json['productBarcode'];
@@ -30,6 +32,7 @@ class WishlistProduct {
     productName = json['productName'];
     productImg = json['productImg'];
     productPrice = json['productPrice'];
+    categoryId = json['categoryId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +42,7 @@ class WishlistProduct {
     _data['productName'] = productName;
     _data['productImg'] = productImg;
     _data['productPrice'] = productPrice;
+    _data['categoryId'] = categoryId;
     return _data;
   }
 }
@@ -73,13 +77,7 @@ class WishlistController extends GetxController {
         return;
       }
     }
-    wishlistProducts.add(WishlistProduct(
-      productBarcode: product.productBarcode,
-      productId: product.productId,
-      productImg: product.productImg,
-      productName: product.productName,
-      productPrice: product.productPrice,
-    ));
+    wishlistProducts.add(product);
     update();
   }
 
