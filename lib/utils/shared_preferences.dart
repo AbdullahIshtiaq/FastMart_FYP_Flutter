@@ -166,4 +166,11 @@ class UserSharedPreferences {
       print("Line 165: Demand Notification Deleted");
     }
   }
+
+  static void deleteOrderNotification() {
+    if (_sharedPreferences!.containsKey('orderNotification')) {
+      _sharedPreferences!.remove('orderNotification');
+      print("Line 165: Demand Notification Deleted");
+    }
+  }
 }

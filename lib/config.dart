@@ -65,6 +65,8 @@ class Config {
 
   static const String saveOrderAPI = "/orders/order";
 
+  static const String saveCashOrderAPI = "/orders/orderByCash";
+
   static const String getOrderAPI = "/orders/userOrders";
 
   static const String updateOrderAPI = "/orders/orderUpdate";

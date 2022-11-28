@@ -23,11 +23,13 @@ mixin _$MyOrder {
   String get orderId => throw _privateConstructorUsedError;
   String get orderNo => throw _privateConstructorUsedError;
   String get orderUser => throw _privateConstructorUsedError;
-  List<MyProduct> get orderProducts => throw _privateConstructorUsedError;
+  List<MyProduct>? get orderProducts => throw _privateConstructorUsedError;
   String get paymentMethod => throw _privateConstructorUsedError;
   double get quantity => throw _privateConstructorUsedError;
   double get total => throw _privateConstructorUsedError;
   String get orderDate => throw _privateConstructorUsedError;
+  String get orderTime => throw _privateConstructorUsedError;
+  String get orderStatus => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,11 +44,13 @@ abstract class $MyOrderCopyWith<$Res> {
       {String orderId,
       String orderNo,
       String orderUser,
-      List<MyProduct> orderProducts,
+      List<MyProduct>? orderProducts,
       String paymentMethod,
       double quantity,
       double total,
-      String orderDate});
+      String orderDate,
+      String orderTime,
+      String orderStatus});
 }
 
 /// @nodoc
@@ -67,6 +71,8 @@ class _$MyOrderCopyWithImpl<$Res> implements $MyOrderCopyWith<$Res> {
     Object? quantity = freezed,
     Object? total = freezed,
     Object? orderDate = freezed,
+    Object? orderTime = freezed,
+    Object? orderStatus = freezed,
   }) {
     return _then(_value.copyWith(
       orderId: orderId == freezed
@@ -84,7 +90,7 @@ class _$MyOrderCopyWithImpl<$Res> implements $MyOrderCopyWith<$Res> {
       orderProducts: orderProducts == freezed
           ? _value.orderProducts
           : orderProducts // ignore: cast_nullable_to_non_nullable
-              as List<MyProduct>,
+              as List<MyProduct>?,
       paymentMethod: paymentMethod == freezed
           ? _value.paymentMethod
           : paymentMethod // ignore: cast_nullable_to_non_nullable
@@ -101,6 +107,14 @@ class _$MyOrderCopyWithImpl<$Res> implements $MyOrderCopyWith<$Res> {
           ? _value.orderDate
           : orderDate // ignore: cast_nullable_to_non_nullable
               as String,
+      orderTime: orderTime == freezed
+          ? _value.orderTime
+          : orderTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      orderStatus: orderStatus == freezed
+          ? _value.orderStatus
+          : orderStatus // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -115,11 +129,13 @@ abstract class _$$_MyOrderCopyWith<$Res> implements $MyOrderCopyWith<$Res> {
       {String orderId,
       String orderNo,
       String orderUser,
-      List<MyProduct> orderProducts,
+      List<MyProduct>? orderProducts,
       String paymentMethod,
       double quantity,
       double total,
-      String orderDate});
+      String orderDate,
+      String orderTime,
+      String orderStatus});
 }
 
 /// @nodoc
@@ -141,6 +157,8 @@ class __$$_MyOrderCopyWithImpl<$Res> extends _$MyOrderCopyWithImpl<$Res>
     Object? quantity = freezed,
     Object? total = freezed,
     Object? orderDate = freezed,
+    Object? orderTime = freezed,
+    Object? orderStatus = freezed,
   }) {
     return _then(_$_MyOrder(
       orderId: orderId == freezed
@@ -158,7 +176,7 @@ class __$$_MyOrderCopyWithImpl<$Res> extends _$MyOrderCopyWithImpl<$Res>
       orderProducts: orderProducts == freezed
           ? _value._orderProducts
           : orderProducts // ignore: cast_nullable_to_non_nullable
-              as List<MyProduct>,
+              as List<MyProduct>?,
       paymentMethod: paymentMethod == freezed
           ? _value.paymentMethod
           : paymentMethod // ignore: cast_nullable_to_non_nullable
@@ -175,6 +193,14 @@ class __$$_MyOrderCopyWithImpl<$Res> extends _$MyOrderCopyWithImpl<$Res>
           ? _value.orderDate
           : orderDate // ignore: cast_nullable_to_non_nullable
               as String,
+      orderTime: orderTime == freezed
+          ? _value.orderTime
+          : orderTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      orderStatus: orderStatus == freezed
+          ? _value.orderStatus
+          : orderStatus // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -186,11 +212,13 @@ class _$_MyOrder implements _MyOrder {
       {required this.orderId,
       required this.orderNo,
       required this.orderUser,
-      required final List<MyProduct> orderProducts,
+      required final List<MyProduct>? orderProducts,
       required this.paymentMethod,
       required this.quantity,
       required this.total,
-      required this.orderDate})
+      required this.orderDate,
+      required this.orderTime,
+      required this.orderStatus})
       : _orderProducts = orderProducts;
 
   factory _$_MyOrder.fromJson(Map<String, dynamic> json) =>
@@ -202,11 +230,13 @@ class _$_MyOrder implements _MyOrder {
   final String orderNo;
   @override
   final String orderUser;
-  final List<MyProduct> _orderProducts;
+  final List<MyProduct>? _orderProducts;
   @override
-  List<MyProduct> get orderProducts {
+  List<MyProduct>? get orderProducts {
+    final value = _orderProducts;
+    if (value == null) return null;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_orderProducts);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -217,10 +247,14 @@ class _$_MyOrder implements _MyOrder {
   final double total;
   @override
   final String orderDate;
+  @override
+  final String orderTime;
+  @override
+  final String orderStatus;
 
   @override
   String toString() {
-    return 'MyOrder(orderId: $orderId, orderNo: $orderNo, orderUser: $orderUser, orderProducts: $orderProducts, paymentMethod: $paymentMethod, quantity: $quantity, total: $total, orderDate: $orderDate)';
+    return 'MyOrder(orderId: $orderId, orderNo: $orderNo, orderUser: $orderUser, orderProducts: $orderProducts, paymentMethod: $paymentMethod, quantity: $quantity, total: $total, orderDate: $orderDate, orderTime: $orderTime, orderStatus: $orderStatus)';
   }
 
   @override
@@ -237,7 +271,10 @@ class _$_MyOrder implements _MyOrder {
                 .equals(other.paymentMethod, paymentMethod) &&
             const DeepCollectionEquality().equals(other.quantity, quantity) &&
             const DeepCollectionEquality().equals(other.total, total) &&
-            const DeepCollectionEquality().equals(other.orderDate, orderDate));
+            const DeepCollectionEquality().equals(other.orderDate, orderDate) &&
+            const DeepCollectionEquality().equals(other.orderTime, orderTime) &&
+            const DeepCollectionEquality()
+                .equals(other.orderStatus, orderStatus));
   }
 
   @JsonKey(ignore: true)
@@ -251,7 +288,9 @@ class _$_MyOrder implements _MyOrder {
       const DeepCollectionEquality().hash(paymentMethod),
       const DeepCollectionEquality().hash(quantity),
       const DeepCollectionEquality().hash(total),
-      const DeepCollectionEquality().hash(orderDate));
+      const DeepCollectionEquality().hash(orderDate),
+      const DeepCollectionEquality().hash(orderTime),
+      const DeepCollectionEquality().hash(orderStatus));
 
   @JsonKey(ignore: true)
   @override
@@ -271,11 +310,13 @@ abstract class _MyOrder implements MyOrder {
       {required final String orderId,
       required final String orderNo,
       required final String orderUser,
-      required final List<MyProduct> orderProducts,
+      required final List<MyProduct>? orderProducts,
       required final String paymentMethod,
       required final double quantity,
       required final double total,
-      required final String orderDate}) = _$_MyOrder;
+      required final String orderDate,
+      required final String orderTime,
+      required final String orderStatus}) = _$_MyOrder;
 
   factory _MyOrder.fromJson(Map<String, dynamic> json) = _$_MyOrder.fromJson;
 
@@ -286,7 +327,7 @@ abstract class _MyOrder implements MyOrder {
   @override
   String get orderUser;
   @override
-  List<MyProduct> get orderProducts;
+  List<MyProduct>? get orderProducts;
   @override
   String get paymentMethod;
   @override
@@ -295,6 +336,10 @@ abstract class _MyOrder implements MyOrder {
   double get total;
   @override
   String get orderDate;
+  @override
+  String get orderTime;
+  @override
+  String get orderStatus;
   @override
   @JsonKey(ignore: true)
   _$$_MyOrderCopyWith<_$_MyOrder> get copyWith =>

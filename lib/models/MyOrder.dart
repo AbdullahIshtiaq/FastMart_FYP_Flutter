@@ -14,11 +14,13 @@ abstract class MyOrder with _$MyOrder {
       {required String orderId,
       required String orderNo,
       required String orderUser,
-      required List<MyProduct> orderProducts,
+      required List<MyProduct>? orderProducts,
       required String paymentMethod,
       required double quantity,
       required double total,
-      required String orderDate}) = _MyOrder;
+      required String orderDate,
+      required String orderTime,
+      required String orderStatus}) = _MyOrder;
 
   factory MyOrder.fromJson(Map<String, dynamic> json) =>
       _$MyOrderFromJson(json);

@@ -28,24 +28,25 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   void convert() {
     int index = 0;
     CartProduct obj = CartProduct(
-        productId: widget.order.orderProducts[0].productId,
-        productName: widget.order.orderProducts[0].productName,
-        productImg: widget.order.orderProducts[0].productImg,
-        productPrice: widget.order.orderProducts[0].productPrice.toString(),
-        categoryId: widget.order.orderProducts[0].category!.categoryId,
+        productId: widget.order.orderProducts![0].productId,
+        productName: widget.order.orderProducts![0].productName,
+        productImg: widget.order.orderProducts![0].productImg,
+        productPrice: widget.order.orderProducts![0].productPrice.toString(),
+        categoryId: widget.order.orderProducts![0].category!.categoryId,
         qty: 1);
     widget.productList.add(obj);
-    for (int i = 1; i < widget.order.orderProducts.length; i++) {
-      if (widget.order.orderProducts[i].productId ==
+    for (int i = 1; i < widget.order.orderProducts!.length; i++) {
+      if (widget.order.orderProducts![i].productId ==
           widget.productList[index].productId) {
         widget.productList[index].qty++;
       } else {
         CartProduct obj = CartProduct(
-            productId: widget.order.orderProducts[i].productId,
-            productName: widget.order.orderProducts[i].productName,
-            productImg: widget.order.orderProducts[i].productImg,
-            productPrice: widget.order.orderProducts[i].productPrice.toString(),
-            categoryId: widget.order.orderProducts[i].category!.categoryId,
+            productId: widget.order.orderProducts![i].productId,
+            productName: widget.order.orderProducts![i].productName,
+            productImg: widget.order.orderProducts![i].productImg,
+            productPrice:
+                widget.order.orderProducts![i].productPrice.toString(),
+            categoryId: widget.order.orderProducts![i].category!.categoryId,
             qty: 1);
         widget.productList.add(obj);
         index++;
@@ -137,7 +138,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               style: Theme.of(context).textTheme.headline6,
             ),
             OrderItemImages(
-              productsList: widget.order.orderProducts,
+              productsList: widget.order.orderProducts!,
             ),
             const SizedBox(height: defaultPadding),
             OrderItemsList(

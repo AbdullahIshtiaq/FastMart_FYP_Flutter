@@ -118,6 +118,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     super.initState();
     notificationController.clearCustomerSupportList();
     notifications = notificationController.ads;
+
     // print(
     //     "Line 123 Length: ${notificationController.orderNotificationsList.length}");
     // print(

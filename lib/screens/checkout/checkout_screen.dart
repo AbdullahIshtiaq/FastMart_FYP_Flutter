@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp_frontend/screens/checkout/card_selection.dart';
+import 'package:fyp_frontend/screens/payment/cash_payment_screen.dart';
 import 'package:get/get.dart';
 import 'package:fyp_frontend/constants.dart';
 import '../../models/Cart.dart';
@@ -222,7 +223,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     const CardSelectionScreen(),
                               )).then((value) => isClicked = false);
                         } else if (isCash) {
-                          isClicked = false;
+                          isClicked = true;
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const CashScreen(),
+                              )).then((value) => isClicked = false);
                         } else {
                           isClicked = false;
                           Get.snackbar("Please selest payment option.", "",

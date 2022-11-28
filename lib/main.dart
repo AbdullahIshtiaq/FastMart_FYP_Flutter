@@ -11,6 +11,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fyp_frontend/screens/barcodeScan/barcode_scan_screen.dart';
 import 'package:fyp_frontend/screens/chatbot/chatbot_screen.dart';
 import 'package:fyp_frontend/screens/map/nearby_screen.dart';
+import 'package:fyp_frontend/screens/payment/cash_payment_screen.dart';
 import 'package:fyp_frontend/screens/register/login_screen.dart';
 import 'package:fyp_frontend/services/api_service.dart';
 import 'package:get/get.dart';
@@ -80,7 +81,7 @@ Future<void> main() async {
 
   //////// If Application is on Foreground
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    print('Got a message in the foreground!');
+    print('Got a message in the foreground!}');
     storeNotifications(json.encode(message.data));
     if (message.notification != null) {
       handleForegroundNotification(message);
@@ -155,6 +156,7 @@ void storeNotifications(message) {
           notificationOrderDate: data['orderDate'],
           notificationOrderTime: data['orderTime'],
           notificationTotal: data['orderTotal'],
+          notificationOrderPaymentMethod: data['paymentMethod'],
           notificationMessage: data['message'],
           notificationType: data['notificationType'],
           notificationDateTime: date,

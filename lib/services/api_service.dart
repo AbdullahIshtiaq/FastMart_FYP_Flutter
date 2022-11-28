@@ -156,7 +156,7 @@ class APIService {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      // developer.log('log me 118: ${data}', name: 'my.app.product');
+      developer.log('log me 118: ${data}', name: 'my.app.product');
       // developer.log('log me 119: ${data["data"]}', name: 'my.app.product');
       // developer.log('log me 120: ${productFromJson(data["data"])}',
       //     name: 'my.app.product');
@@ -214,30 +214,6 @@ class APIService {
   }
 
   //////////////////////////////////////////////////////////////////////////
-  // Save Order
-  // static Future<bool> saveOrder(OrderRequestModel model) async {
-  //   Map<String, String> requestHeaders = {
-  //     'Content-Type': 'application/json',
-  //   };
-
-  //   var url = Uri.http(Config.apiURL, Config.saveOrderAPI);
-
-  //   // print("Order 135: " + model.toString());
-
-  //   var response = await client.post(url,
-  //       headers: requestHeaders, body: jsonEncode(model.toJson()));
-
-  //   // print("Order 140: " + response.body.toString());
-  //   if (response.statusCode == 200) {
-  //     //print("Response 142: " + response.body);
-  //     return true;
-  //   } else {
-  //     //print("Response 145: Failed");
-  //     return false;
-  //   }
-  // }
-
-  //////////////////////////////////////////////////////////////////////////
   // Get Orders
   Future<List<MyOrder>?> getOrders(OrderFilterModel orderFilterModel) async {
     //developer.log('log me 213: ', name: 'my.app.API 213');
@@ -265,8 +241,8 @@ class APIService {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       developer.log('log me 237: $data', name: 'my.app.API 237');
-      developer.log('log me 240: ${orderFromJson(data["data"])}',
-          name: 'my.app.API 240');
+      // developer.log('log me 240: ${orderFromJson(data["data"])}',
+      //     name: 'my.app.API 240');
       return orderFromJson(data["data"]);
     } else {
       developer.log('log me 242: ', name: 'my.app.API 242');
@@ -318,6 +294,36 @@ class APIService {
     }
 
     return resModel;
+  }
+
+  //////////////////////////////////////////////////////////////////////////
+  // Save Order By Cash
+
+  static Future<String?> orderByCash(model) async {
+    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+    var url = Uri.http(Config.apiURL, Config.saveCashOrderAPI);
+    var response = await client.post(url,
+        headers: requestHeaders,
+        body: jsonEncode(
+          {
+            "userId": model.orderUser,
+            "orderNo": model.orderNo,
+            "paymentMethod": model.paymentMethod,
+            "orderDate": model.orderDate,
+            "quantity": model.quantity,
+            "total": model.total,
+            "products": model.orderProducts,
+          },
+        ));
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      developer.log('log me : ${data["data"]['orderId']}',
+          name: 'my.app.API 280');
+      return data["data"]['orderId'];
+    } else {
+      developer.log('log me 284: ', name: 'my.app.API 284');
+      return null;
+    }
   }
 
   static Future<bool?> updateOrder(orderId, transactionId) async {

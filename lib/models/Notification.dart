@@ -133,6 +133,7 @@ class OrderNotifications {
     required this.notificationOrderDate,
     required this.notificationOrderTime,
     required this.notificationTotal,
+    required this.notificationOrderPaymentMethod,
     required this.notificationMessage,
     required this.notificationDateTime,
     required this.notificationType,
@@ -143,6 +144,7 @@ class OrderNotifications {
   late final String notificationOrderDate;
   late final String notificationOrderTime;
   late final String notificationTotal;
+  late final String notificationOrderPaymentMethod;
   late final String notificationMessage;
   late final String notificationDateTime;
   late final String notificationType;
@@ -153,6 +155,7 @@ class OrderNotifications {
     notificationOrderDate = json['notificationOrderDate'];
     notificationOrderTime = json['notificationOrderTime'];
     notificationTotal = json['notificationTotal'];
+    notificationOrderPaymentMethod = json['notificationOrderPaymentMethod'];
     notificationMessage = json['notificationMessage'];
     notificationDateTime = json['notificationDateTime'];
     notificationType = json['notificationType'];
@@ -165,6 +168,7 @@ class OrderNotifications {
     _data['notificationOrderDate'] = notificationOrderDate;
     _data['notificationOrderTime'] = notificationOrderTime;
     _data['notificationTotal'] = notificationTotal;
+    _data['notificationOrderPaymentMethod'] = notificationOrderPaymentMethod;
     _data['notificationMessage'] = notificationMessage;
     _data['notificationDateTime'] = notificationDateTime;
     _data['notificationType'] = notificationType;
