@@ -198,6 +198,7 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
           MaterialPageRoute(
               builder: (BuildContext context) => PaymentSuccessfulScreen(
                     cartController: cartController,
+                    order: {"orderNo": orderNo, "orderDate": formattedDate},
                   )),
           (Route<dynamic> route) => false);
     }

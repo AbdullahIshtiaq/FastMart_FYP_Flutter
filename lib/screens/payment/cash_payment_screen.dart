@@ -27,6 +27,8 @@ class _CashScreenState extends State<CashScreen> {
   bool isProcessing = false;
   String? orderId;
   bool isLoading = true;
+  late int orderNo;
+  late String formattedDate;
 
   int getTotalWithTax() {
     int result = cartController.grandTotal;
@@ -45,15 +47,15 @@ class _CashScreenState extends State<CashScreen> {
         context,
         MaterialPageRoute(
             builder: (BuildContext context) => PaymentSuccessfulScreen(
-                  cartController: cartController,
-                )),
+                cartController: cartController,
+                order: {"orderNo": orderNo, "orderDate": formattedDate})),
         (Route<dynamic> route) => false);
   }
 
   saveOrder(BuildContext context) async {
     print("In Cash Payment : Start");
 
-    int orderNo = DateTime.now().millisecondsSinceEpoch;
+    orderNo = DateTime.now().millisecondsSinceEpoch;
     var userDetails = await SharedService.loginDetails();
     String orderProducts = "";
 
@@ -69,7 +71,7 @@ class _CashScreenState extends State<CashScreen> {
 
     var now = DateTime.now();
     var formatter = DateFormat('yyyy-MM-dd');
-    String formattedDate = formatter.format(now);
+    formattedDate = formatter.format(now);
 
     int total = getTotalWithTax();
 

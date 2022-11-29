@@ -136,8 +136,8 @@ class _CardSelectionScreenState extends State<CardSelectionScreen> {
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => PaymentSuccessfulScreen(
-                    cartController: cartController,
-                  )),
+                  cartController: cartController,
+                  order: {"orderNo": orderNo, "orderDate": formattedDate})),
           (Route<dynamic> route) => false);
     }
   }

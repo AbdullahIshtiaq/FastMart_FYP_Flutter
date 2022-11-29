@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fyp_frontend/models/login_response_model.dart';
 import 'package:lottie/lottie.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/main.dart';
@@ -9,17 +10,21 @@ import '../../models/MyPagination.dart';
 import '../../models/OrderFilterModel.dart';
 import '../../providers/myProvider.dart';
 import '../../services/shared_service.dart';
+import '../pdf/pdf_screen.dart';
 
 class PaymentSuccessfulScreen extends ConsumerWidget {
-  const PaymentSuccessfulScreen({Key? key, required this.cartController})
+  PaymentSuccessfulScreen(
+      {Key? key, required this.cartController, required this.order})
       : super(key: key);
 
   final CartController cartController;
+  final order;
+  LoginResponseModel? userDetails;
 
   Future<void> _clearCartData(WidgetRef ref) async {
-    cartController.cartProducts.clear();
+    // cartController.cartProducts.clear();
 
-    var userDetails = await SharedService.loginDetails();
+    userDetails = await SharedService.loginDetails();
     print(userDetails);
 
     OrderFilterModel filterModel = OrderFilterModel(
@@ -80,15 +85,10 @@ class PaymentSuccessfulScreen extends ConsumerWidget {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //       builder: (context) =>
-                          //       const CheckoutScreen(),
-                          //     ));
+                          generateInvoice(cartController, userDetails!, order);
                         },
                         style: ElevatedButton.styleFrom(
-                            primary: primaryColor,
+                            backgroundColor: primaryColor,
                             shape: const StadiumBorder()),
                         child: const Text("Get Your Receipt"),
                       ),

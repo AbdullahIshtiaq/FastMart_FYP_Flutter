@@ -139,6 +139,7 @@ class CartController extends GetxController {
       if (offerList != null) {
         print("Line 134: Offer list is not null");
         for (var item in cartProducts) {
+          isFound = false;
           for (var offer in offerList) {
             if (item.categoryId == offer.categoryId!.categoryId) {
               isFound = true;

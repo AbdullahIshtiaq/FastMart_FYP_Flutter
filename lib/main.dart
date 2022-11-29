@@ -11,7 +11,6 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fyp_frontend/screens/barcodeScan/barcode_scan_screen.dart';
 import 'package:fyp_frontend/screens/chatbot/chatbot_screen.dart';
 import 'package:fyp_frontend/screens/map/nearby_screen.dart';
-import 'package:fyp_frontend/screens/payment/cash_payment_screen.dart';
 import 'package:fyp_frontend/screens/register/login_screen.dart';
 import 'package:fyp_frontend/services/api_service.dart';
 import 'package:get/get.dart';
