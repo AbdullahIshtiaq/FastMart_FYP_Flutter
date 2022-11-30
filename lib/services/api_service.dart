@@ -137,7 +137,7 @@ class APIService {
 
   //////////////////////////////////////////////////////////////////////////
   // Get All Products
-  Future<List<MyProduct>?> getProducts(
+  static Future<List<MyProduct>?> getProducts(
       ProductFilterModel productFilterModel) async {
     Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
 
@@ -156,7 +156,7 @@ class APIService {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      developer.log('log me 118: ${data}', name: 'my.app.product');
+      //developer.log('log me 118: ${data}', name: 'my.app.product');
       // developer.log('log me 119: ${data["data"]}', name: 'my.app.product');
       // developer.log('log me 120: ${productFromJson(data["data"])}',
       //     name: 'my.app.product');

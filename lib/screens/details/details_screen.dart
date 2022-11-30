@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fyp_frontend/screens/details/components/alike_products.dart';
 import 'package:get/get.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/models/Wishlist.dart';
@@ -90,15 +91,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
             padding: const EdgeInsets.all(defaultPadding * 2),
             child: Image.network(
               widget.product.fullImagePath,
-              height: MediaQuery.of(context).size.height * 0.4,
+              height: MediaQuery.of(context).size.height * 0.25,
               //fit: BoxFit.cover,
             ),
           ),
-          // Image.asset(
-          //   widget.product.image,
-          //   height: MediaQuery.of(context).size.height * 0.4,
-          //   fit: BoxFit.cover,
-          // ),
           const SizedBox(height: defaultPadding * 1.5),
           Expanded(
             child: Container(
@@ -136,7 +132,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       widget.product.productShortDesc.toString(),
                     ),
                   ),
-                  const SizedBox(height: defaultPadding * 8),
+                  const SizedBox(height: defaultPadding * 2),
                   Center(
                     child: SizedBox(
                       width: 200,
@@ -188,6 +184,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: defaultPadding * 2),
+                  const Text(
+                    "More product like this",
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  const SizedBox(height: defaultPadding),
+                  AlikeProductsScreen(
+                    categoryId: product.category!.categoryId,
+                  ),
+                  const SizedBox(height: defaultPadding * 2),
                 ],
               ),
             ),

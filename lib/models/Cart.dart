@@ -50,7 +50,7 @@ class CartProduct {
 
 class CartController extends GetxController {
   var cartProducts = [].obs;
-  int _total = 0;
+  int total = 0;
   String offerAvalied = "";
 
   @override
@@ -129,22 +129,23 @@ class CartController extends GetxController {
       .reduce((value, element) => value + element)
       .toString();
 
-  get grandTotal => _total;
+  get grandTotal => total;
 
   Future<bool> calculateOffers() async {
-    _total = 0;
+    total = 0;
     offerAvalied = "";
     bool isFound = false;
     return await APIService.getActiveOffers().then((offerList) {
       if (offerList != null) {
-        print("Line 134: Offer list is not null");
+        print("Line 140: Offer list is not null");
         for (var item in cartProducts) {
+          print("Line 142: Product $cartProducts");
           isFound = false;
           for (var offer in offerList) {
             if (item.categoryId == offer.categoryId!.categoryId) {
               isFound = true;
               print("Line 144: Discount Found");
-              _total += (((double.parse(item.productPrice) -
+              total += (((double.parse(item.productPrice) -
                           (double.parse(item.productPrice) *
                               (offer.discount / 100)))) *
                       item.qty)
@@ -155,10 +156,10 @@ class CartController extends GetxController {
             }
           }
           if (!isFound) {
-            _total += ((double.parse(item.productPrice)) * item.qty).toInt();
+            total += ((double.parse(item.productPrice)) * item.qty).toInt();
           }
         }
-        print("Line 146: Total after is: $_total");
+        print("Line 146: Total after is: $total");
         return true;
       } else {
         return false;

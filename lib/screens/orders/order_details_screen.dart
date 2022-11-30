@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:fyp_frontend/config.dart';
+import 'package:fyp_frontend/models/login_response_model.dart';
 import 'package:get/get.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/models/MyOrder.dart';
 import 'package:fyp_frontend/screens/orders/components/order_items_list.dart';
 import '../../models/Cart.dart';
+import '../../services/shared_service.dart';
+import '../checkout/checkout_screen.dart';
+import '../pdf/pdf_screen.dart';
 import 'components/order_item_images.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
@@ -17,20 +22,37 @@ class OrderDetailsScreen extends StatefulWidget {
 }
 
 class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
+  CartController cartController = Get.put(CartController());
+
   bool changeButton = false;
+  // LoginResponseModel? userDetails;
 
   @override
   void initState() {
-    convert();
     super.initState();
+    convert();
+    //userData();
+  }
+
+  // void userData() async {
+  //   userDetails = await SharedService.loginDetails();
+  // }
+
+  void createCart() {
+    cartController.cartProducts.clear();
+    for (CartProduct product in widget.productList) {
+      cartController.addProductToCart(product);
+    }
   }
 
   void convert() {
+    print("Line 29 In OrderDetailssScreen");
+    print(widget.order);
     int index = 0;
     CartProduct obj = CartProduct(
         productId: widget.order.orderProducts![0].productId,
         productName: widget.order.orderProducts![0].productName,
-        productImg: widget.order.orderProducts![0].productImg,
+        productImg: Config.imgURL + widget.order.orderProducts![0].productImg,
         productPrice: widget.order.orderProducts![0].productPrice.toString(),
         categoryId: widget.order.orderProducts![0].category!.categoryId,
         qty: 1);
@@ -43,7 +65,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
         CartProduct obj = CartProduct(
             productId: widget.order.orderProducts![i].productId,
             productName: widget.order.orderProducts![i].productName,
-            productImg: widget.order.orderProducts![i].productImg,
+            productImg:
+                Config.imgURL + widget.order.orderProducts![i].productImg,
             productPrice:
                 widget.order.orderProducts![i].productPrice.toString(),
             categoryId: widget.order.orderProducts![i].category!.categoryId,
@@ -53,8 +76,6 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
       }
     }
   }
-
-  CartController cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -167,41 +188,45 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             const SizedBox(height: defaultPadding),
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // Center(
+                //   child: SizedBox(
+                //     width: 150,
+                //     height: 50,
+                //     child: ElevatedButton(
+                //       onPressed: () {
+                //         createCart();
+                //         var order = {
+                //           "orderNo": widget.order.orderNo,
+                //           "orderDate": widget.order.orderDate
+                //         };
+                //         cartController.total = widget.order.total.round();
+
+                //         generateInvoice(cartController, userDetails!, order);
+                //       },
+                //       style: ElevatedButton.styleFrom(
+                //           backgroundColor: Colors.white,
+                //           shape: const StadiumBorder()),
+                //       child: const Text(
+                //         "Receipt",
+                //         style: TextStyle(color: Colors.black),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 Center(
                   child: SizedBox(
                     width: 150,
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => const CheckoutScreen(),
-                        //     ));
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: const StadiumBorder()),
-                      child: const Text(
-                        "Receipt",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                ),
-                Center(
-                  child: SizedBox(
-                    width: 150,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => const CheckoutScreen(),
-                        //     ));
+                        createCart();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CheckoutScreen(),
+                            ));
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: primaryColor,

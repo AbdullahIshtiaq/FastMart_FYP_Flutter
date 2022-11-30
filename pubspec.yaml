@@ -60,6 +60,7 @@ dependencies:
   syncfusion_flutter_pdf: ^20.3.59
   open_file: ^3.2.1
   path_provider: ^2.0.11
+  flutter_barcode_scanner: ^2.0.0
 
 dev_dependencies:
   flutter_test:

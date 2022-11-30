@@ -33,7 +33,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   void isDiscount() async {
     isDiscountDone = await cartController.calculateOffers();
-    setState(() {});
+    setState(() {
+      isDiscountDone = isDiscountDone;
+    });
   }
 
   @override

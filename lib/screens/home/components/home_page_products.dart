@@ -66,7 +66,7 @@ class HomePageProducts extends ConsumerWidget {
           );
         }
         //developer.log('log me 63: $productsState', name: 'my.app.Produt 51');
-        return _buildProductList(productsState.products, productsState);
+        return _buildProductList(productsState.products, productsState, ref);
 
         ///Main Screen
       },
@@ -74,7 +74,7 @@ class HomePageProducts extends ConsumerWidget {
   }
 
   Widget _buildProductList(
-      List<MyProduct> productList, ProductsState productsState) {
+      List<MyProduct> productList, ProductsState productsState, WidgetRef ref) {
     return SingleChildScrollView(
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -96,12 +96,38 @@ class HomePageProducts extends ConsumerWidget {
                 price: productList[index].productPrice.toInt(),
                 //bgColor: demo_product[index].bgColor,
                 press: () {
+                  developer.log('log me 99: ',
+                      name: 'my.app.HomeProductsScreen');
+                  // ProductFilterModel filterModel = ProductFilterModel(
+                  //     paginationModel: MyPaginationModel(page: 1, pageSize: 10),
+                  //     categoryId: productList[index].category!.categoryId);
+
+                  // ref
+                  //     .read(productsFilterProvider.notifier)
+                  //     .setProductFilter(filterModel);
+                  // ref.read(productsNotifierProvider.notifier).getProducts();
+
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
                             DetailsScreen(product: productList[index]),
                       ));
+                  //     .then((value) {
+                  //   developer.log('In Then 114',
+                  //       name: 'my.app.HomePageProducts');
+
+                  //   ProductFilterModel filterModel = ProductFilterModel(
+                  //       paginationModel:
+                  //           MyPaginationModel(page: 1, pageSize: 10));
+
+                  //   ref
+                  //       .read(productsFilterProvider.notifier)
+                  //       .setProductFilter(filterModel);
+                  //   ref.read(productsNotifierProvider.notifier).getProducts();
+
+                  //   print("On Back");
+                  // });
                 },
               ),
             ),

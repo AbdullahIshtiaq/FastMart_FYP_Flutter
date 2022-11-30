@@ -23,7 +23,7 @@ class ProductNotifier extends StateNotifier<ProductsState> {
     var filterModel = productFilterModel.copyWith(
         paginationModel: MyPaginationModel(page: page, pageSize: 10));
 
-    final products = await apiService.getProducts(filterModel);
+    final products = await APIService.getProducts(filterModel);
     final newProducts = [...state.products, ...products!];
 
     if (products.length % 10 != 0 || products.isEmpty) {

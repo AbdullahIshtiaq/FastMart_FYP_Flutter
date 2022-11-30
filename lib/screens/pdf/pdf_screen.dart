@@ -57,7 +57,7 @@ PdfLayoutResult drawHeader(PdfPage page, Size pageSize, PdfGrid grid,
       bounds: Rect.fromLTWH(400, 0, pageSize.width - 400, 90),
       brush: PdfSolidBrush(PdfColor(65, 104, 205)));
 
-  page.graphics.drawString(r'Rs' + getTotalWithTax(cartController).toString(),
+  page.graphics.drawString(r'Rs ' + getTotalWithTax(cartController).toString(),
       PdfStandardFont(PdfFontFamily.helvetica, 18),
       bounds: Rect.fromLTWH(400, 0, pageSize.width - 400, 100),
       brush: PdfBrushes.white,

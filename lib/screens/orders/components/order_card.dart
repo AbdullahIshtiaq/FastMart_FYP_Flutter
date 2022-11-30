@@ -90,7 +90,8 @@ class OrderCard extends StatelessWidget {
                             ));
                       },
                       style: ElevatedButton.styleFrom(
-                          primary: primaryColor, shape: const StadiumBorder()),
+                          backgroundColor: primaryColor,
+                          shape: const StadiumBorder()),
                       child: const Text("Details"),
                     ),
                   ),
