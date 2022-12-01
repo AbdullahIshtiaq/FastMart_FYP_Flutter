@@ -18,7 +18,7 @@ abstract class MyProduct with _$MyProduct {
     MyCategory? category,
     required String productShortDesc,
     required double productPrice,
-    double? productSalePrice,
+    double? productRetailPrice,
     required String productImg,
     required String productId,
   }) = _MyProduct;

@@ -6,6 +6,7 @@ class OrderRequestModel {
     required this.paymentMethod,
     required this.orderDate,
     required this.quantity,
+    required this.orderDiscount,
     required this.total,
   });
   late final String orderNo;
@@ -14,6 +15,7 @@ class OrderRequestModel {
   late final String paymentMethod;
   late final String orderDate;
   late final int quantity;
+  late final int orderDiscount;
   late final int total;
 
   OrderRequestModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class OrderRequestModel {
     paymentMethod = json['paymentMethod'];
     orderDate = json['orderDate'];
     quantity = json['quantity'];
+    orderDiscount = json['orderDiscount'];
     total = json['total'];
   }
 
@@ -34,6 +37,7 @@ class OrderRequestModel {
     _data['paymentMethod'] = paymentMethod;
     _data['orderDate'] = orderDate;
     _data['quantity'] = quantity;
+    _data['orderDiscount'] = orderDiscount;
     _data['total'] = total;
     return _data;
   }

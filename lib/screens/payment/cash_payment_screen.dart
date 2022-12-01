@@ -1,7 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp_frontend/constants.dart';
-import 'package:fyp_frontend/models/MyOrder.dart';
 import 'package:fyp_frontend/screens/checkout/components/billing_info.dart';
 import 'package:fyp_frontend/screens/payment/payment_successful_screen.dart';
 import 'package:get/get.dart';
@@ -82,6 +81,7 @@ class _CashScreenState extends State<CashScreen> {
         paymentMethod: "Cash",
         orderDate: formattedDate,
         quantity: totalQty,
+        orderDiscount: cartController.discount,
         total: total);
 
     print("In Cash Payment : Calling API");

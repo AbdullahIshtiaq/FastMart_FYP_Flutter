@@ -73,6 +73,7 @@ class _CardSelectionScreenState extends State<CardSelectionScreen> {
         paymentMethod: "Card",
         orderDate: formattedDate,
         quantity: totalQty,
+        orderDiscount: cartController.discount,
         total: total);
 
     print("In Card Details : Calling API");

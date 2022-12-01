@@ -22,7 +22,7 @@ class PaymentSuccessfulScreen extends ConsumerWidget {
   LoginResponseModel? userDetails;
 
   Future<void> _clearCartData(WidgetRef ref) async {
-    // cartController.cartProducts.clear();
+    //cartController.cartProducts.clear();
 
     userDetails = await SharedService.loginDetails();
     print(userDetails);

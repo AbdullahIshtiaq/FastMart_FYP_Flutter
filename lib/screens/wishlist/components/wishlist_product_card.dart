@@ -67,7 +67,7 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
       result.add(string.substring(0, index));
       string = string.substring(index + separator.length);
     }
-    return "/" + result[3];
+    return "/${result[3]}";
   }
 
   @override
@@ -77,11 +77,13 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
         MyProduct model = MyProduct(
             productBarcode: product.productBarcode,
             productName: product.productName,
-            category:
-                MyCategory(categoryName: "", categoryId: "", categoryImg: ""),
+            category: MyCategory(
+                categoryName: "",
+                categoryId: product.categoryId,
+                categoryImg: ""),
             productShortDesc: "",
             productPrice: (double.parse(product.productPrice)),
-            productSalePrice: 0.0,
+            productRetailPrice: 0.0,
             productImg: splitImgPath(product.productImg, "/", max: 3),
             productId: product.productId);
 

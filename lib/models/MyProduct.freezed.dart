@@ -25,7 +25,7 @@ mixin _$MyProduct {
   MyCategory? get category => throw _privateConstructorUsedError;
   String get productShortDesc => throw _privateConstructorUsedError;
   double get productPrice => throw _privateConstructorUsedError;
-  double? get productSalePrice => throw _privateConstructorUsedError;
+  double? get productRetailPrice => throw _privateConstructorUsedError;
   String get productImg => throw _privateConstructorUsedError;
   String get productId => throw _privateConstructorUsedError;
 
@@ -45,7 +45,7 @@ abstract class $MyProductCopyWith<$Res> {
       MyCategory? category,
       String productShortDesc,
       double productPrice,
-      double? productSalePrice,
+      double? productRetailPrice,
       String productImg,
       String productId});
 
@@ -67,7 +67,7 @@ class _$MyProductCopyWithImpl<$Res> implements $MyProductCopyWith<$Res> {
     Object? category = freezed,
     Object? productShortDesc = freezed,
     Object? productPrice = freezed,
-    Object? productSalePrice = freezed,
+    Object? productRetailPrice = freezed,
     Object? productImg = freezed,
     Object? productId = freezed,
   }) {
@@ -92,9 +92,9 @@ class _$MyProductCopyWithImpl<$Res> implements $MyProductCopyWith<$Res> {
           ? _value.productPrice
           : productPrice // ignore: cast_nullable_to_non_nullable
               as double,
-      productSalePrice: productSalePrice == freezed
-          ? _value.productSalePrice
-          : productSalePrice // ignore: cast_nullable_to_non_nullable
+      productRetailPrice: productRetailPrice == freezed
+          ? _value.productRetailPrice
+          : productRetailPrice // ignore: cast_nullable_to_non_nullable
               as double?,
       productImg: productImg == freezed
           ? _value.productImg
@@ -131,7 +131,7 @@ abstract class _$$_MyProductCopyWith<$Res> implements $MyProductCopyWith<$Res> {
       MyCategory? category,
       String productShortDesc,
       double productPrice,
-      double? productSalePrice,
+      double? productRetailPrice,
       String productImg,
       String productId});
 
@@ -156,7 +156,7 @@ class __$$_MyProductCopyWithImpl<$Res> extends _$MyProductCopyWithImpl<$Res>
     Object? category = freezed,
     Object? productShortDesc = freezed,
     Object? productPrice = freezed,
-    Object? productSalePrice = freezed,
+    Object? productRetailPrice = freezed,
     Object? productImg = freezed,
     Object? productId = freezed,
   }) {
@@ -181,9 +181,9 @@ class __$$_MyProductCopyWithImpl<$Res> extends _$MyProductCopyWithImpl<$Res>
           ? _value.productPrice
           : productPrice // ignore: cast_nullable_to_non_nullable
               as double,
-      productSalePrice: productSalePrice == freezed
-          ? _value.productSalePrice
-          : productSalePrice // ignore: cast_nullable_to_non_nullable
+      productRetailPrice: productRetailPrice == freezed
+          ? _value.productRetailPrice
+          : productRetailPrice // ignore: cast_nullable_to_non_nullable
               as double?,
       productImg: productImg == freezed
           ? _value.productImg
@@ -206,7 +206,7 @@ class _$_MyProduct implements _MyProduct {
       this.category,
       required this.productShortDesc,
       required this.productPrice,
-      this.productSalePrice,
+      this.productRetailPrice,
       required this.productImg,
       required this.productId});
 
@@ -224,7 +224,7 @@ class _$_MyProduct implements _MyProduct {
   @override
   final double productPrice;
   @override
-  final double? productSalePrice;
+  final double? productRetailPrice;
   @override
   final String productImg;
   @override
@@ -232,7 +232,7 @@ class _$_MyProduct implements _MyProduct {
 
   @override
   String toString() {
-    return 'MyProduct(productBarcode: $productBarcode, productName: $productName, category: $category, productShortDesc: $productShortDesc, productPrice: $productPrice, productSalePrice: $productSalePrice, productImg: $productImg, productId: $productId)';
+    return 'MyProduct(productBarcode: $productBarcode, productName: $productName, category: $category, productShortDesc: $productShortDesc, productPrice: $productPrice, productRetailPrice: $productRetailPrice, productImg: $productImg, productId: $productId)';
   }
 
   @override
@@ -250,7 +250,7 @@ class _$_MyProduct implements _MyProduct {
             const DeepCollectionEquality()
                 .equals(other.productPrice, productPrice) &&
             const DeepCollectionEquality()
-                .equals(other.productSalePrice, productSalePrice) &&
+                .equals(other.productRetailPrice, productRetailPrice) &&
             const DeepCollectionEquality()
                 .equals(other.productImg, productImg) &&
             const DeepCollectionEquality().equals(other.productId, productId));
@@ -265,7 +265,7 @@ class _$_MyProduct implements _MyProduct {
       const DeepCollectionEquality().hash(category),
       const DeepCollectionEquality().hash(productShortDesc),
       const DeepCollectionEquality().hash(productPrice),
-      const DeepCollectionEquality().hash(productSalePrice),
+      const DeepCollectionEquality().hash(productRetailPrice),
       const DeepCollectionEquality().hash(productImg),
       const DeepCollectionEquality().hash(productId));
 
@@ -289,7 +289,7 @@ abstract class _MyProduct implements MyProduct {
       final MyCategory? category,
       required final String productShortDesc,
       required final double productPrice,
-      final double? productSalePrice,
+      final double? productRetailPrice,
       required final String productImg,
       required final String productId}) = _$_MyProduct;
 
@@ -307,7 +307,7 @@ abstract class _MyProduct implements MyProduct {
   @override
   double get productPrice;
   @override
-  double? get productSalePrice;
+  double? get productRetailPrice;
   @override
   String get productImg;
   @override

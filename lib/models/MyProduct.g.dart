@@ -14,7 +14,7 @@ _$_MyProduct _$$_MyProductFromJson(Map<String, dynamic> json) => _$_MyProduct(
           : MyCategory.fromJson(json['category'] as Map<String, dynamic>),
       productShortDesc: json['productShortDesc'] as String,
       productPrice: (json['productPrice'] as num).toDouble(),
-      productSalePrice: (json['productSalePrice'] as num?)?.toDouble(),
+      productRetailPrice: (json['productRetailPrice'] as num?)?.toDouble(),
       productImg: json['productImg'] as String,
       productId: json['productId'] as String,
     );
@@ -26,7 +26,7 @@ Map<String, dynamic> _$$_MyProductToJson(_$_MyProduct instance) =>
       'category': instance.category,
       'productShortDesc': instance.productShortDesc,
       'productPrice': instance.productPrice,
-      'productSalePrice': instance.productSalePrice,
+      'productRetailPrice': instance.productRetailPrice,
       'productImg': instance.productImg,
       'productId': instance.productId,
     };

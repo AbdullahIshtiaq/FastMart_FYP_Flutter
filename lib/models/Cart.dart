@@ -51,6 +51,7 @@ class CartProduct {
 class CartController extends GetxController {
   var cartProducts = [].obs;
   int total = 0;
+  int discount = 0;
   String offerAvalied = "";
 
   @override
@@ -106,23 +107,6 @@ class CartController extends GetxController {
     update();
   }
 
-  // get subTotal => cartProducts
-  //     .map((product) => int.parse(product.productPrice) * product.qty)
-  //     .toList();
-
-  // double getTotal() {
-  //   double total = 0;
-  //   for (var item in cartProducts) {
-  //     developer.log('log me 110: $item.productPrice)', name: 'my.app.Total');
-  //     total += ((double.parse(item.productPrice) * item.qty));
-  //   }
-  //   developer.log('log me 112: $total', name: 'my.app.Total');
-  //   print("Line 114: " + total.toString());
-  //   return total;
-  // }
-
-  //get total => getTotal().obs;
-
   get subTotal => cartProducts
       .map((item) => double.parse(item.productPrice) * item.qty)
       .toList()
@@ -131,8 +115,11 @@ class CartController extends GetxController {
 
   get grandTotal => total;
 
+  get discountAmount => discount;
+
   Future<bool> calculateOffers() async {
     total = 0;
+    discount = 0;
     offerAvalied = "";
     bool isFound = false;
     return await APIService.getActiveOffers().then((offerList) {
@@ -145,6 +132,10 @@ class CartController extends GetxController {
             if (item.categoryId == offer.categoryId!.categoryId) {
               isFound = true;
               print("Line 144: Discount Found");
+              discount +=
+                  ((double.parse(item.productPrice) * (offer.discount / 100)) *
+                          item.qty)
+                      .toInt();
               total += (((double.parse(item.productPrice) -
                           (double.parse(item.productPrice) *
                               (offer.discount / 100)))) *

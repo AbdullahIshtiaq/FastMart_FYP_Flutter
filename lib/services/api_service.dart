@@ -274,6 +274,7 @@ class APIService {
             "quantity": model.quantity,
             "total": model.total,
             "products": model.orderProducts,
+            "orderDiscount": model.orderDiscount,
           },
         ));
 
