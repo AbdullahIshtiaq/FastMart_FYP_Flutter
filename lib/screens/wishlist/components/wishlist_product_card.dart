@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fyp_frontend/config.dart';
 import 'package:get/get.dart';
 import 'package:fyp_frontend/models/MyCategory.dart';
 import 'package:fyp_frontend/models/MyProduct.dart';
@@ -112,7 +113,7 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
                   borderRadius:
                       BorderRadius.all(Radius.circular(defaultBorderRadius)),
                 ),
-                child: Image.network(widget.product.productImg),
+                child: Image.network(Config.imgURL + widget.product.productImg),
                 // Image.asset(
                 //   widget.product.image,
                 //   //height: 100,

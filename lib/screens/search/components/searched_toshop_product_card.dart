@@ -114,7 +114,7 @@ class _SearchedToShopProductCardState extends State<SearchedToShopProductCard> {
                                   productBarcode: product.productBarcode,
                                   productId: product.productId,
                                   productName: product.productName,
-                                  productImg: product.fullImagePath,
+                                  productImg: product.productImg,
                                   categoryId: product.category!.categoryId,
                                   productPrice:
                                       product.productPrice.toString());

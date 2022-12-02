@@ -16,7 +16,7 @@ abstract class MyOrder with _$MyOrder {
       required String orderUser,
       required List<MyProduct>? orderProducts,
       required String paymentMethod,
-      required double quantity,
+      required int quantity,
       required double total,
       required String orderDate,
       required String orderTime,

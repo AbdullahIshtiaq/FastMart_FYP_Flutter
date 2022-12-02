@@ -277,7 +277,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
-  final CartController cartController = Get.put(CartController());
+  //final CartController cartController = Get.put(CartController());
 
   //In App Notification
   // showNotification() {
@@ -332,7 +332,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    cartController.cartProducts.clear();
+    //cartController.cartProducts.clear();
   }
 
   @override

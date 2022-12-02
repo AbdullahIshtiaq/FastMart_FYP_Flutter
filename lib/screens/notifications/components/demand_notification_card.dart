@@ -71,12 +71,12 @@ class DemandNotificationCard extends StatelessWidget {
               //mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'ID: ${notification.notificationDemandId}',
-                  style: Theme.of(context).textTheme.bodyText1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: defaultPadding / 2),
+                // Text(
+                //   'ID: ${notification.notificationDemandId}',
+                //   style: Theme.of(context).textTheme.bodyText1,
+                //   overflow: TextOverflow.ellipsis,
+                // ),
+                // const SizedBox(height: defaultPadding / 2),
                 Text(
                   'Message: ${notification.notificationMessage}',
                   style: Theme.of(context).textTheme.bodySmall,

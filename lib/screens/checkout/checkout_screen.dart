@@ -85,6 +85,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                ////// Card Payment
                 Stack(
                   clipBehavior: Clip.none,
                   children: <Widget>[
@@ -120,7 +121,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         onPressed: () {
                           setState(() {
                             isCard = !isCard;
-                            isCash = !false;
+                            isCash = false;
                           });
                         },
                       ),
@@ -145,6 +146,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     ),
                   ],
                 ),
+
+                ////// Cash Payment
                 Stack(
                   clipBehavior: Clip.none,
                   children: <Widget>[

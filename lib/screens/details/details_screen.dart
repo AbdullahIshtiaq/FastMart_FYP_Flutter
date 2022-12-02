@@ -65,7 +65,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               WishlistProduct model = WishlistProduct(
                   productBarcode: product.productBarcode,
                   productId: product.productId,
-                  productImg: product.fullImagePath,
+                  productImg: product.productImg,
                   productName: product.productName,
                   categoryId: product.category!.categoryId,
                   productPrice: product.productPrice.toString());
@@ -141,7 +141,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         onPressed: () {
                           CartProduct model = CartProduct(
                               productId: product.productId,
-                              productImg: product.fullImagePath,
+                              productImg: product.productImg,
                               productName: product.productName,
                               categoryId: product.category!.categoryId,
                               productPrice: product.productPrice.toString(),

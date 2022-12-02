@@ -76,7 +76,7 @@ PdfLayoutResult drawHeader(PdfPage page, Size pageSize, PdfGrid grid,
   //Create data foramt and convert it to text.
   final DateFormat format = DateFormat.yMMMMd('en_US');
   final String invoiceNumber =
-      'Invoice Number: ${order['orderNo']}\r\n\r\nDate: ${order['orderDate']}';
+      'Invoice Number: ${order.orderNo}\r\n\r\nDate: ${order.orderDate}';
   final Size contentSize = contentFont.measureString(invoiceNumber);
   // ignore: leading_newlines_in_multiline_strings
   String address = '''Bill To: ${user.data.username}, 

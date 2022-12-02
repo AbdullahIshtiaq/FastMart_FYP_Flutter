@@ -1,9 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/models/MyCard.dart';
+import 'package:fyp_frontend/models/MyOrder.dart';
 import 'package:fyp_frontend/models/OrderPayment.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -115,7 +118,7 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
     }
 
     var now = DateTime.now();
-    var formatter = DateFormat('yyyy-MM-dd');
+    var formatter = DateFormat('dd/MM/yyyy');
     String formattedDate = formatter.format(now);
 
     int total = getTotalWithTax();
@@ -194,12 +197,26 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
         isloading = false;
       });
 
+      var time = DateFormat('hh:mm:ss a').format(DateTime.now());
+
+      MyOrder myOrder = MyOrder(
+          orderNo: orderNo.toString(),
+          orderUser: userDetails.data.id,
+          orderProducts: null,
+          paymentMethod: "Card",
+          orderDate: formattedDate,
+          quantity: totalQty,
+          total: double.parse(total.toString()),
+          orderId: '',
+          orderStatus: 'Success',
+          orderTime: time);
+
       await Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => PaymentSuccessfulScreen(
                     cartController: cartController,
-                    order: {"orderNo": orderNo, "orderDate": formattedDate},
+                    order: myOrder,
                   )),
           (Route<dynamic> route) => false);
     }

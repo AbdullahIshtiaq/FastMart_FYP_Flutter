@@ -127,8 +127,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var currentIndex = 0;
-
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(color: Colors.black),
@@ -200,7 +198,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         childAspectRatio: (notifications[0].notificationType ==
                                     "Demand" ||
                                 notifications[0].notificationType == "Order")
-                            ? 1.5
+                            ? 1.7
                             : (notifications[0].notificationType == "Offer")
                                 ? 1.7
                                 : 1.5,

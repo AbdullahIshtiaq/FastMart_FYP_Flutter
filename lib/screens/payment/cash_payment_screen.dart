@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 
 import '../../models/Cart.dart';
+import '../../models/MyOrder.dart';
 import '../../models/order_request_model.dart';
 import '../../services/api_service.dart';
 import '../../services/shared_service.dart';
@@ -41,13 +42,24 @@ class _CashScreenState extends State<CashScreen> {
       isProcessing = false;
     });
 
+    MyOrder myOrder = MyOrder(
+        orderNo: orderNo.toString(),
+        orderUser: "",
+        orderProducts: null,
+        paymentMethod: "Cash",
+        orderDate: formattedDate,
+        quantity: 0,
+        total: double.parse("0.0"),
+        orderId: '',
+        orderStatus: 'Success',
+        orderTime: '');
+
     // ignore: use_build_context_synchronously
     await Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
             builder: (BuildContext context) => PaymentSuccessfulScreen(
-                cartController: cartController,
-                order: {"orderNo": orderNo, "orderDate": formattedDate})),
+                cartController: cartController, order: myOrder)),
         (Route<dynamic> route) => false);
   }
 

@@ -14,7 +14,7 @@ _$_MyOrder _$$_MyOrderFromJson(Map<String, dynamic> json) => _$_MyOrder(
           ?.map((e) => MyProduct.fromJson(e as Map<String, dynamic>))
           .toList(),
       paymentMethod: json['paymentMethod'] as String,
-      quantity: (json['quantity'] as num).toDouble(),
+      quantity: json['quantity'] as int,
       total: (json['total'] as num).toDouble(),
       orderDate: json['orderDate'] as String,
       orderTime: json['orderTime'] as String,

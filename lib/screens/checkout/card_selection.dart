@@ -7,6 +7,7 @@ import 'package:fyp_frontend/models/login_response_model.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../models/Cart.dart';
+import '../../models/MyOrder.dart';
 import '../../models/order_request_model.dart';
 import '../../services/api_service.dart';
 import '../../services/shared_service.dart';
@@ -132,13 +133,26 @@ class _CardSelectionScreenState extends State<CardSelectionScreen> {
         isloading = false;
       });
 
+      var time = DateFormat('hh:mm:ss a').format(DateTime.now());
+
+      MyOrder myOrder = MyOrder(
+          orderNo: orderNo.toString(),
+          orderUser: userDetails.data.id,
+          orderProducts: null,
+          paymentMethod: "Card",
+          orderDate: formattedDate,
+          quantity: totalQty,
+          total: double.parse(total.toString()),
+          orderId: '',
+          orderStatus: 'Success',
+          orderTime: time);
+
       // ignore: use_build_context_synchronously
       await Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => PaymentSuccessfulScreen(
-                  cartController: cartController,
-                  order: {"orderNo": orderNo, "orderDate": formattedDate})),
+                  cartController: cartController, order: myOrder)),
           (Route<dynamic> route) => false);
     }
   }

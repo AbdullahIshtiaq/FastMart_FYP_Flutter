@@ -25,7 +25,7 @@ mixin _$MyOrder {
   String get orderUser => throw _privateConstructorUsedError;
   List<MyProduct>? get orderProducts => throw _privateConstructorUsedError;
   String get paymentMethod => throw _privateConstructorUsedError;
-  double get quantity => throw _privateConstructorUsedError;
+  int get quantity => throw _privateConstructorUsedError;
   double get total => throw _privateConstructorUsedError;
   String get orderDate => throw _privateConstructorUsedError;
   String get orderTime => throw _privateConstructorUsedError;
@@ -46,7 +46,7 @@ abstract class $MyOrderCopyWith<$Res> {
       String orderUser,
       List<MyProduct>? orderProducts,
       String paymentMethod,
-      double quantity,
+      int quantity,
       double total,
       String orderDate,
       String orderTime,
@@ -98,7 +98,7 @@ class _$MyOrderCopyWithImpl<$Res> implements $MyOrderCopyWith<$Res> {
       quantity: quantity == freezed
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
       total: total == freezed
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -131,7 +131,7 @@ abstract class _$$_MyOrderCopyWith<$Res> implements $MyOrderCopyWith<$Res> {
       String orderUser,
       List<MyProduct>? orderProducts,
       String paymentMethod,
-      double quantity,
+      int quantity,
       double total,
       String orderDate,
       String orderTime,
@@ -184,7 +184,7 @@ class __$$_MyOrderCopyWithImpl<$Res> extends _$MyOrderCopyWithImpl<$Res>
       quantity: quantity == freezed
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
       total: total == freezed
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -242,7 +242,7 @@ class _$_MyOrder implements _MyOrder {
   @override
   final String paymentMethod;
   @override
-  final double quantity;
+  final int quantity;
   @override
   final double total;
   @override
@@ -312,7 +312,7 @@ abstract class _MyOrder implements MyOrder {
       required final String orderUser,
       required final List<MyProduct>? orderProducts,
       required final String paymentMethod,
-      required final double quantity,
+      required final int quantity,
       required final double total,
       required final String orderDate,
       required final String orderTime,
@@ -331,7 +331,7 @@ abstract class _MyOrder implements MyOrder {
   @override
   String get paymentMethod;
   @override
-  double get quantity;
+  int get quantity;
   @override
   double get total;
   @override

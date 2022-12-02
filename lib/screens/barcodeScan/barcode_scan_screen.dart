@@ -251,7 +251,7 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
                   WishlistProduct model = WishlistProduct(
                       productBarcode: product!.productBarcode,
                       productId: product!.productId,
-                      productImg: product!.fullImagePath,
+                      productImg: product!.productImg,
                       productName: product!.productName,
                       categoryId: product!.category!.categoryId,
                       productPrice: product!.productPrice.toString());
@@ -328,7 +328,7 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
                 onPressed: () {
                   CartProduct model = CartProduct(
                       productId: product!.productId,
-                      productImg: product!.fullImagePath,
+                      productImg: product!.productImg,
                       productName: product!.productName,
                       categoryId: product!.category!.categoryId,
                       productPrice: product!.productPrice.toString(),

@@ -335,9 +335,9 @@ class NotificationController extends GetxController {
     update();
   }
 
-  get offers => offerNotificationsList;
+  get offers => offerNotificationsList.reversed.toList();
 
-  get ads => adNotificationsList;
+  get ads => adNotificationsList.reversed.toList();
 
   customerSupport() {
     customerSupportList.addAll(orderNotificationsList
@@ -345,7 +345,7 @@ class NotificationController extends GetxController {
     customerSupportList.addAll(demandNotificationsList
         .where((item) => demandNotificationsList.every((element) => true)));
 
-    return customerSupportList;
+    return customerSupportList.reversed.toList();
   }
 
   void clearCustomerSupportList() {

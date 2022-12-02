@@ -125,7 +125,7 @@ class _SearchedProductCardState extends State<SearchedProductCard> {
                         WishlistProduct model = WishlistProduct(
                             productBarcode: product.productBarcode,
                             productId: product.productId,
-                            productImg: product.fullImagePath,
+                            productImg: product.productImg,
                             productName: product.productName,
                             categoryId: product.category!.categoryId,
                             productPrice: product.productPrice.toString());
