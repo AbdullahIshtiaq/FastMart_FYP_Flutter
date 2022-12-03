@@ -50,24 +50,23 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await UserSharedPreferences.init();
+  await Firebase.initializeApp();
+
   bool result = await SharedService.isLoggedIn();
 
   if (result) {
     _defaultHome = const MainScreen();
-  }
-
-  await UserSharedPreferences.init();
-  await Firebase.initializeApp();
-
-  FirebaseMessaging.instance.getToken().then((value) {
-    APIService.updateUserToken(value).then((response) {
-      if (response!) {
-        print("Token updated");
-      } else {
-        print("Token update failed");
-      }
+    FirebaseMessaging.instance.getToken().then((value) {
+      APIService.updateUserToken(value).then((response) {
+        if (response!) {
+          print("Token updated");
+        } else {
+          print("Token update failed");
+        }
+      });
     });
-  });
+  }
 
   /// If Application is on Background
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {

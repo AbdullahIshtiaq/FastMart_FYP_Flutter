@@ -105,6 +105,13 @@ class UserSharedPreferences {
     return mapInString;
   }
 
+  static void deleteAdNotification() {
+    if (_sharedPreferences!.containsKey('adNotification')) {
+      _sharedPreferences!.remove('adNotification');
+      print("Line 165: Ad Notification Deleted");
+    }
+  }
+
   ///// Offer Notification
   static Future setOfferNotification(RxList<dynamic> rxList) async {
     var mapInString = jsonEncode(rxList);
@@ -123,6 +130,13 @@ class UserSharedPreferences {
     return mapInString;
   }
 
+  static void deleteOfferNotification() {
+    if (_sharedPreferences!.containsKey('offerNotification')) {
+      _sharedPreferences!.remove('offerNotification');
+      print("Line 165: Offer Notification Deleted");
+    }
+  }
+
   ///// Order Notification
   static Future setOrderNotification(RxList<dynamic> rxList) async {
     var mapInString = jsonEncode(rxList);
@@ -139,6 +153,13 @@ class UserSharedPreferences {
       print("Line 104: GetNotification Not Found");
     }
     return mapInString;
+  }
+
+  static void deleteOrderNotification() {
+    if (_sharedPreferences!.containsKey('orderNotification')) {
+      _sharedPreferences!.remove('orderNotification');
+      print("Line 165: Order Notification Deleted");
+    }
   }
 
   ///// Demand Notification
@@ -163,13 +184,6 @@ class UserSharedPreferences {
   static void deleteDemandNotification() {
     if (_sharedPreferences!.containsKey('demandNotification')) {
       _sharedPreferences!.remove('demandNotification');
-      print("Line 165: Demand Notification Deleted");
-    }
-  }
-
-  static void deleteOrderNotification() {
-    if (_sharedPreferences!.containsKey('orderNotification')) {
-      _sharedPreferences!.remove('orderNotification');
       print("Line 165: Demand Notification Deleted");
     }
   }

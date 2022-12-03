@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fyp_frontend/config.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:fyp_frontend/utils/shared_preferences.dart';
 
@@ -39,7 +40,8 @@ class _CartProductCardState extends State<CartProductCard> {
                 borderRadius:
                     BorderRadius.all(Radius.circular(defaultBorderRadius)),
               ),
-              child: Image.network(widget.cartProduct.productImg),
+              child:
+                  Image.network(Config.imgURL + widget.cartProduct.productImg),
             ),
           ),
           const SizedBox(width: defaultPadding / 2),

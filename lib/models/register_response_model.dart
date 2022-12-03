@@ -1,7 +1,6 @@
-
 import 'dart:convert';
 
-RegisterResponseModel registerResponseModel (String str) =>
+RegisterResponseModel registerResponseModel(String str) =>
     RegisterResponseModel.fromJson(json.decode(str));
 
 class RegisterResponseModel {
@@ -12,9 +11,9 @@ class RegisterResponseModel {
   late final String message;
   late final Data? data;
 
-  RegisterResponseModel.fromJson(Map<String, dynamic> json){
+  RegisterResponseModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']): null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -31,17 +30,23 @@ class Data {
     required this.email,
     required this.date,
     required this.id,
+    required this.phone,
+    required this.city,
   });
   late final String username;
   late final String email;
   late final String date;
   late final String id;
+  late final String phone;
+  late final String city;
 
-  Data.fromJson(Map<String, dynamic> json){
+  Data.fromJson(Map<String, dynamic> json) {
     username = json['username'];
     email = json['email'];
     date = json['date'];
     id = json['id'];
+    phone = json['phone'];
+    city = json['city'];
   }
 
   Map<String, dynamic> toJson() {
@@ -50,6 +55,8 @@ class Data {
     _data['email'] = email;
     _data['date'] = date;
     _data['id'] = id;
+    _data['phone'] = phone;
+    _data['city'] = city;
     return _data;
   }
 }

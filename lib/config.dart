@@ -38,8 +38,8 @@ class Config {
   // static const String imgURL = "http://10.113.62.51:4000";
 
   //Uni
-  // static const String apiURL = "10.113.63.237:4000";
-  // static const String imgURL = "http://10.113.63.237:4000";
+  // static const String apiURL = "10.113.6.10:4000";
+  // static const String imgURL = "http://10.113.6.10:4000";
 
   // LAN
   // static const String apiURL = "192.168.137.1:4000";
@@ -56,6 +56,10 @@ class Config {
   static const String userProfileAPI = "/users/user-profile";
 
   static const String updateUserTokenAPI = "/users/tokenUpdate";
+
+  static const String updateUserImgAPI = "/users/updateProfileImg";
+
+  static const String updateProfileAPI = "/users/updateProfile";
 
   static const String categoryAPI = "/categories/category";
 

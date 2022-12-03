@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fyp_frontend/config.dart';
 import 'package:fyp_frontend/screens/details/components/alike_products.dart';
 import 'package:get/get.dart';
 import 'package:fyp_frontend/constants.dart';
@@ -30,6 +31,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   void initState() {
     super.initState();
     product = widget.product;
+    print(product);
     inCart = checkInCart();
     inWishlist = checkInWishlist();
   }
@@ -62,6 +64,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         actions: [
           IconButton(
             onPressed: () {
+              print(product.productImg);
               WishlistProduct model = WishlistProduct(
                   productBarcode: product.productBarcode,
                   productId: product.productId,
@@ -90,7 +93,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           Padding(
             padding: const EdgeInsets.all(defaultPadding * 2),
             child: Image.network(
-              widget.product.fullImagePath,
+              Config.imgURL + widget.product.productImg,
               height: MediaQuery.of(context).size.height * 0.25,
               //fit: BoxFit.cover,
             ),

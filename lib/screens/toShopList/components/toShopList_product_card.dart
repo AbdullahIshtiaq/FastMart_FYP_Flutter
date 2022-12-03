@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fyp_frontend/config.dart';
 import 'package:get/get.dart';
 import 'package:fyp_frontend/models/Wishlist.dart';
 import '../../../constants.dart';
@@ -64,7 +65,7 @@ class _ToShopListProductCardState extends State<ToShopListProductCard> {
                 borderRadius:
                     BorderRadius.all(Radius.circular(defaultBorderRadius)),
               ),
-              child: Image.network(widget.product.productImg),
+              child: Image.network(Config.imgURL + widget.product.productImg),
             ),
           ),
           const SizedBox(width: defaultPadding / 2),

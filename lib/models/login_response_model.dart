@@ -1,7 +1,6 @@
-
 import 'dart:convert';
 
-LoginResponseModel loginResponseModel (String str) =>
+LoginResponseModel loginResponseModel(String str) =>
     LoginResponseModel.fromJson(json.decode(str));
 
 class LoginResponseModel {
@@ -12,7 +11,7 @@ class LoginResponseModel {
   late final String message;
   late final Data data;
 
-  LoginResponseModel.fromJson(Map<String, dynamic> json){
+  LoginResponseModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     data = Data.fromJson(json['data']);
   }
@@ -30,6 +29,9 @@ class Data {
     required this.username,
     required this.email,
     required this.date,
+    required this.phone,
+    required this.city,
+    required this.userImage,
     required this.id,
     required this.token,
   });
@@ -38,13 +40,19 @@ class Data {
   late final String date;
   late final String id;
   late final String token;
+  late final String phone;
+  late final String city;
+  late final String userImage;
 
-  Data.fromJson(Map<String, dynamic> json){
+  Data.fromJson(Map<String, dynamic> json) {
     username = json['username'];
     email = json['email'];
     date = json['date'];
     id = json['id'];
     token = json['token'];
+    phone = json['phone'];
+    city = json['city'];
+    userImage = json['userImage'];
   }
 
   Map<String, dynamic> toJson() {
@@ -54,6 +62,9 @@ class Data {
     _data['date'] = date;
     _data['id'] = id;
     _data['token'] = token;
+    _data['phone'] = phone;
+    _data['city'] = city;
+    _data['userImage'] = userImage;
     return _data;
   }
 }

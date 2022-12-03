@@ -85,7 +85,7 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
             productShortDesc: "",
             productPrice: (double.parse(product.productPrice)),
             productRetailPrice: 0.0,
-            productImg: splitImgPath(product.productImg, "/", max: 3),
+            productImg: product.productImg,
             productId: product.productId);
 
         Navigator.push(
@@ -131,9 +131,11 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
                     style: const TextStyle(color: Colors.black),
                   ),
                   const SizedBox(height: defaultPadding / 2),
-                  Text(
-                    "Rs. ${widget.product.productPrice}",
-                    style: Theme.of(context).textTheme.subtitle2,
+                  Expanded(
+                    child: Text(
+                      "Rs. ${widget.product.productPrice}",
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
                   ),
                 ],
               ),

@@ -7,6 +7,7 @@ import 'package:fyp_frontend/models/MyCard.dart';
 import 'package:fyp_frontend/screens/payment/credit_card_details.dart';
 import 'package:fyp_frontend/screens/payment/components/card_item.dart';
 
+import '../../config.dart';
 import '../../models/login_response_model.dart';
 import '../../services/api_service.dart';
 import '../../utils/my_colors.dart';
@@ -26,6 +27,7 @@ class _PaymentProfileScreenState extends State<PaymentProfileScreen> {
   late List<MyCard> cardsList;
   bool isLoading = true;
   late final LoginResponseModel userDetails;
+  String userImage = "";
 
   getCards(BuildContext context) async {
     await APIService.getCards(userDetails.data.id.toString())
@@ -88,6 +90,7 @@ class _PaymentProfileScreenState extends State<PaymentProfileScreen> {
   void initState() {
     super.initState();
     userDetails = widget.userDetails!;
+    userImage = userDetails.data.userImage;
     cardsList = [];
     getCards(context);
   }
@@ -128,13 +131,15 @@ class _PaymentProfileScreenState extends State<PaymentProfileScreen> {
                   padding: const EdgeInsets.all(15),
                   child: Row(
                     children: <Widget>[
-                      const CircleAvatar(
+                      CircleAvatar(
                         radius: 30,
                         backgroundColor: MyColors.grey_10,
                         child: CircleAvatar(
                           radius: 28,
-                          backgroundImage:
-                              AssetImage('assets/images/abdullah.png'),
+                          backgroundImage: (userImage == "")
+                              ? const NetworkImage(
+                                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
+                              : NetworkImage(Config.imgURL + userImage),
                         ),
                       ),
                       Container(width: 15),

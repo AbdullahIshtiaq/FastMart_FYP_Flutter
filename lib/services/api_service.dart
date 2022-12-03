@@ -60,6 +60,8 @@ class APIService {
     var response = await client.post(url,
         headers: requestHeaders, body: jsonEncode(model.toJson()));
 
+    print("In register api: ${response.body}");
+
     return registerResponseModel(response.body);
   }
 
@@ -108,6 +110,78 @@ class APIService {
     } else {
       //developer.log('log me 159: ', name: 'my.app.API 159');
       return false;
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////
+  /// Update User Profile
+  static Future<bool?> updateUserProfile(user) async {
+    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+    //LoginResponseModel? details = await SharedService.loginDetails();
+
+    var url = Uri.http(Config.apiURL, Config.updateProfileAPI);
+
+    var response = await client.post(url,
+        headers: requestHeaders,
+        body: jsonEncode(
+          {
+            "userId": user["id"],
+            "username": user["name"],
+            "email": user["email"],
+            "phone": user["phone"],
+            "city": user["city"],
+          },
+        ));
+
+    if (response.statusCode == 200) {
+      developer.log('log me 138: ${response.body}', name: 'my.app.API 155');
+      return true;
+    } else {
+      developer.log('log me 143: ', name: 'my.app.API 159');
+      return false;
+    }
+  }
+
+  //////////////////////////////////////////////////////////
+  /// Update Profile Image
+  static Future<String?> updateUserImage(image, userId) async {
+    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+    //LoginResponseModel? details = await SharedService.loginDetails();
+
+    var url = Uri.http(Config.apiURL, Config.updateUserImgAPI);
+
+    var request = http.MultipartRequest("POST", url);
+
+    request.fields["userId"] = userId;
+
+    var userImg = await http.MultipartFile.fromPath("userImg", image.path);
+
+    request.files.add(userImg);
+    var response = await request.send();
+
+    // var response = await client.post(url,
+    //     headers: requestHeaders,
+    //     body: jsonEncode(
+    //       {
+    //         "userId": userId,
+    //         "userImg": image,
+    //       },
+    //     ));
+
+    if (response.statusCode == 200) {
+      var responseData = await response.stream.toBytes();
+      var responseString = String.fromCharCodes(responseData);
+      var data = jsonDecode(responseString);
+      //developer.log('log me 145: ${data['data']}', name: 'my.app.API 155');
+
+      // developer.log('log me 145: ${data['data']['userImage']}',
+      //     name: 'my.app.API 155');
+      return data['data']['userImage'];
+      // developer.log('log me 198: ${orderFromJson(data["data"])}',
+      //     name: 'my.app.API 155');
+    } else {
+      developer.log('log me 150: ', name: 'my.app.API 159');
+      return null;
     }
   }
 

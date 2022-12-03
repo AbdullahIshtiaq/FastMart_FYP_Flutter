@@ -39,6 +39,10 @@ class SharedService {
     UserSharedPreferences.deleteCartList();
     UserSharedPreferences.deleteWishList();
     UserSharedPreferences.deleteToShopList();
+    UserSharedPreferences.deleteAdNotification();
+    UserSharedPreferences.deleteOfferNotification();
+    UserSharedPreferences.deleteOrderNotification();
+    UserSharedPreferences.deleteDemandNotification();
     // ignore: use_build_context_synchronously
     Navigator.pushAndRemoveUntil(
         context,
