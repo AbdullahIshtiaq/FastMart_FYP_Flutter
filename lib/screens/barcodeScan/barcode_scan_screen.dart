@@ -39,7 +39,6 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -166,7 +165,7 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
-        print("Line 162:" + result!.code.toString());
+        print("Line 162:${result!.code}");
         getProductByQR();
       });
     });
@@ -201,7 +200,7 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
           duration: const Duration(seconds: 1),
         );
 
-        print("Line 144: " + product.toString());
+        print("Line 144: $product");
       });
     } else {
       Get.snackbar(
@@ -293,7 +292,6 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
                     product!.fullImagePath,
                     height: 80,
                     width: 80,
-                    //fit: BoxFit.cover,
                   ),
                 ),
               ),

@@ -118,7 +118,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         height: 40,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: primaryColor,
+                            backgroundColor: primaryColor,
                             shape: const RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(12)),
@@ -146,7 +146,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           Expanded(
-            child: (products.length == 0)
+            child: (products.isEmpty)
                 ? (isAPICalled)
                     ? const Center(
                         child: CircularProgressIndicator(),
@@ -236,10 +236,10 @@ class _SearchScreenState extends State<SearchScreen> {
     print("Line 137: In Middle");
 
     final searchedProducts = await APIService.getProduct(searchController.text);
-    if (searchedProducts != null && searchedProducts.length > 0) {
+    if (searchedProducts != null && searchedProducts.isNotEmpty) {
       print("Line 212: Found");
-      isAPICalled = false;
       setState(() {
+        isAPICalled = false;
         products = searchedProducts;
       });
       Get.snackbar(
@@ -250,7 +250,9 @@ class _SearchScreenState extends State<SearchScreen> {
       );
     } else {
       print("Line 224: Not Found");
-      isAPICalled = false;
+      setState(() {
+        isAPICalled = false;
+      });
       Get.snackbar(
         "Product Not Found Successfully",
         "",

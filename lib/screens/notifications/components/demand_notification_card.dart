@@ -17,13 +17,12 @@ class DemandNotificationCard extends StatelessWidget {
   calcuateTime() {
     var dateTime = DateFormat("yyyy-MM-dd hh:mm:ss")
         .parse(notification.notificationDateTime);
-    // print(dateTime);
+
     DateTime currentDateTime = DateFormat("yyyy-MM-dd hh:mm:ss")
         .parse(DateFormat('yyyy-MM-dd hh:mm:ss').format(DateTime.now()));
 
     var differenceInSce =
         (dateTime.difference(currentDateTime).inSeconds).abs();
-    // print(differenceInSce);
 
     if (differenceInSce < 60) {
       return "$differenceInSce seconds ago";
@@ -49,7 +48,6 @@ class DemandNotificationCard extends StatelessWidget {
           defaultPadding / 2, defaultPadding / 2),
       decoration: const BoxDecoration(
         color: Colors.white,
-        //border: Border.all(color: Colors.white, width: 2),
         borderRadius: BorderRadius.all(Radius.circular(defaultBorderRadius)),
         boxShadow: myBoxShadow,
       ),
@@ -68,15 +66,8 @@ class DemandNotificationCard extends StatelessWidget {
           const SizedBox(width: defaultPadding),
           Expanded(
             child: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Text(
-                //   'ID: ${notification.notificationDemandId}',
-                //   style: Theme.of(context).textTheme.bodyText1,
-                //   overflow: TextOverflow.ellipsis,
-                // ),
-                // const SizedBox(height: defaultPadding / 2),
                 Text(
                   'Message: ${notification.notificationMessage}',
                   style: Theme.of(context).textTheme.bodySmall,

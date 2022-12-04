@@ -99,7 +99,6 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
       child: Container(
         padding: const EdgeInsets.all(defaultPadding / 2),
         decoration: BoxDecoration(
-          //color: Colors.white,
           border: Border.all(color: Colors.white, width: 2),
           borderRadius:
               const BorderRadius.all(Radius.circular(defaultBorderRadius)),
@@ -114,10 +113,6 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
                       BorderRadius.all(Radius.circular(defaultBorderRadius)),
                 ),
                 child: Image.network(Config.imgURL + widget.product.productImg),
-                // Image.asset(
-                //   widget.product.image,
-                //   //height: 100,
-                // ),
               ),
             ),
             const SizedBox(width: defaultPadding / 2),

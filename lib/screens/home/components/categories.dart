@@ -24,9 +24,6 @@ class Categories extends ConsumerWidget {
         MyPaginationModel(page: 1, pageSize: 10),
       ),
     );
-
-    // developer.log('log me 35:  ${categories}', name: 'my.app.category');
-
     return categories.when(
         data: (list) {
           return _buildCategoryList(list!, ref);
@@ -114,7 +111,6 @@ class CategoryCard extends StatelessWidget {
         child: Column(
           children: [
             Expanded(child: Image.network(icon)),
-            //SvgPicture.asset(icon),
             const SizedBox(height: defaultPadding / 2),
             Text(
               title,

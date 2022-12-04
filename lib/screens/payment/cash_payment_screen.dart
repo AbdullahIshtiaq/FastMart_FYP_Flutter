@@ -135,7 +135,6 @@ class _CashScreenState extends State<CashScreen> {
   void initState() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Got a message in the foreground! In Cash Payment');
-      //storeNotifications(json.encode(message.data));
       if (message.data['notificationType'] == 'Order') {
         if (message.data['paymentMethod'] == "Cash") {
           updatePaymentStatus();

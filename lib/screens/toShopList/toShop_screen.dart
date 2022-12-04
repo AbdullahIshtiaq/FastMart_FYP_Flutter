@@ -5,7 +5,11 @@ import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/models/ToShopList.dart';
 import 'package:fyp_frontend/screens/toShopList/components/toShop_card.dart';
 import '../../utils/shared_preferences.dart';
-import 'components/toShop_input_form.dart';
+
+const OutlineInputBorder outlineInputBorder = OutlineInputBorder(
+  borderRadius: BorderRadius.all(Radius.circular(12)),
+  borderSide: BorderSide.none,
+);
 
 class ToShopScreen extends StatefulWidget {
   const ToShopScreen({Key? key}) : super(key: key);
@@ -36,7 +40,7 @@ class _ToShopScreenState extends State<ToShopScreen> {
         child: Column(
           children: [
             Expanded(
-              child: (toShopListController.toShopListProducts.length != 0)
+              child: (toShopListController.toShopListProducts.isNotEmpty)
                   ? GridView.builder(
                       shrinkWrap: true,
                       gridDelegate:
@@ -83,8 +87,7 @@ class _ToShopScreenState extends State<ToShopScreen> {
           onPressed: () {
             Dialog createListDialog = Dialog(
               shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(defaultPadding)), //this right here
+                  borderRadius: BorderRadius.circular(defaultPadding)),
               child: Container(
                 padding: const EdgeInsets.fromLTRB(defaultPadding,
                     defaultPadding * 2, defaultPadding, defaultPadding * 4),

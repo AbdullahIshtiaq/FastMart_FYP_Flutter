@@ -61,6 +61,8 @@ class Config {
 
   static const String updateProfileAPI = "/users/updateProfile";
 
+  static const String changePasswordAPI = "/users/changePassword";
+
   static const String categoryAPI = "/categories/category";
 
   static const String productAPI = "/products/product";

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 
@@ -61,7 +60,6 @@ class _SearchFilterState extends State<SearchFilter> {
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: const TextField(
                 maxLines: 1,
-                //controller: TextEditingController(text: "Shampoo"),
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(-12),
                   border: InputBorder.none,
@@ -127,11 +125,9 @@ class _SearchFilterState extends State<SearchFilter> {
                       rating: myRating,
                       size: 25.0,
                       filledIconData: Icons.star,
-                      //halfFilledIconData: Icons.star_half,
                       color: primaryColor,
                       borderColor: primaryColor,
                       spacing: 0.0),
-                  //const Spacer(),
                   Text(
                     '${myRating.round().toString()}.0',
                     style: Theme.of(context)
@@ -160,7 +156,6 @@ class _SearchFilterState extends State<SearchFilter> {
               margin: const EdgeInsets.symmetric(horizontal: 10),
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
-                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
                     "Min",
@@ -248,7 +243,6 @@ class _SearchFilterState extends State<SearchFilter> {
                   ],
                 )),
             const Spacer(),
-            //const SizedBox(height: 50,),
             Container(
               color: primaryColor,
               width: double.infinity,

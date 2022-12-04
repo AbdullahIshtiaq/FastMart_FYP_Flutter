@@ -66,9 +66,7 @@ class _ToShopCardState extends State<ToShopCard> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ToShopListScreen(
-                          //toShopList: widget.toShopList,
                           index: widget.index,
-                          //toShopListController: widget.toShopListController,
                         ),
                       )).then((value) => {setState(() {})});
                 },

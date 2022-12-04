@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fyp_frontend/models/Notification.dart';
@@ -20,13 +19,11 @@ class AdNotificationCard extends StatelessWidget {
   calcuateTime() {
     var dateTime = DateFormat("yyyy-MM-dd hh:mm:ss")
         .parse(notification.notificationDateTime);
-    // print(dateTime);
     DateTime currentDateTime = DateFormat("yyyy-MM-dd hh:mm:ss")
         .parse(DateFormat('yyyy-MM-dd hh:mm:ss').format(DateTime.now()));
 
     var differenceInSce =
         (dateTime.difference(currentDateTime).inSeconds).abs();
-    // print(differenceInSce);
 
     if (differenceInSce < 60) {
       return "$differenceInSce seconds ago";
@@ -52,7 +49,6 @@ class AdNotificationCard extends StatelessWidget {
       padding: const EdgeInsets.all(defaultPadding),
       decoration: const BoxDecoration(
         color: Colors.white,
-        //border: Border.all(color: Colors.white, width: 2),
         borderRadius: BorderRadius.all(Radius.circular(defaultBorderRadius)),
         boxShadow: myBoxShadow,
       ),
@@ -83,7 +79,6 @@ class AdNotificationCard extends StatelessWidget {
           ),
           const SizedBox(height: defaultPadding / 2),
           Container(
-            //margin: const EdgeInsets.all(5),
             decoration: const BoxDecoration(
               color: Colors.black,
               borderRadius:

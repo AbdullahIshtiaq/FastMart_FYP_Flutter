@@ -185,6 +185,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
                               else
                                 {
+                                  setState(() {
+                                    isAPICalled = false;
+                                  }),
                                   Get.snackbar(
                                     "Wrong Credentials",
                                     "$response",
@@ -193,6 +196,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                   )
                                 }
                             });
+                      } else {
+                        setState(() {
+                          isAPICalled = false;
+                        });
+
+                        Get.snackbar(
+                          "Wrong Credentials",
+                          "Please enter valid credentials",
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: const Duration(seconds: 1),
+                        );
                       }
                     },
                     style: ElevatedButton.styleFrom(

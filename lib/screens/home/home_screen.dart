@@ -6,7 +6,6 @@ import 'package:fyp_frontend/screens/notifications/notification_screen.dart';
 
 import 'components/categories.dart';
 import 'components/home_page_products.dart';
-import 'components/search_filter_form.dart';
 import 'components/search_form.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -50,13 +49,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body:
-          // SingleChildScrollView(
-          //   physics: const BouncingScrollPhysics(
-          //       parent: AlwaysScrollableScrollPhysics()),
-          //   scrollDirection: Axis.vertical,
-          //   child:
-          Padding(
+      body: Padding(
         padding: const EdgeInsets.only(
           left: defaultPadding,
           right: defaultPadding,
@@ -84,8 +77,6 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      // ),
-      endDrawer: const SearchFilter(),
     );
   }
 }

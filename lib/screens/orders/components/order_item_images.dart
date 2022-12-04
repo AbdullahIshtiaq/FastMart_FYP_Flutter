@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fyp_frontend/config.dart';
-import 'package:fyp_frontend/models/Category.dart';
 import 'package:fyp_frontend/models/MyProduct.dart';
 
 import '../../../constants.dart';
@@ -26,12 +24,6 @@ class _OrderItemImagesState extends State<OrderItemImages> {
     filteredList = widget.productsList.toSet().toList();
     filteredList.forEach((f) => print("Order Line 27 ${f.productName}"));
   }
-
-  // filterProducts() {
-  //   filteredList = widget.productsList
-  //       .where((product) => !widget.productsList.contains(product.productId))
-  //       .toList();
-  // }
 
   @override
   Widget build(BuildContext context) {

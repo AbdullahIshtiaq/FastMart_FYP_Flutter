@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp_frontend/models/MyOrder.dart';
 
@@ -17,7 +16,6 @@ class OrderCard extends StatelessWidget {
       padding: const EdgeInsets.all(defaultPadding),
       decoration: const BoxDecoration(
         color: Colors.white,
-        //border: Border.all(color: Colors.white, width: 2),
         borderRadius: BorderRadius.all(Radius.circular(defaultBorderRadius)),
         boxShadow: myBoxShadow,
       ),
@@ -72,8 +70,6 @@ class OrderCard extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: defaultPadding),
-                // Expanded(
-                //   child:
                 Align(
                   alignment: Alignment.bottomRight,
                   child: SizedBox(
@@ -96,7 +92,6 @@ class OrderCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                // ),
               ],
             ),
           ),

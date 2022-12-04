@@ -75,12 +75,10 @@ class _CartProductCardState extends State<CartProductCard> {
                         color: primaryColor,
                       ),
                       onPressed: () {
-                        //setState(() {
                         widget.cartController
                             .minusProductFromCart(widget.cartProduct);
                         UserSharedPreferences.setCartList(
                             widget.cartController.cartProducts);
-                        // });
                       },
                     ),
                     GetBuilder<CartController>(
@@ -96,12 +94,10 @@ class _CartProductCardState extends State<CartProductCard> {
                           color: primaryColor,
                         ),
                         onPressed: () {
-                          // setState(() {
                           widget.cartController
                               .addProductToCart(widget.cartProduct);
                           UserSharedPreferences.setCartList(
                               widget.cartController.cartProducts);
-                          //  });
                         },
                       ),
                     ),

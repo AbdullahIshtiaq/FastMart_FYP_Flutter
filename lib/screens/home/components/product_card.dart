@@ -9,12 +9,10 @@ class ProductCard extends StatelessWidget {
     required this.title,
     required this.price,
     required this.press,
-    //required this.bgColor,
   }) : super(key: key);
   final String image, title;
   final VoidCallback press;
   final int price;
-  //final Color bgColor;
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +25,6 @@ class ProductCard extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(defaultBorderRadius)),
           boxShadow: myBoxShadow,
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.grey.withOpacity(0.5),
-          //     spreadRadius: 1,
-          //     blurRadius: 4,
-          //     offset: const Offset(0, 3), // changes position of shadow
-          //   ),
-          // ],
         ),
         child: Column(
           children: [

@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fyp_frontend/models/MyOrder.dart';
 import 'package:fyp_frontend/models/login_response_model.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/main.dart';
 import '../../config.dart';
 import '../../models/Cart.dart';
-import '../../models/MyPagination.dart';
 import '../../models/Notification.dart';
-import '../../models/OrderFilterModel.dart';
-import '../../providers/myProvider.dart';
 import '../../services/shared_service.dart';
 import '../pdf/pdf_screen.dart';
 
@@ -79,7 +74,6 @@ class _PaymentSuccessfulScreenState extends State<PaymentSuccessfulScreen> {
 
   // In App Notification
   showNotification() {
-    //setState(() {});
     print("Line 85:");
     flutterLocalNotificationsPlugin.show(
       0,

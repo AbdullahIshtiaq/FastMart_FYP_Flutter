@@ -1,14 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/screens/notifications/components/ad_notification_card.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-
 import '../../models/Notification.dart';
-import '../../utils/shared_preferences.dart';
 import 'components/demand_notification_card.dart';
 import 'components/offer_notification_card.dart';
 import 'components/order_notification_card.dart';
@@ -23,93 +18,8 @@ class NotificationScreen extends StatefulWidget {
 class _NotificationScreenState extends State<NotificationScreen> {
   NotificationController notificationController =
       Get.put(NotificationController());
-  late var data;
 
   bool showAds = true;
-
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   final args = ModalRoute.of(context)!.settings.arguments;
-
-  //   if (args != null) {
-  //     Map? pushNotification = args as Map;
-  //     setState(() {
-  //       data = json.decode(pushNotification['message']);
-  //       print("Line 30: ${data['notificationType']}");
-  //       var date = DateFormat('yyyy-MM-dd hh:mm:ss').format(DateTime.now());
-
-  //       if (data['notificationType'] == "Demand") {
-  //         DemandNotifications obj = DemandNotifications(
-  //             notificationDemandId: data['demandId'],
-  //             notificationMessage: data['message'],
-  //             notificationResponse: data['response'],
-  //             notificationType: data['notificationType'],
-  //             notificationDemandProgress: data['demandProgress'],
-  //             notificationDateTime: date,
-  //             notificationDemandCreatedDateTime: data['createdDateTime'],
-  //             isRead: true);
-
-  //         setState(() {
-  //           notificationController.addDemandNotification(obj);
-  //           notifications = notificationController.customerSupportList;
-  //           print("Line 49: ${notifications.length}");
-  //         });
-  //       } else if (data['notificationType'] == "Ad") {
-  //         AdNotifications obj = AdNotifications(
-  //             notificationTitle: data['advertismentTitle'],
-  //             notificationDescription: data['advertismentDesc'],
-  //             notificationCreatedDateTime: data['createdDateTime'],
-  //             notificationAdType: data['advertismentType'],
-  //             notificationImage: data['advertismentAttachment'],
-  //             notificationType: data['notificationType'],
-  //             notificationDateTime: date,
-  //             isRead: true);
-
-  //         setState(() {
-  //           notificationController.addAdNotification(obj);
-  //           notifications = notificationController.ads;
-  //           print("Line 65: ${notifications.length}");
-  //         });
-  //       } else if (data['notificationType'] == "Order") {
-  //         OrderNotifications obj = OrderNotifications(
-  //             notificationOrderNo: data['orderNo'],
-  //             notificationOrderDate: data['orderDate'],
-  //             notificationOrderTime: data['orderTime'],
-  //             notificationTotal: data['orderTotal'],
-  //             notificationMessage: data['message'],
-  //             notificationType: data['notificationType'],
-  //             notificationDateTime: date,
-  //             isRead: true);
-
-  //         setState(() {
-  //           notificationController.addOrderNotification(obj);
-  //           notifications = notificationController.customerSupportList;
-  //           print("Line 81: ${notifications.length}");
-  //         });
-  //       } else if (data['notificationType'] == "Offer") {
-  //         OfferNotifications obj = OfferNotifications(
-  //             notificationTitle: data['advertismentTitle'],
-  //             notificationDescription: data['advertismentDesc'],
-  //             notificationCreatedDateTime: data['createdDateTime'],
-  //             notificationAdType: data['advertismentType'],
-  //             notificationStartDate: data['startDate'],
-  //             notificationEndDate: data['endDate'],
-  //             notificationDiscount: data['discount'],
-  //             notificationCategoryName: data['categoryName'],
-  //             notificationType: data['notificationType'],
-  //             notificationDateTime: date,
-  //             isRead: true);
-
-  //         setState(() {
-  //           notificationController.addOfferNotification(obj);
-  //           notifications = notificationController.offers;
-  //           print("Line 100: ${notifications.length}");
-  //         });
-  //       }
-  //     });
-  //   }
-  // }
 
   late List notifications = [];
 
@@ -118,11 +28,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
     super.initState();
     notificationController.clearCustomerSupportList();
     notifications = notificationController.ads;
-
-    // print(
-    //     "Line 123 Length: ${notificationController.orderNotificationsList.length}");
-    // print(
-    //     "Line 126 Length: ${notificationController.demandNotificationsList.length}");
   }
 
   @override
@@ -148,7 +53,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     setState(() {
                       showAds = true;
                       notifications = notificationController.ads;
-                      print("Line 151: ${notifications.length}");
                     });
                   },
                   child: const Icon(
@@ -162,7 +66,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     setState(() {
                       showAds = false;
                       notifications = notificationController.offers;
-                      print("Line 165: ${notifications.length}");
                     });
                   },
                   child: const Icon(
@@ -177,7 +80,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       showAds = false;
                       notificationController.clearCustomerSupportList();
                       notifications = notificationController.customerSupport();
-                      print("Line 181: ${notifications.length}");
                     });
                   },
                   child: const Icon(

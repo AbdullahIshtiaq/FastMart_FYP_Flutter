@@ -79,10 +79,7 @@ class SearchForm extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    //Scaffold.of(context).openEndDrawer();
-
                     if (isValidate()) {
-                      //searchProduct();
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -119,38 +116,4 @@ class SearchForm extends StatelessWidget {
       return false;
     }
   }
-
-  // Future<void> searchProduct() async {
-  //   print("Line 125: In Start");
-
-  //   if (isAPICalled) {
-  //     return;
-  //   }
-
-  //   isAPICalled = true;
-
-  //   print("Line 137: In Middle");
-
-  //   final apiProduct = await APIService.getProduct(mySearchController.text);
-  //   if (apiProduct != null) {
-  //     isAPICalled = false;
-  //     Get.snackbar(
-  //       "Product Found Successfully",
-  //       "",
-  //       snackPosition: SnackPosition.BOTTOM,
-  //       duration: const Duration(seconds: 1),
-  //     );
-  //   } else {
-  //     isAPICalled = false;
-  //     Get.snackbar(
-  //       "Product Not Found Successfully",
-  //       "",
-  //       snackPosition: SnackPosition.BOTTOM,
-  //       duration: const Duration(seconds: 1),
-  //     );
-  //   }
-
-  //   print("Line 148: In End");
-  //   // _isScanning = false;
-  // }
 }

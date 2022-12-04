@@ -64,7 +64,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              print(product.productImg);
               WishlistProduct model = WishlistProduct(
                   productBarcode: product.productBarcode,
                   productId: product.productId,

@@ -17,7 +17,6 @@ class CheckoutScreen extends StatefulWidget {
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
-  // @override
   bool isClicked = false;
 
   bool isCard = false;
@@ -27,9 +26,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   bool isDiscountDone = false;
 
   CartController cartController = Get.put(CartController());
-
-  // NotificationController notificationController =
-  //     Get.put(NotificationController());
 
   void isDiscount() async {
     isDiscountDone = await cartController.calculateOffers();
@@ -208,7 +204,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 ),
               ],
             ),
-            //const SizedBox(height: defaultPadding * 18),
             const Spacer(),
             Center(
               child: Padding(
@@ -228,7 +223,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     const CardSelectionScreen(),
                               )).then((value) => isClicked = false);
                         } else if (isCash) {
-                          isClicked = true;
                           Navigator.push(
                               context,
                               MaterialPageRoute(

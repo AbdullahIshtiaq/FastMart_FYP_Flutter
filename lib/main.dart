@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:fyp_frontend/models/Cart.dart';
 import 'package:fyp_frontend/screens/barcodeScan/barcode_scan_screen.dart';
 import 'package:fyp_frontend/screens/chatbot/chatbot_screen.dart';
 import 'package:fyp_frontend/screens/map/nearby_screen.dart';
@@ -275,29 +274,6 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-
-  //final CartController cartController = Get.put(CartController());
-
-  //In App Notification
-  // showNotification() {
-  //   setState(() {});
-  //   print("Line 176:");
-  //   flutterLocalNotificationsPlugin.show(
-  //     0,
-  //     'plain title',
-  //     'plain body',
-  //     NotificationDetails(
-  //       android: AndroidNotificationDetails(
-  //         channel.id,
-  //         channel.name,
-  //         channelDescription: channel.description,
-  //         color: Colors.blue,
-  //         playSound: true,
-  //         icon: '@drawable/app_icon',
-  //       ),
-  //     ),
-  //   );
-  // }
 
   openChatBot() {
     setState(() {

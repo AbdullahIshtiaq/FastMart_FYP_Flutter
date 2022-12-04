@@ -51,9 +51,8 @@ class HomePageProducts extends ConsumerWidget {
             }
           }
         });
-        //developer.log('log me 48: $productsState', name: 'my.app.Produt');
+
         if (productsState.products.isEmpty) {
-          // developer.log('log me 52: $productsState', name: 'my.app.Produt 51');
           if (!productsState.hasNext && !productsState.isLoading) {
             return const Center(
               child: Text("No Products"),
@@ -65,10 +64,7 @@ class HomePageProducts extends ConsumerWidget {
             ),
           );
         }
-        //developer.log('log me 63: $productsState', name: 'my.app.Produt 51');
         return _buildProductList(productsState.products, productsState, ref);
-
-        ///Main Screen
       },
     );
   }
@@ -94,18 +90,9 @@ class HomePageProducts extends ConsumerWidget {
                 title: productList[index].productName,
                 image: productList[index].fullImagePath,
                 price: productList[index].productPrice.toInt(),
-                //bgColor: demo_product[index].bgColor,
                 press: () {
                   developer.log('log me 99: ',
                       name: 'my.app.HomeProductsScreen');
-                  // ProductFilterModel filterModel = ProductFilterModel(
-                  //     paginationModel: MyPaginationModel(page: 1, pageSize: 10),
-                  //     categoryId: productList[index].category!.categoryId);
-
-                  // ref
-                  //     .read(productsFilterProvider.notifier)
-                  //     .setProductFilter(filterModel);
-                  // ref.read(productsNotifierProvider.notifier).getProducts();
 
                   Navigator.push(
                       context,
@@ -113,21 +100,6 @@ class HomePageProducts extends ConsumerWidget {
                         builder: (context) =>
                             DetailsScreen(product: productList[index]),
                       ));
-                  //     .then((value) {
-                  //   developer.log('In Then 114',
-                  //       name: 'my.app.HomePageProducts');
-
-                  //   ProductFilterModel filterModel = ProductFilterModel(
-                  //       paginationModel:
-                  //           MyPaginationModel(page: 1, pageSize: 10));
-
-                  //   ref
-                  //       .read(productsFilterProvider.notifier)
-                  //       .setProductFilter(filterModel);
-                  //   ref.read(productsNotifierProvider.notifier).getProducts();
-
-                  //   print("On Back");
-                  // });
                 },
               ),
             ),

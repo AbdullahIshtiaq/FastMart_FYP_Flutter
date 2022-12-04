@@ -50,12 +50,11 @@ class OrdersScreenProducts extends ConsumerWidget {
             }
           }
         });
-        //developer.log('log me 48: $productsState', name: 'my.app.Produt');
 
         developer.log('log me 55: ', name: 'my.app.Order');
         if (ordersState.orders.isEmpty) {
           developer.log('log me 57: Empty', name: 'my.app.Order');
-          // developer.log('log me 52: $productsState', name: 'my.app.Produt 51');
+
           if (!ordersState.hasNext && !ordersState.isLoading) {
             return const Center(
               child: Text("No Orders"),
@@ -67,10 +66,8 @@ class OrdersScreenProducts extends ConsumerWidget {
             ),
           );
         }
-        //developer.log('log me 63: $productsState', name: 'my.app.Produt 51');
-        return _buildOrderList(ordersState.orders, ordersState, context);
 
-        ///Main Screen
+        return _buildOrderList(ordersState.orders, ordersState, context);
       },
     );
   }

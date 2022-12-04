@@ -139,7 +139,7 @@ class _SearchedToShopProductCardState extends State<SearchedToShopProductCard> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                              primary: primaryColor,
+                              backgroundColor: primaryColor,
                               shape: const StadiumBorder()),
                           child: !inList
                               ? const Text(

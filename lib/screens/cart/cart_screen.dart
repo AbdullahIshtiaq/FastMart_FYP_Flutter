@@ -110,7 +110,7 @@ class _CartScreenState extends State<CartScreen> {
                                               color: Colors.black),
                                     )
                                   : Text(
-                                      "\Rs. 0",
+                                      "Rs. 0",
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline6!

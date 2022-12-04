@@ -9,13 +9,10 @@ import '../search/search_screen.dart';
 class ToShopListScreen extends StatefulWidget {
   const ToShopListScreen({
     Key? key,
-    //required this.toShopList,
     required this.index,
   }) : super(key: key);
 
-  //final ToShopList toShopList;
   final int index;
-
   @override
   State<ToShopListScreen> createState() => _ToShopListScreenState();
 }
@@ -64,20 +61,6 @@ class _ToShopListScreenState extends State<ToShopListScreen> {
                         toShopListController: toShopListController,
                       ),
                     )).then((value) => {setState(() {})});
-
-                // Dialog createListDialog = Dialog(
-                //   shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.circular(
-                //           defaultPadding)), //this right here
-                //   child: Container(
-                //     padding: const EdgeInsets.fromLTRB(defaultPadding,
-                //         defaultPadding * 2, defaultPadding, defaultPadding * 4),
-                //     child: const DialogBoxContent(),
-                //   ),
-                // );
-                // showDialog(
-                //     context: context,
-                //     builder: (BuildContext context) => createListDialog);
               },
               icon: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0),

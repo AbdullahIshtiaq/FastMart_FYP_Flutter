@@ -64,7 +64,6 @@ class CategoryPageProducts extends ConsumerWidget {
         children: [
           GridView.builder(
             shrinkWrap: true,
-            //controller: _scrollController,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
             ),
@@ -75,7 +74,6 @@ class CategoryPageProducts extends ConsumerWidget {
                 title: productList[index].productName,
                 image: productList[index].fullImagePath,
                 price: productList[index].productPrice.toInt(),
-                //bgColor: demo_product[index].bgColor,
                 press: () {
                   Navigator.push(
                       context,

@@ -377,6 +377,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   }
                                 else
                                   {
+                                    setState(() {
+                                      isAPICalled = false;
+                                    }),
                                     Get.snackbar(
                                       "Wrong Credentials",
                                       response.message,
@@ -386,6 +389,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   }
                               });
                         } else {
+                          setState(() {
+                            isAPICalled = false;
+                          });
                           Get.snackbar(
                             "Wrong Information",
                             "Please fill all the fields",

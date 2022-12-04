@@ -114,8 +114,6 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {
-                            print(myMessageController.text);
-                            print(isAPICalled);
                             if ((myMessageController.text.isNotEmpty &&
                                     myMessageController.text != "") &&
                                 !isAPICalled) {

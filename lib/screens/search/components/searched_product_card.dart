@@ -74,7 +74,6 @@ class _SearchedProductCardState extends State<SearchedProductCard> {
       child: Container(
         padding: const EdgeInsets.all(defaultPadding / 2),
         decoration: BoxDecoration(
-          //color: Colors.white,
           border: Border.all(color: Colors.white, width: 2),
           borderRadius:
               const BorderRadius.all(Radius.circular(defaultBorderRadius)),

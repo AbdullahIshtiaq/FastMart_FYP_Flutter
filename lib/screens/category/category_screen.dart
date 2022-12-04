@@ -18,13 +18,6 @@ class CategoryScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return WillPopScope(
       onWillPop: () async {
-        // ProductFilterModel filterModel = ProductFilterModel(
-        //     paginationModel: MyPaginationModel(page: 1, pageSize: 10));
-        //
-        // ref.read(productsFilterProvider.notifier).setProductFilter(filterModel);
-        // ref.read(productsNotifierProvider.notifier).getProducts();
-        // ref.watch(productsNotifierProvider);
-        // print("On Back");
         return true;
       },
       child: Scaffold(

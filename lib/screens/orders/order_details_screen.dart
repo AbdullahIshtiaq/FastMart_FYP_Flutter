@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fyp_frontend/config.dart';
-import 'package:fyp_frontend/models/login_response_model.dart';
 import 'package:get/get.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/models/MyOrder.dart';
 import 'package:fyp_frontend/screens/orders/components/order_items_list.dart';
 import '../../models/Cart.dart';
-import '../../services/shared_service.dart';
 import '../checkout/checkout_screen.dart';
-import '../pdf/pdf_screen.dart';
 import 'components/order_item_images.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
@@ -25,18 +22,12 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   CartController cartController = Get.put(CartController());
 
   bool changeButton = false;
-  // LoginResponseModel? userDetails;
 
   @override
   void initState() {
     super.initState();
     convert();
-    //userData();
   }
-
-  // void userData() async {
-  //   userDetails = await SharedService.loginDetails();
-  // }
 
   void createCart() {
     cartController.cartProducts.clear();
@@ -47,7 +38,6 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
   void convert() {
     print("Line 29 In OrderDetailssScreen");
-    print(widget.order);
     int index = 0;
     CartProduct obj = CartProduct(
         productId: widget.order.orderProducts![0].productId,
@@ -152,7 +142,6 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               color: Colors.grey,
             ),
             const SizedBox(height: defaultPadding),
-            //BillingInfo(cartController: cartController,),
             const SizedBox(height: defaultPadding * 2),
             Text(
               "Items",
@@ -186,35 +175,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               ],
             ),
             const SizedBox(height: defaultPadding),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Center(
-                //   child: SizedBox(
-                //     width: 150,
-                //     height: 50,
-                //     child: ElevatedButton(
-                //       onPressed: () {
-                //         createCart();
-                //         var order = {
-                //           "orderNo": widget.order.orderNo,
-                //           "orderDate": widget.order.orderDate
-                //         };
-                //         cartController.total = widget.order.total.round();
-
-                //         generateInvoice(cartController, userDetails!, order);
-                //       },
-                //       style: ElevatedButton.styleFrom(
-                //           backgroundColor: Colors.white,
-                //           shape: const StadiumBorder()),
-                //       child: const Text(
-                //         "Receipt",
-                //         style: TextStyle(color: Colors.black),
-                //       ),
-                //     ),
-                //   ),
-                // ),
                 Center(
                   child: SizedBox(
                     width: 150,

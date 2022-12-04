@@ -159,15 +159,6 @@ class APIService {
     request.files.add(userImg);
     var response = await request.send();
 
-    // var response = await client.post(url,
-    //     headers: requestHeaders,
-    //     body: jsonEncode(
-    //       {
-    //         "userId": userId,
-    //         "userImg": image,
-    //       },
-    //     ));
-
     if (response.statusCode == 200) {
       var responseData = await response.stream.toBytes();
       var responseString = String.fromCharCodes(responseData);
@@ -182,6 +173,34 @@ class APIService {
     } else {
       developer.log('log me 150: ', name: 'my.app.API 159');
       return null;
+    }
+  }
+
+  //////////////////////////////////////////////////////////
+  /// Change Password
+  static Future<bool?> changePassword(var model) async {
+    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+
+    var url = Uri.http(Config.apiURL, Config.changePasswordAPI);
+
+    var response = await client.post(url,
+        headers: requestHeaders,
+        body: jsonEncode(
+          {
+            "userId": model["userId"],
+            "oldPassword": model["oldPassword"],
+            "newPassword": model["newPassword"],
+          },
+        ));
+
+    if (response.statusCode == 200) {
+      developer.log('log me 206: In true', name: 'my.app.API 155');
+      return true;
+      // developer.log('log me 198: ${orderFromJson(data["data"])}',
+      //     name: 'my.app.API 155');
+    } else {
+      developer.log('log me 211: In false', name: 'my.app.API 159');
+      return false;
     }
   }
 

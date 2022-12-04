@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fyp_frontend/screens/settings/change_password_screen.dart';
 import 'package:fyp_frontend/screens/settings/update_profile_screen.dart';
 import '../../utils/my_colors.dart';
 import '../../utils/my_text.dart';
@@ -7,7 +8,7 @@ class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
 
   @override
-  _SettingScreenState createState() => _SettingScreenState();
+  State<SettingScreen> createState() => _SettingScreenState();
 }
 
 class _SettingScreenState extends State<SettingScreen> {
@@ -54,7 +55,13 @@ class _SettingScreenState extends State<SettingScreen> {
           const Divider(height: 0),
           Container(height: 20),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ChangePasswordScreen(),
+                  ));
+            },
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
               child: Column(
