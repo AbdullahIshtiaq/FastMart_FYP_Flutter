@@ -151,7 +151,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         ),
                         const SizedBox(height: defaultPadding),
                         Text(
-                          "Phone",
+                          "Comfirm Password",
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                         const SizedBox(height: defaultPadding),
