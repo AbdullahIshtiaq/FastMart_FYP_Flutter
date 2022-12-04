@@ -52,6 +52,7 @@ class _AlikeProductsScreenState extends State<AlikeProductsScreen> {
                   title: productList[index].productName,
                   image: productList[index].fullImagePath,
                   price: productList[index].productPrice.toInt(),
+                  stockStatus: productList[index].stockStatus,
                   press: () {},
                 ),
               ),

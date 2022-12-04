@@ -28,6 +28,7 @@ mixin _$MyProduct {
   double? get productRetailPrice => throw _privateConstructorUsedError;
   String get productImg => throw _privateConstructorUsedError;
   String get productId => throw _privateConstructorUsedError;
+  String get stockStatus => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,7 +48,8 @@ abstract class $MyProductCopyWith<$Res> {
       double productPrice,
       double? productRetailPrice,
       String productImg,
-      String productId});
+      String productId,
+      String stockStatus});
 
   $MyCategoryCopyWith<$Res>? get category;
 }
@@ -70,6 +72,7 @@ class _$MyProductCopyWithImpl<$Res> implements $MyProductCopyWith<$Res> {
     Object? productRetailPrice = freezed,
     Object? productImg = freezed,
     Object? productId = freezed,
+    Object? stockStatus = freezed,
   }) {
     return _then(_value.copyWith(
       productBarcode: productBarcode == freezed
@@ -104,6 +107,10 @@ class _$MyProductCopyWithImpl<$Res> implements $MyProductCopyWith<$Res> {
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
               as String,
+      stockStatus: stockStatus == freezed
+          ? _value.stockStatus
+          : stockStatus // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 
@@ -133,7 +140,8 @@ abstract class _$$_MyProductCopyWith<$Res> implements $MyProductCopyWith<$Res> {
       double productPrice,
       double? productRetailPrice,
       String productImg,
-      String productId});
+      String productId,
+      String stockStatus});
 
   @override
   $MyCategoryCopyWith<$Res>? get category;
@@ -159,6 +167,7 @@ class __$$_MyProductCopyWithImpl<$Res> extends _$MyProductCopyWithImpl<$Res>
     Object? productRetailPrice = freezed,
     Object? productImg = freezed,
     Object? productId = freezed,
+    Object? stockStatus = freezed,
   }) {
     return _then(_$_MyProduct(
       productBarcode: productBarcode == freezed
@@ -193,6 +202,10 @@ class __$$_MyProductCopyWithImpl<$Res> extends _$MyProductCopyWithImpl<$Res>
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
               as String,
+      stockStatus: stockStatus == freezed
+          ? _value.stockStatus
+          : stockStatus // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -208,7 +221,8 @@ class _$_MyProduct implements _MyProduct {
       required this.productPrice,
       this.productRetailPrice,
       required this.productImg,
-      required this.productId});
+      required this.productId,
+      required this.stockStatus});
 
   factory _$_MyProduct.fromJson(Map<String, dynamic> json) =>
       _$$_MyProductFromJson(json);
@@ -229,10 +243,12 @@ class _$_MyProduct implements _MyProduct {
   final String productImg;
   @override
   final String productId;
+  @override
+  final String stockStatus;
 
   @override
   String toString() {
-    return 'MyProduct(productBarcode: $productBarcode, productName: $productName, category: $category, productShortDesc: $productShortDesc, productPrice: $productPrice, productRetailPrice: $productRetailPrice, productImg: $productImg, productId: $productId)';
+    return 'MyProduct(productBarcode: $productBarcode, productName: $productName, category: $category, productShortDesc: $productShortDesc, productPrice: $productPrice, productRetailPrice: $productRetailPrice, productImg: $productImg, productId: $productId, stockStatus: $stockStatus)';
   }
 
   @override
@@ -253,7 +269,9 @@ class _$_MyProduct implements _MyProduct {
                 .equals(other.productRetailPrice, productRetailPrice) &&
             const DeepCollectionEquality()
                 .equals(other.productImg, productImg) &&
-            const DeepCollectionEquality().equals(other.productId, productId));
+            const DeepCollectionEquality().equals(other.productId, productId) &&
+            const DeepCollectionEquality()
+                .equals(other.stockStatus, stockStatus));
   }
 
   @JsonKey(ignore: true)
@@ -267,7 +285,8 @@ class _$_MyProduct implements _MyProduct {
       const DeepCollectionEquality().hash(productPrice),
       const DeepCollectionEquality().hash(productRetailPrice),
       const DeepCollectionEquality().hash(productImg),
-      const DeepCollectionEquality().hash(productId));
+      const DeepCollectionEquality().hash(productId),
+      const DeepCollectionEquality().hash(stockStatus));
 
   @JsonKey(ignore: true)
   @override
@@ -291,7 +310,8 @@ abstract class _MyProduct implements MyProduct {
       required final double productPrice,
       final double? productRetailPrice,
       required final String productImg,
-      required final String productId}) = _$_MyProduct;
+      required final String productId,
+      required final String stockStatus}) = _$_MyProduct;
 
   factory _MyProduct.fromJson(Map<String, dynamic> json) =
       _$_MyProduct.fromJson;
@@ -312,6 +332,8 @@ abstract class _MyProduct implements MyProduct {
   String get productImg;
   @override
   String get productId;
+  @override
+  String get stockStatus;
   @override
   @JsonKey(ignore: true)
   _$$_MyProductCopyWith<_$_MyProduct> get copyWith =>

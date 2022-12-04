@@ -21,6 +21,7 @@ abstract class MyProduct with _$MyProduct {
     double? productRetailPrice,
     required String productImg,
     required String productId,
+    required String stockStatus,
   }) = _MyProduct;
 
   factory MyProduct.fromJson(Map<String, dynamic> json) =>

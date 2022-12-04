@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/models/Wishlist.dart';
+import '../../utils/my_text.dart';
 import 'components/wishlist_product_card.dart';
 
 class WishlistScreen extends StatefulWidget {
@@ -51,14 +53,21 @@ class _WishlistScreenState extends State<WishlistScreen> {
                         scrollDirection: Axis.vertical,
                       )
                     : Center(
-                        child: Text(
-                          "Wishlist is Empty",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black),
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 50),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(CupertinoIcons.heart_fill,
+                                  size: 100, color: Colors.grey[300]),
+                              Container(height: 15),
+                              Text("Wishlist is empty",
+                                  style: MyText.title(context)!.copyWith(
+                                      color: Colors.grey[800],
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
                         ),
                       ),
               ),

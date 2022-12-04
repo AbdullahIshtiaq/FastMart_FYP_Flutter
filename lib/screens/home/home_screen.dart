@@ -1,15 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp_frontend/constants.dart';
+import 'package:fyp_frontend/models/Cart.dart';
 import 'package:fyp_frontend/screens/cart/cart_screen.dart';
 import 'package:fyp_frontend/screens/notifications/notification_screen.dart';
+import 'package:get/get.dart';
 
 import 'components/categories.dart';
 import 'components/home_page_products.dart';
 import 'components/search_form.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  CartController cartController = Get.put(CartController());
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +49,16 @@ class HomeScreen extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: const Icon(
-              CupertinoIcons.cart_fill,
-              color: Colors.grey,
+            icon: Obx(
+              () => (cartController.cartProducts.isNotEmpty)
+                  ? const Icon(
+                      CupertinoIcons.cart_fill,
+                      color: primaryColor,
+                    )
+                  : const Icon(
+                      Icons.production_quantity_limits,
+                      color: Colors.grey,
+                    ),
             ),
             onPressed: () {
               Navigator.push(

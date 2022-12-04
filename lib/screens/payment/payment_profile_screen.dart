@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyp_frontend/constants.dart';
@@ -213,14 +214,21 @@ class _PaymentProfileScreenState extends State<PaymentProfileScreen> {
                         scrollDirection: Axis.vertical,
                       )
                     : Center(
-                        child: Text(
-                          "No Cards Found",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black),
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 150),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(CupertinoIcons.creditcard_fill,
+                                  size: 100, color: Colors.grey[300]),
+                              Container(height: 15),
+                              Text("No Card Found",
+                                  style: MyText.title(context)!.copyWith(
+                                      color: Colors.grey[800],
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
                         ),
                       ),
           ),

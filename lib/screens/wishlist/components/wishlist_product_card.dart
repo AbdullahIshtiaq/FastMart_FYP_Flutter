@@ -86,7 +86,8 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
             productPrice: (double.parse(product.productPrice)),
             productRetailPrice: 0.0,
             productImg: product.productImg,
-            productId: product.productId);
+            productId: product.productId,
+            stockStatus: product.stockStatus);
 
         Navigator.push(
             context,
@@ -146,34 +147,45 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
                       color: primaryColor,
                     ),
                     onPressed: () {
-                      if (inCart) {
-                        Get.snackbar(
-                          "Already In Cart",
-                          "",
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: const Duration(seconds: 1),
-                        );
+                      if (widget.product.stockStatus != "Out" &&
+                          widget.product.stockStatus != "out" &&
+                          widget.product.stockStatus != "OUT") {
+                        if (inCart) {
+                          Get.snackbar(
+                            "Already In Cart",
+                            "",
+                            snackPosition: SnackPosition.BOTTOM,
+                            duration: const Duration(seconds: 1),
+                          );
+                        } else {
+                          Get.snackbar(
+                            "Added Successfully",
+                            "",
+                            snackPosition: SnackPosition.BOTTOM,
+                            duration: const Duration(seconds: 1),
+                          );
+                          CartProduct model = CartProduct(
+                              productId: product.productId,
+                              productImg: product.productImg,
+                              productName: product.productName,
+                              categoryId: product.categoryId,
+                              productPrice: product.productPrice.toString(),
+                              qty: 1);
+
+                          cartController.addProductToCart(model);
+                          UserSharedPreferences.setCartList(
+                              cartController.cartProducts);
+                          setState(() {
+                            inCart = true;
+                          });
+                        }
                       } else {
                         Get.snackbar(
-                          "Added Successfully",
+                          "Out Of Stock",
                           "",
                           snackPosition: SnackPosition.BOTTOM,
                           duration: const Duration(seconds: 1),
                         );
-                        CartProduct model = CartProduct(
-                            productId: product.productId,
-                            productImg: product.productImg,
-                            productName: product.productName,
-                            categoryId: product.categoryId,
-                            productPrice: product.productPrice.toString(),
-                            qty: 1);
-
-                        cartController.addProductToCart(model);
-                        UserSharedPreferences.setCartList(
-                            cartController.cartProducts);
-                        setState(() {
-                          inCart = true;
-                        });
                       }
                     },
                   ),

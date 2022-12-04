@@ -1,11 +1,8 @@
-import 'dart:developer' as developer;
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/models/Cart.dart';
-import 'package:fyp_frontend/utils/shared_preferences.dart';
-
+import '../../utils/my_text.dart';
 import '../checkout/checkout_screen.dart';
 import 'components/cart_product_card.dart';
 
@@ -17,22 +14,10 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  final CartController cartController = Get.put(CartController());
+  CartController cartController = Get.put(CartController());
 
   @override
   void initState() {
-    String str = UserSharedPreferences.getCartList() ?? "";
-    if (str != "") {
-      List<CartProduct> list = cartProductFromJson(str);
-      cartController.cartProducts.clear();
-      cartController.cartProducts.addAll(
-        list.where(
-          (cartProducts) => list.every((item) => true),
-        ),
-      );
-      developer.log('log me 53: ${cartController.cartProducts}',
-          name: 'my.app.CartScreen');
-    }
     super.initState();
   }
 
@@ -72,14 +57,21 @@ class _CartScreenState extends State<CartScreen> {
                         scrollDirection: Axis.vertical,
                       )
                     : Center(
-                        child: Text(
-                          "Cart is Empty",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black),
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 50),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(Icons.production_quantity_limits,
+                                  size: 100, color: Colors.grey[300]),
+                              Container(height: 15),
+                              Text("Cart is Empty",
+                                  style: MyText.title(context)!.copyWith(
+                                      color: Colors.grey[800],
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
                         ),
                       ),
               ),

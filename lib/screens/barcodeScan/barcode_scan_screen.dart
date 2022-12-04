@@ -83,9 +83,16 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(
-              CupertinoIcons.cart_fill,
-              color: Colors.grey,
+            icon: Obx(
+              () => (cartController.cartProducts.isNotEmpty)
+                  ? const Icon(
+                      CupertinoIcons.cart_fill,
+                      color: primaryColor,
+                    )
+                  : const Icon(
+                      Icons.production_quantity_limits,
+                      color: Colors.grey,
+                    ),
             ),
             onPressed: () {
               Navigator.push(
@@ -253,6 +260,7 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
                       productImg: product!.productImg,
                       productName: product!.productName,
                       categoryId: product!.category!.categoryId,
+                      stockStatus: product!.stockStatus,
                       productPrice: product!.productPrice.toString());
 
                   wishlistController.addProductToWishlist(model);
@@ -324,41 +332,52 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
               height: 48,
               child: ElevatedButton(
                 onPressed: () {
-                  CartProduct model = CartProduct(
-                      productId: product!.productId,
-                      productImg: product!.productImg,
-                      productName: product!.productName,
-                      categoryId: product!.category!.categoryId,
-                      productPrice: product!.productPrice.toString(),
-                      qty: 1);
+                  if (product!.stockStatus != "Out" &&
+                      product!.stockStatus != "out" &&
+                      product!.stockStatus != "OUT") {
+                    CartProduct model = CartProduct(
+                        productId: product!.productId,
+                        productImg: product!.productImg,
+                        productName: product!.productName,
+                        categoryId: product!.category!.categoryId,
+                        productPrice: product!.productPrice.toString(),
+                        qty: 1);
 
-                  if (inCart) {
-                    Get.snackbar(
-                      "Removed Successfully",
-                      "",
-                      snackPosition: SnackPosition.BOTTOM,
-                      duration: const Duration(seconds: 1),
-                    );
+                    if (inCart) {
+                      Get.snackbar(
+                        "Removed Successfully",
+                        "",
+                        snackPosition: SnackPosition.BOTTOM,
+                        duration: const Duration(seconds: 1),
+                      );
 
-                    cartController.removeProductFromCart(model);
-                    UserSharedPreferences.setCartList(
-                        cartController.cartProducts);
+                      cartController.removeProductFromCart(model);
+                      UserSharedPreferences.setCartList(
+                          cartController.cartProducts);
+                    } else {
+                      Get.snackbar(
+                        "Added Successfully",
+                        "",
+                        snackPosition: SnackPosition.BOTTOM,
+                        duration: const Duration(seconds: 1),
+                      );
+
+                      cartController.addProductToCart(model);
+                      //print(cartController.cartProducts);
+                      UserSharedPreferences.setCartList(
+                          cartController.cartProducts);
+                    }
+                    setState(() {
+                      inCart = !inCart;
+                    });
                   } else {
                     Get.snackbar(
-                      "Added Successfully",
+                      "Out of Stock",
                       "",
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 1),
                     );
-
-                    cartController.addProductToCart(model);
-                    //print(cartController.cartProducts);
-                    UserSharedPreferences.setCartList(
-                        cartController.cartProducts);
                   }
-                  setState(() {
-                    inCart = !inCart;
-                  });
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,

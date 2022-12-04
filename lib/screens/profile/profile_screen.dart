@@ -63,6 +63,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       language: Language.System,
     );
     if (res != null) {
+      print("Line 66: In update image");
+      print(res[0]);
       await APIService.updateUserImage(res[0], userId).then((value) => {
             if (value != null)
               {

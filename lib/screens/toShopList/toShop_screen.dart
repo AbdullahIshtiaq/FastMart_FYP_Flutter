@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/models/ToShopList.dart';
 import 'package:fyp_frontend/screens/toShopList/components/toShop_card.dart';
+import '../../utils/my_text.dart';
 import '../../utils/shared_preferences.dart';
 
 const OutlineInputBorder outlineInputBorder = OutlineInputBorder(
@@ -70,10 +71,17 @@ class _ToShopScreenState extends State<ToShopScreen> {
                       scrollDirection: Axis.vertical,
                     )
                   : Center(
-                      child: Text(
-                        "No List Found",
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                            fontWeight: FontWeight.w400, color: Colors.black),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.list, size: 100, color: Colors.grey[300]),
+                          Container(height: 15),
+                          Text("No List Found",
+                              style: MyText.title(context)!.copyWith(
+                                  color: Colors.grey[800],
+                                  fontWeight: FontWeight.bold)),
+                        ],
                       ),
                     ),
             ),

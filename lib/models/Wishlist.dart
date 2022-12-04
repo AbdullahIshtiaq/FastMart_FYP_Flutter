@@ -17,6 +17,7 @@ class WishlistProduct {
     required this.productImg,
     required this.productPrice,
     required this.categoryId,
+    required this.stockStatus,
   });
 
   late final String productBarcode;
@@ -25,6 +26,7 @@ class WishlistProduct {
   late final String productImg;
   late final String productPrice;
   late final String categoryId;
+  late final String stockStatus;
 
   WishlistProduct.fromJson(Map<String, dynamic> json) {
     productBarcode = json['productBarcode'];
@@ -33,6 +35,7 @@ class WishlistProduct {
     productImg = json['productImg'];
     productPrice = json['productPrice'];
     categoryId = json['categoryId'];
+    stockStatus = json['stockStatus'];
   }
 
   Map<String, dynamic> toJson() {
@@ -43,6 +46,7 @@ class WishlistProduct {
     _data['productImg'] = productImg;
     _data['productPrice'] = productPrice;
     _data['categoryId'] = categoryId;
+    _data['stockStatus'] = stockStatus;
     return _data;
   }
 }

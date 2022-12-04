@@ -4,6 +4,7 @@ import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/screens/notifications/components/ad_notification_card.dart';
 import 'package:get/get.dart';
 import '../../models/Notification.dart';
+import '../../utils/my_text.dart';
 import 'components/demand_notification_card.dart';
 import 'components/offer_notification_card.dart';
 import 'components/order_notification_card.dart';
@@ -140,10 +141,21 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       scrollDirection: Axis.vertical,
                     )
                   : Center(
-                      child: Text(
-                        "No Notifications",
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                            fontWeight: FontWeight.w400, color: Colors.black),
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 100),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(Icons.notifications,
+                                size: 100, color: Colors.grey[300]),
+                            Container(height: 15),
+                            Text("No Notifications",
+                                style: MyText.title(context)!.copyWith(
+                                    color: Colors.grey[800],
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
                       ),
                     ),
             ),

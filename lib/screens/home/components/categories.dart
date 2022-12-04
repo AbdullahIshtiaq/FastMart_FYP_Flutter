@@ -9,16 +9,17 @@ import 'package:fyp_frontend/screens/category/category_screen.dart';
 
 import '../../../constants.dart';
 import '../../../models/MyCategory.dart';
+import '../../../utils/my_text.dart';
 
 class Categories extends ConsumerWidget {
   const Categories({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return _categoryList(ref);
+    return _categoryList(context, ref);
   }
 
-  Widget _categoryList(WidgetRef ref) {
+  Widget _categoryList(BuildContext context, WidgetRef ref) {
     final categories = ref.watch(
       categoriesProvider(
         MyPaginationModel(page: 1, pageSize: 10),
@@ -26,10 +27,22 @@ class Categories extends ConsumerWidget {
     );
     return categories.when(
         data: (list) {
-          return _buildCategoryList(list!, ref);
+          return _buildCategoryList(list!, context, ref);
         },
-        error: (_, __) => const Center(
-              child: Text("Error"),
+        error: (_, __) => Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.search_off_outlined,
+                      size: 50, color: Colors.grey[300]),
+                  Container(height: 15),
+                  Text("No Category Found",
+                      style: MyText.title(context)!.copyWith(
+                          color: Colors.grey[800],
+                          fontWeight: FontWeight.bold)),
+                ],
+              ),
             ),
         loading: () => const Center(
                 child: CircularProgressIndicator(
@@ -37,51 +50,64 @@ class Categories extends ConsumerWidget {
             )));
   }
 
-  Widget _buildCategoryList(List<MyCategory> categoryList, WidgetRef ref) {
-    return SizedBox(
-      height: 100,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: categoryList.length,
-        itemBuilder: (context, index) => CategoryCard(
-          icon: categoryList[index].fullImagePath,
-          title: categoryList[index].categoryName,
-          press: () {
-            ProductFilterModel filterModel = ProductFilterModel(
-                paginationModel: MyPaginationModel(page: 1, pageSize: 10),
-                categoryId: categoryList[index].categoryId);
+  Widget _buildCategoryList(
+      List<MyCategory> categoryList, BuildContext context, WidgetRef ref) {
+    return (categoryList.isNotEmpty)
+        ? SizedBox(
+            height: 100,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: categoryList.length,
+              itemBuilder: (context, index) => CategoryCard(
+                icon: categoryList[index].fullImagePath,
+                title: categoryList[index].categoryName,
+                press: () {
+                  ProductFilterModel filterModel = ProductFilterModel(
+                      paginationModel: MyPaginationModel(page: 1, pageSize: 10),
+                      categoryId: categoryList[index].categoryId);
 
-            ref
-                .read(productsFilterProvider.notifier)
-                .setProductFilter(filterModel);
-            ref.read(productsNotifierProvider.notifier).getProducts();
+                  ref
+                      .read(productsFilterProvider.notifier)
+                      .setProductFilter(filterModel);
+                  ref.read(productsNotifierProvider.notifier).getProducts();
 
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CategoryScreen(
-                    categoryId: categoryList[index].categoryId,
-                    categoryName: categoryList[index].categoryName,
-                  ),
-                )).then((value) {
-              developer.log('In Then 69', name: 'my.app.Categories');
-              print("On Back 69");
-              ProductFilterModel filterModel = ProductFilterModel(
-                  paginationModel: MyPaginationModel(page: 1, pageSize: 10));
-
-              ref
-                  .read(productsFilterProvider.notifier)
-                  .setProductFilter(filterModel);
-              ref.read(productsNotifierProvider.notifier).getProducts();
-              //ref.watch(productsNotifierProvider);
-              print("On Back");
-            });
-          },
-        ),
-        separatorBuilder: (context, index) =>
-            const SizedBox(width: defaultPadding),
-      ),
-    );
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CategoryScreen(
+                          categoryId: categoryList[index].categoryId,
+                          categoryName: categoryList[index].categoryName,
+                        ),
+                      )).then((value) {
+                    developer.log('In Then 69', name: 'my.app.Categories');
+                    ProductFilterModel filterModel = ProductFilterModel(
+                        paginationModel:
+                            MyPaginationModel(page: 1, pageSize: 10));
+                    ref
+                        .read(productsFilterProvider.notifier)
+                        .setProductFilter(filterModel);
+                    ref.read(productsNotifierProvider.notifier).getProducts();
+                  });
+                },
+              ),
+              separatorBuilder: (context, index) =>
+                  const SizedBox(width: defaultPadding),
+            ),
+          )
+        : Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.search_off_outlined,
+                    size: 50, color: Colors.grey[300]),
+                Container(height: 15),
+                Text("No Category Found",
+                    style: MyText.title(context)!.copyWith(
+                        color: Colors.grey[800], fontWeight: FontWeight.bold)),
+              ],
+            ),
+          );
   }
 }
 

@@ -8,6 +8,7 @@ import '../../../models/MyPagination.dart';
 import '../../../models/MyProduct.dart';
 import '../../../models/ProductFilterModel.dart';
 import '../../../providers/myProvider.dart';
+import '../../../utils/my_text.dart';
 import '../../details/details_screen.dart';
 
 import 'dart:developer' as developer;
@@ -21,8 +22,6 @@ class HomePageProducts extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return _productList(ref);
   }
-
-  // void getData(WidgetRef ref) {}
 
   Future<void> _processingData(WidgetRef ref) async {
     ProductFilterModel filterModel = ProductFilterModel(
@@ -54,8 +53,23 @@ class HomePageProducts extends ConsumerWidget {
 
         if (productsState.products.isEmpty) {
           if (!productsState.hasNext && !productsState.isLoading) {
-            return const Center(
-              child: Text("No Products"),
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 100),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.search_off_outlined,
+                        size: 100, color: Colors.grey[300]),
+                    Container(height: 15),
+                    Text("No Product Found",
+                        style: MyText.title(context)!.copyWith(
+                            color: Colors.grey[800],
+                            fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
             );
           }
           return const Center(
@@ -90,6 +104,7 @@ class HomePageProducts extends ConsumerWidget {
                 title: productList[index].productName,
                 image: productList[index].fullImagePath,
                 price: productList[index].productPrice.toInt(),
+                stockStatus: productList[index].stockStatus,
                 press: () {
                   developer.log('log me 99: ',
                       name: 'my.app.HomeProductsScreen');

@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
 
+import 'package:fyp_frontend/models/Wishlist.dart';
 import 'package:get/get.dart';
 
 import '../services/api_service.dart';
 import '../utils/shared_preferences.dart';
-import 'MyOffer.dart';
 
 List<CartProduct> cartProductFromJson(String str) => List<CartProduct>.from(
     json.decode(str).map((x) => CartProduct.fromJson(x)));

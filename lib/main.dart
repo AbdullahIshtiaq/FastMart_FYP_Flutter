@@ -260,7 +260,6 @@ class _MyAppState extends State<MyApp> {
         'home': (context) => const MainScreen(),
         '/notification': (context) => const NotificationScreen(),
       },
-      // home: const RegisterScreen(),
     );
   }
 }

@@ -101,34 +101,46 @@ class _ToShopListProductCardState extends State<ToShopListProductCard> {
                     color: primaryColor,
                   ),
                   onPressed: () {
-                    if (inCart) {
-                      Get.snackbar(
-                        "Already In Cart",
-                        "",
-                        snackPosition: SnackPosition.BOTTOM,
-                        duration: const Duration(seconds: 1),
-                      );
+                    if (widget.product.stockStatus != "Out" &&
+                        widget.product.stockStatus != "out" &&
+                        widget.product.stockStatus != "OUT") {
+                      if (inCart) {
+                        Get.snackbar(
+                          "Already In Cart",
+                          "",
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: const Duration(seconds: 1),
+                        );
+                      } else {
+                        Get.snackbar(
+                          "Added Successfully",
+                          "",
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: const Duration(seconds: 1),
+                        );
+                        CartProduct model = CartProduct(
+                            productId: widget.product.productId,
+                            productImg: widget.product.productImg,
+                            productName: widget.product.productName,
+                            categoryId: widget.product.categoryId,
+                            productPrice:
+                                widget.product.productPrice.toString(),
+                            qty: 1);
+
+                        cartController.addProductToCart(model);
+                        UserSharedPreferences.setCartList(
+                            cartController.cartProducts);
+                        setState(() {
+                          inCart = true;
+                        });
+                      }
                     } else {
                       Get.snackbar(
-                        "Added Successfully",
+                        "Out of Stock",
                         "",
                         snackPosition: SnackPosition.BOTTOM,
                         duration: const Duration(seconds: 1),
                       );
-                      CartProduct model = CartProduct(
-                          productId: widget.product.productId,
-                          productImg: widget.product.productImg,
-                          productName: widget.product.productName,
-                          categoryId: widget.product.categoryId,
-                          productPrice: widget.product.productPrice.toString(),
-                          qty: 1);
-
-                      cartController.addProductToCart(model);
-                      UserSharedPreferences.setCartList(
-                          cartController.cartProducts);
-                      setState(() {
-                        inCart = true;
-                      });
                     }
                   },
                 ),

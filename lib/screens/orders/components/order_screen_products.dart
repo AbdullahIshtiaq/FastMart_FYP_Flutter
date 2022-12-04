@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fyp_frontend/application/state/order_state.dart';
@@ -7,6 +8,7 @@ import 'package:fyp_frontend/models/MyPagination.dart';
 import 'package:fyp_frontend/models/OrderFilterModel.dart';
 import 'package:fyp_frontend/providers/myProvider.dart';
 import 'dart:developer' as developer;
+import '../../../utils/my_text.dart';
 import 'order_card.dart';
 
 class OrdersScreenProducts extends ConsumerWidget {
@@ -56,8 +58,24 @@ class OrdersScreenProducts extends ConsumerWidget {
           developer.log('log me 57: Empty', name: 'my.app.Order');
 
           if (!ordersState.hasNext && !ordersState.isLoading) {
-            return const Center(
-              child: Text("No Orders"),
+            return SizedBox(
+              //color: primaryColor,
+              height: MediaQuery.of(context).size.height * 0.8,
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(CupertinoIcons.cube_fill,
+                        size: 100, color: Colors.grey[300]),
+                    Container(height: 15),
+                    Text("No Order Found",
+                        style: MyText.title(context)!.copyWith(
+                            color: Colors.grey[800],
+                            fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
             );
           }
           return const Center(

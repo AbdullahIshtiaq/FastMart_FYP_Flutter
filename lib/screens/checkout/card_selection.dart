@@ -418,8 +418,23 @@ class _CardSelectionScreenState extends State<CardSelectionScreen> {
                           ),
                           itemCount: cardsList.length,
                         )
-                      : const Center(
-                          child: Text("No Cards Found"),
+                      : Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 30),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(CupertinoIcons.creditcard_fill,
+                                    size: 100, color: Colors.grey[300]),
+                                Container(height: 15),
+                                Text("No Card Found",
+                                    style: MyText.title(context)!.copyWith(
+                                        color: Colors.grey[800],
+                                        fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                          ),
                         ),
             ),
             const SizedBox(

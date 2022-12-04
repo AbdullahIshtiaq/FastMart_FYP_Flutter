@@ -17,6 +17,7 @@ _$_MyProduct _$$_MyProductFromJson(Map<String, dynamic> json) => _$_MyProduct(
       productRetailPrice: (json['productRetailPrice'] as num?)?.toDouble(),
       productImg: json['productImg'] as String,
       productId: json['productId'] as String,
+      stockStatus: json['stockStatus'] as String,
     );
 
 Map<String, dynamic> _$$_MyProductToJson(_$_MyProduct instance) =>
@@ -29,4 +30,5 @@ Map<String, dynamic> _$$_MyProductToJson(_$_MyProduct instance) =>
       'productRetailPrice': instance.productRetailPrice,
       'productImg': instance.productImg,
       'productId': instance.productId,
+      'stockStatus': instance.stockStatus,
     };

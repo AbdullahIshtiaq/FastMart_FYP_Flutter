@@ -115,6 +115,7 @@ class _SearchedToShopProductCardState extends State<SearchedToShopProductCard> {
                                   productId: product.productId,
                                   productName: product.productName,
                                   productImg: product.productImg,
+                                  stockStatus: product.stockStatus,
                                   categoryId: product.category!.categoryId,
                                   productPrice:
                                       product.productPrice.toString());
