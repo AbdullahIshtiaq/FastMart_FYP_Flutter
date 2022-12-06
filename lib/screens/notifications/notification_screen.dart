@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fyp_frontend/constants.dart';
@@ -20,14 +21,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
   NotificationController notificationController =
       Get.put(NotificationController());
 
-  bool showAds = true;
-
   late List notifications = [];
 
   @override
   void initState() {
     super.initState();
-    notificationController.clearCustomerSupportList();
     notifications = notificationController.ads;
   }
 
@@ -52,7 +50,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 InkWell(
                   onTap: () {
                     setState(() {
-                      showAds = true;
                       notifications = notificationController.ads;
                     });
                   },
@@ -65,7 +62,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 InkWell(
                   onTap: () {
                     setState(() {
-                      showAds = false;
                       notifications = notificationController.offers;
                     });
                   },
@@ -78,9 +74,19 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 InkWell(
                   onTap: () {
                     setState(() {
-                      showAds = false;
-                      notificationController.clearCustomerSupportList();
-                      notifications = notificationController.customerSupport();
+                      notifications = notificationController.orders;
+                    });
+                  },
+                  child: const Icon(
+                    CupertinoIcons.cube_fill,
+                    color: primaryColor,
+                    size: 50,
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      notifications = notificationController.demands;
                     });
                   },
                   child: const Icon(

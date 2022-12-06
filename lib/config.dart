@@ -14,8 +14,8 @@ class Config {
   // static const String imgURL = "http://192.168.1.11:4000";
 
   //Home3
-  static const String apiURL = "192.168.1.6:4000";
-  static const String imgURL = "http://192.168.1.6:4000";
+  // static const String apiURL = "192.168.1.6:4000";
+  // static const String imgURL = "http://192.168.1.6:4000";
 
   //Home4
   // static const String apiURL = "192.168.1.4:4000";
@@ -26,8 +26,8 @@ class Config {
   // static const String imgURL = "http://192.168.30.176:4000";
 
   //Uni
-  // static const String apiURL = "10.113.54.167:4000";
-  // static const String imgURL = "http://10.113.54.167:4000";
+  // static const String apiURL = "10.113.7.57:4000";
+  // static const String imgURL = "http://10.113.7.57:4000";
 
   //Lib
   // static const String apiURL = "10.113.49.211:4000";
@@ -48,6 +48,11 @@ class Config {
   // LAN
   // static const String apiURL = "172.20.0.147:4000";
   // static const String imgURL = "http://172.20.0.147:4000";
+
+  // AWS EC2 Instance
+  static const String apiURL = "ec2-3-89-10-24.compute-1.amazonaws.com:4000";
+  static const String imgURL =
+      "http://ec2-3-89-10-24.compute-1.amazonaws.com:4000";
 
   static const String loginAPI = "/users/login";
 

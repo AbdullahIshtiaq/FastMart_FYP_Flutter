@@ -239,7 +239,7 @@ class NotificationController extends GetxController {
   var orderNotificationsList = [].obs;
   var demandNotificationsList = [].obs;
 
-  var customerSupportList = [].obs;
+  //var customerSupportList = [].obs;
 
   @override
   void onInit() {
@@ -339,17 +339,21 @@ class NotificationController extends GetxController {
 
   get ads => adNotificationsList.reversed.toList();
 
-  customerSupport() {
-    customerSupportList.addAll(orderNotificationsList
-        .where((item) => orderNotificationsList.every((element) => true)));
-    customerSupportList.addAll(demandNotificationsList
-        .where((item) => demandNotificationsList.every((element) => true)));
+  get orders => orderNotificationsList.reversed.toList();
 
-    return customerSupportList.reversed.toList();
-  }
+  get demands => demandNotificationsList.reversed.toList();
 
-  void clearCustomerSupportList() {
-    customerSupportList.clear();
-    update();
-  }
+  // customerSupport() {
+  //   customerSupportList.addAll(orderNotificationsList
+  //       .where((item) => orderNotificationsList.every((element) => true)));
+  //   customerSupportList.addAll(demandNotificationsList
+  //       .where((item) => demandNotificationsList.every((element) => true)));
+
+  //   return customerSupportList.reversed.toList();
+  // }
+
+  // void clearCustomerSupportList() {
+  //   customerSupportList.clear();
+  //   update();
+  // }
 }
