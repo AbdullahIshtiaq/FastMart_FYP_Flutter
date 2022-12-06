@@ -25,7 +25,7 @@ class _CashScreenState extends State<CashScreen> {
   CartController cartController = Get.put(CartController());
 
   bool isProcessing = false;
-  String? orderId;
+  //String? orderId;
   bool isLoading = true;
   late int orderNo;
   late String formattedDate;
@@ -102,11 +102,11 @@ class _CashScreenState extends State<CashScreen> {
         await APIService.orderByCash(model).then((response) async {
       if (response == null) {
         print("In Cash : Failed");
-        orderId = null;
+        //orderId = null;
         return false;
       } else {
         print("In Cash Details 82: Response ${response}");
-        orderId = response;
+        //orderId = response;
         return true;
       }
     });
@@ -187,7 +187,7 @@ class _CashScreenState extends State<CashScreen> {
                           color: Colors.black,
                         ),
                         textAlign: TextAlign.center,
-                        value: orderId,
+                        value: orderNo.toString(),
                         symbology: Code128A(),
                         showValue: true,
                       ),
