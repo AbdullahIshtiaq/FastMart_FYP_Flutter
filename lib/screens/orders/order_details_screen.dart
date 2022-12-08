@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyp_frontend/config.dart';
+import 'package:fyp_frontend/models/Category.dart';
 import 'package:get/get.dart';
 import 'package:fyp_frontend/constants.dart';
 import 'package:fyp_frontend/models/MyOrder.dart';
@@ -31,7 +32,15 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
   void createCart() {
     cartController.cartProducts.clear();
-    for (CartProduct product in widget.productList) {
+    for (int i = 0; i < widget.productList.length; i++) {
+      var list = widget.productList[i].productImg.split('4000');
+      CartProduct product = CartProduct(
+          productId: widget.productList[i].productId,
+          productName: widget.productList[i].productName,
+          productPrice: widget.productList[i].productPrice,
+          categoryId: widget.productList[i].categoryId,
+          productImg: list[1],
+          qty: widget.productList[i].qty);
       cartController.addProductToCart(product);
     }
   }

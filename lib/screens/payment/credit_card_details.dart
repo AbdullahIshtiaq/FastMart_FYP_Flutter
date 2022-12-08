@@ -236,7 +236,7 @@ class _CreditCardDetailsScreenState extends State<CreditCardDetailsScreen> {
           children: <Widget>[
             const SizedBox(height: 5),
             SizedBox(
-              height: 240,
+              height: 260,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 15),

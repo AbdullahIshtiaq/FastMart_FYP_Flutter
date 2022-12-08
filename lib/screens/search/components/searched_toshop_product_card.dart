@@ -105,8 +105,8 @@ class _SearchedToShopProductCardState extends State<SearchedToShopProductCard> {
                     child: Align(
                       alignment: Alignment.center,
                       child: SizedBox(
-                        width: 150,
-                        height: 30,
+                        width: 160,
+                        height: 40,
                         child: ElevatedButton(
                           onPressed: () {
                             if (!inList) {
