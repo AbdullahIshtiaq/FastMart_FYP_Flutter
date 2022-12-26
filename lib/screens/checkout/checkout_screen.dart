@@ -4,6 +4,7 @@ import 'package:fyp_frontend/screens/checkout/card_selection.dart';
 import 'package:fyp_frontend/screens/payment/cash_payment_screen.dart';
 import 'package:get/get.dart';
 import 'package:fyp_frontend/constants.dart';
+import 'package:intl/intl.dart';
 import '../../models/Cart.dart';
 import 'components/billing_info.dart';
 import 'components/checkout_items_list.dart';
@@ -25,6 +26,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   bool isDiscountDone = false;
 
+  var format;
+
   CartController cartController = Get.put(CartController());
 
   void isDiscount() async {
@@ -37,6 +40,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   void initState() {
     isDiscount();
+    currency();
     super.initState();
   }
 
@@ -188,7 +192,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       bottom: 30,
                       child: IconButton(
                         icon: const Icon(
-                          Icons.currency_rupee_rounded,
+                          Icons.money,
                           color: primaryColor,
                           size: 50,
                         ),
@@ -257,5 +261,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         ),
       ),
     );
+  }
+
+  void currency() {
+    Locale locale = Localizations.localeOf(context);
+    format = NumberFormat.simpleCurrency(locale: locale.toString());
+    print("CURRENCY SYMBOL ${format.currencySymbol}"); // $
+    print("CURRENCY NAME ${format.currencyName}"); // USD
   }
 }
