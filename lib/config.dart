@@ -50,9 +50,9 @@ class Config {
   // static const String imgURL = "http://172.20.0.147:4000";
 
   // AWS EC2 Instance
-  static const String apiURL = "ec2-52-23-160-127.compute-1.amazonaws.com:4000";
+  static const String apiURL = "ec2-54-89-249-194.compute-1.amazonaws.com:4000";
   static const String imgURL =
-      "http://ec2-52-23-160-127.compute-1.amazonaws.com:4000";
+      "http://ec2-54-89-249-194.compute-1.amazonaws.com:4000";
 
   static const String loginAPI = "/users/login";
 

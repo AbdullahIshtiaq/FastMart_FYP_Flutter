@@ -39,9 +39,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   @override
   void initState() {
-    isDiscount();
-    currency();
     super.initState();
+    isDiscount();
   }
 
   @override
@@ -261,12 +260,5 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         ),
       ),
     );
-  }
-
-  void currency() {
-    Locale locale = Localizations.localeOf(context);
-    format = NumberFormat.simpleCurrency(locale: locale.toString());
-    print("CURRENCY SYMBOL ${format.currencySymbol}"); // $
-    print("CURRENCY NAME ${format.currencyName}"); // USD
   }
 }
